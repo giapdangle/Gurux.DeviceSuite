@@ -1,0 +1,736 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1033C9B3-C701-4C19-B9AD-5766F094B3D8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Gurux.DeviceSuite</RootNamespace>
+    <AssemblyName>Gurux.DeviceSuite</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>Gurux.DeviceSuite.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\MySql.Data.6.6.5\lib\net20\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.3.9.45\lib\net35\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Common, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.Common.3.9.45\lib\net35\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.Common.3.9.45\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.OrmLite.MySql.3.9.45\lib\ServiceStack.OrmLite.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite.MySql, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.OrmLite.MySql.3.9.45\lib\ServiceStack.OrmLite.MySql.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite.SqlServer, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.OrmLite.SqlServer.3.9.45\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.3.9.45\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.Text.3.9.45\lib\net35\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ami\GXAmiCommandPromptForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ami\GXAmiCommandPromptForm.Designer.cs">
+      <DependentUpon>GXAmiCommandPromptForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ami\GXAMICommandPromptTab.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ami\GXAMICommandPromptTab.Designer.cs">
+      <DependentUpon>GXAMICommandPromptTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ami\GXAmiDataCollectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ami\GXAmiDataCollectorForm.Designer.cs">
+      <DependentUpon>GXAmiDataCollectorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ami\GXAmiDeviceSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ami\GXAmiDeviceSettingsForm.Designer.cs">
+      <DependentUpon>GXAmiDeviceSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ami\DisabledAction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ami\DisabledAction.Designer.cs">
+      <DependentUpon>DisabledAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ami\GXAmi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ami\GXAmi.Designer.cs">
+      <DependentUpon>GXAmi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ami\GXAmiScheduleEditorDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ami\GXAmiScheduleEditorDlg.Designer.cs">
+      <DependentUpon>GXAmiScheduleEditorDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ami\GXAmiImportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ami\GXAmiImportForm.Designer.cs">
+      <DependentUpon>GXAmiImportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ami\GXParameters.cs" />
+    <Compile Include="Common\CustomDeviceTypeListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\GXPresetDevicesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\GXPresetDevicesForm.Designer.cs">
+      <DependentUpon>GXPresetDevicesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Director\DeviceImageType.cs" />
+    <Compile Include="Director\DisabledAction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Director\DisabledAction.Designer.cs">
+      <DependentUpon>DisabledAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Director\GXDeviceListDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Director\GXDeviceListDialog.Designer.cs">
+      <DependentUpon>GXDeviceListDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GXAmiDBSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GXAmiDBSettingsForm.Designer.cs">
+      <DependentUpon>GXAmiDBSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GXOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GXOptionsForm.Designer.cs">
+      <DependentUpon>GXOptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GXWizard\GXWizardStartPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GXWizard\GXWizardStartPage.Designer.cs">
+      <DependentUpon>GXWizardStartPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Import\GXThread.cs" />
+    <Compile Include="Import\GXImportDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Import\GXImportDlg.Designer.cs">
+      <DependentUpon>GXImportDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Import\GXImportMediaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Import\GXImportMediaForm.Designer.cs">
+      <DependentUpon>GXImportMediaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Import\GXImportPropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Import\GXImportPropertiesForm.Designer.cs">
+      <DependentUpon>GXImportPropertiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Import\GXImportSearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Import\GXImportSearchForm.Designer.cs">
+      <DependentUpon>GXImportSearchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Import\GXImportStartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Import\GXImportStartForm.Designer.cs">
+      <DependentUpon>GXImportStartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Director\ModifyValueDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Director\ModifyValueDialog.Designer.cs">
+      <DependentUpon>ModifyValueDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\OpenDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor\OpenDlg.Designer.cs">
+      <DependentUpon>OpenDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\GuruxWin32.cs" />
+    <Compile Include="Director\GXAsyncWork.cs" />
+    <Compile Include="Director\GXDeviceGroupDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Director\GXDeviceGroupDialog.Designer.cs">
+      <DependentUpon>GXDeviceGroupDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Preset\GXDeviceModelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Preset\GXDeviceModelForm.Designer.cs">
+      <DependentUpon>GXDeviceModelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Preset\GXDeviceTemplateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Preset\GXDeviceTemplateForm.Designer.cs">
+      <DependentUpon>GXDeviceTemplateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Preset\GXDeviceVersionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Preset\GXDeviceVersionForm.Designer.cs">
+      <DependentUpon>GXDeviceVersionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Preset\GXManufacturerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Preset\GXManufacturerForm.Designer.cs">
+      <DependentUpon>GXManufacturerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Director\GXTransactionManager.cs" />
+    <Compile Include="GXWizard\GXWizardDeviceSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GXWizard\GXWizardDeviceSettings.Designer.cs">
+      <DependentUpon>GXWizardDeviceSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GXWizard\GXWizardDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GXWizard\GXWizardDlg.Designer.cs">
+      <DependentUpon>GXWizardDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GXWizard\GXWizardFinishPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GXWizard\GXWizardFinishPage.Designer.cs">
+      <DependentUpon>GXWizardFinishPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GXWizard\GXWizardPropertySettingsPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GXWizard\GXWizardPropertySettingsPage.Designer.cs">
+      <DependentUpon>GXWizardPropertySettingsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GXWizard\GXWizardProtocolSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GXWizard\GXWizardProtocolSettings.Designer.cs">
+      <DependentUpon>GXWizardProtocolSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\GXDeviceEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor\GXDeviceEditor.Designer.cs">
+      <DependentUpon>GXDeviceEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Director\DeviceSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Director\DeviceSettingsForm.Designer.cs">
+      <DependentUpon>DeviceSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Director\GXDirector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Director\GXDirector.Designer.cs">
+      <DependentUpon>GXDirector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Director\GXScheduleEditorDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Director\GXScheduleEditorDlg.Designer.cs">
+      <DependentUpon>GXScheduleEditorDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Director\MRUManager.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Ami\GXAmiCommandPromptForm.resx">
+      <DependentUpon>GXAmiCommandPromptForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ami\GXAMICommandPromptTab.resx">
+      <DependentUpon>GXAMICommandPromptTab.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ami\GXAmiDataCollectorForm.resx">
+      <DependentUpon>GXAmiDataCollectorForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ami\GXAmiDeviceSettingsForm.resx">
+      <DependentUpon>GXAmiDeviceSettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ami\DisabledAction.resx">
+      <DependentUpon>DisabledAction.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ami\GXAmi.resx">
+      <DependentUpon>GXAmi.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ami\GXAmiScheduleEditorDlg.resx">
+      <DependentUpon>GXAmiScheduleEditorDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ami\GXAmiImportForm.resx">
+      <DependentUpon>GXAmiImportForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\GXPresetDevicesForm.resx">
+      <DependentUpon>GXPresetDevicesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Director\DisabledAction.resx">
+      <DependentUpon>DisabledAction.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Director\GXDeviceGroupDialog.resx">
+      <DependentUpon>GXDeviceGroupDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Director\GXDeviceListDialog.resx">
+      <DependentUpon>GXDeviceListDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GXAmiDBSettingsForm.resx">
+      <DependentUpon>GXAmiDBSettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GXOptionsForm.resx">
+      <DependentUpon>GXOptionsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GXWizard\GXWizardStartPage.resx">
+      <DependentUpon>GXWizardStartPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preset\GXDeviceModelForm.resx">
+      <DependentUpon>GXDeviceModelForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preset\GXDeviceTemplateForm.resx">
+      <DependentUpon>GXDeviceTemplateForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preset\GXDeviceVersionForm.resx">
+      <DependentUpon>GXDeviceVersionForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preset\GXManufacturerForm.resx">
+      <DependentUpon>GXManufacturerForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GXWizard\GXWizardDeviceSettings.resx">
+      <DependentUpon>GXWizardDeviceSettings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GXWizard\GXWizardDlg.resx">
+      <DependentUpon>GXWizardDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GXWizard\GXWizardFinishPage.resx">
+      <DependentUpon>GXWizardFinishPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GXWizard\GXWizardPropertySettingsPage.resx">
+      <DependentUpon>GXWizardPropertySettingsPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GXWizard\GXWizardProtocolSettings.resx">
+      <DependentUpon>GXWizardProtocolSettings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Import\GXImportDlg.resx">
+      <DependentUpon>GXImportDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Import\GXImportMediaForm.resx">
+      <DependentUpon>GXImportMediaForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Import\GXImportPropertiesForm.resx">
+      <DependentUpon>GXImportPropertiesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Import\GXImportSearchForm.resx">
+      <DependentUpon>GXImportSearchForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Import\GXImportStartForm.resx">
+      <DependentUpon>GXImportStartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Director\DeviceSettingsForm.resx">
+      <DependentUpon>DeviceSettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\GXDeviceEditor.resx">
+      <DependentUpon>GXDeviceEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Director\GXDirector.resx">
+      <DependentUpon>GXDirector.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Director\GXScheduleEditorDlg.resx">
+      <DependentUpon>GXScheduleEditorDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Director\ModifyValueDialog.resx">
+      <DependentUpon>ModifyValueDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\OpenDlg.resx">
+      <DependentUpon>OpenDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Director\PropertyGroupDlg.resx">
+      <DependentUpon>PropertyGroupDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Publisher\GXManufacturerPage.resx">
+      <DependentUpon>GXManufacturerPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Publisher\GXModelPage.resx">
+      <DependentUpon>GXModelPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Publisher\GXPublisherDlg.resx">
+      <DependentUpon>GXPublisherDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Publisher\GXPublisherPage.resx">
+      <DependentUpon>GXPublisherPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Publisher\GXPublishFinishPage.resx">
+      <DependentUpon>GXPublishFinishPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Publisher\GXPublishing.resx">
+      <DependentUpon>GXPublishing.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Publisher\GXPublishStartPage.resx">
+      <DependentUpon>GXPublishStartPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Publisher\GXTemplatePage.resx">
+      <DependentUpon>GXTemplatePage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Publisher\GXVersionPage.resx">
+      <DependentUpon>GXVersionPage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Director\PropertyGroupDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Director\PropertyGroupDlg.Designer.cs">
+      <DependentUpon>PropertyGroupDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\RadioListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Publisher\CryptHelper.cs" />
+    <Compile Include="Publisher\GXManufacturerPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Publisher\GXManufacturerPage.Designer.cs">
+      <DependentUpon>GXManufacturerPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Publisher\GXModelPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Publisher\GXModelPage.Designer.cs">
+      <DependentUpon>GXModelPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Publisher\GXPublisher.cs" />
+    <Compile Include="Publisher\GXPublisherDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Publisher\GXPublisherDlg.Designer.cs">
+      <DependentUpon>GXPublisherDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Publisher\GXPublisherPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Publisher\GXPublisherPage.Designer.cs">
+      <DependentUpon>GXPublisherPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Publisher\GXPublishFinishPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Publisher\GXPublishFinishPage.Designer.cs">
+      <DependentUpon>GXPublishFinishPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Publisher\GXPublishing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Publisher\GXPublishing.Designer.cs">
+      <DependentUpon>GXPublishing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Publisher\GXPublishStartPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Publisher\GXPublishStartPage.Designer.cs">
+      <DependentUpon>GXPublishStartPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Publisher\GXTemplatePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Publisher\GXTemplatePage.Designer.cs">
+      <DependentUpon>GXTemplatePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Publisher\GXVersionPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Publisher\GXVersionPage.Designer.cs">
+      <DependentUpon>GXVersionPage.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GuruxAMI\GuruxAMI.Client\GuruxAMI.Client_2008.csproj">
+      <Project>{D4D7585E-0FB1-4C5F-BD92-303A5691B3A8}</Project>
+      <Name>GuruxAMI.Client_2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GuruxAMI\GuruxAMI.Common\GuruxAMI.Common_2008.csproj">
+      <Project>{613F7B0E-2FCD-4DC6-9A64-E4D9E4BE56C4}</Project>
+      <Name>GuruxAMI.Common_2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GuruxAMI\GuruxAMI.Gateway\GuruxAMI.Gateway_2008.csproj">
+      <Project>{06544420-4094-405E-96E9-1306133CBBC7}</Project>
+      <Name>GuruxAMI.Gateway</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GuruxAMI\GuruxAMI.Server\GuruxAMI.Server_2008.csproj">
+      <Project>{A5B59C52-DA1D-4840-B02E-8354A9C220F2}</Project>
+      <Name>GuruxAMI.Server_2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GXCom\Gurux.Common\Development\Gurux.Common_2008.csproj">
+      <Project>{749652D4-4779-4869-AD81-5211A661CD1B}</Project>
+      <Name>Gurux.Common_2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GXCom\Gurux.Communication\Development\Gurux.Communication_2008.csproj">
+      <Project>{BA05698E-DDAA-4D04-A6F0-6BC571805179}</Project>
+      <Name>Gurux.Communication_2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GXCom\Gurux.Device\Development\Gurux.Device_2008.csproj">
+      <Project>{C4BB249E-A56A-4675-B406-864280D77BF3}</Project>
+      <Name>Gurux.Device_2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GXCom\GXMedias\Gurux.Serial\Development\Gurux.Serial_2008.csproj">
+      <Project>{D07A57D7-F2E7-4A0F-95D1-EF3B1FD688F0}</Project>
+      <Name>Gurux.Serial_2008</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Device.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceCategories.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceCategory.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceConnected.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceDirty.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceDisconnect.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceError.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceGroup.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceGroupError.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceHeader.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceList.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceListError.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceMonitor.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceNotifies.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceProperties.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceProperty.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DevicePropertyChanged.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DevicePropertyChanged2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DevicePropertyError.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceRead.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceStop.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceTable.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceTables.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceWrite.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ScheduleItemExecute.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ScheduleItemOff.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ScheduleItemOn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ScheduleItems.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\factory.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\leaf.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\middle.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Publisher.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PublisherIcon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Gurux.DeviceSuite.ico" />
+    <Content Include="Resources\like.bmp" />
+    <Content Include="Resources\unlike.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

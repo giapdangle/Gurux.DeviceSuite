@@ -1,0 +1,821 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionTxt" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="CancelHelp" xml:space="preserve">
+    <value>Closes the dialog box without saving any changes you have made.</value>
+  </data>
+  <data name="CancelTxt" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ConnectAtStartupHelp" xml:space="preserve">
+    <value>Specifies whether the connection is made automatically at startup.</value>
+  </data>
+  <data name="ConnectionDelayTimeIncorrectTxt" xml:space="preserve">
+    <value>Connection Delay Time must be a positive integer.</value>
+  </data>
+  <data name="ConnectionDelayTimeTxt" xml:space="preserve">
+    <value>Connection Delay Time</value>
+  </data>
+  <data name="ConnectionFailTryCountIncorrectTxt" xml:space="preserve">
+    <value>Connection Fail Try Count must be a positive integer.</value>
+  </data>
+  <data name="ConnectionFailTryCountTxt" xml:space="preserve">
+    <value>Connection Fail Try Count</value>
+  </data>
+  <data name="ConnectionFailWaitTime" xml:space="preserve">
+    <value>Connection Fail Wait Time</value>
+  </data>
+  <data name="ConnectionFailWaitTimeIncorrectTxt" xml:space="preserve">
+    <value>Connection Fail Wait Time must be a positive integer.</value>
+  </data>
+  <data name="DailyTxt" xml:space="preserve">
+    <value>Daily</value>
+  </data>
+  <data name="DayOfMonthTxt" xml:space="preserve">
+    <value>Day of Month</value>
+  </data>
+  <data name="DayOfWeekTxt" xml:space="preserve">
+    <value>Day of Week</value>
+  </data>
+  <data name="DeleteTxt" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Device" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Device.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceCategories" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceCategories.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceCategory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceCategory.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceConnected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceConnected.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceDirty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceDirty.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceDisconnect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceDisconnect.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceEditorTxt" xml:space="preserve">
+    <value>Gurux Device Suite Editor</value>
+  </data>
+  <data name="DeviceError" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceError.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceGroup.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceGroupError" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceGroupError.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceGroupNameHelp" xml:space="preserve">
+    <value>The name of the device group. Name cannot be an empty field.</value>
+  </data>
+  <data name="DeviceHeader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceHeader.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceList.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceListError" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceListError.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceListFilterTxt" xml:space="preserve">
+    <value>Device list files (*.gxd)|*.gxd|All files (*.*)|*.*</value>
+  </data>
+  <data name="DeviceMonitor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceMonitor.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceNameTxt" xml:space="preserve">
+    <value>Device Name</value>
+  </data>
+  <data name="DeviceNotifies" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceNotifies.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceProperties" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceProperties.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceProperty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceProperty.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DevicePropertyChanged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DevicePropertyChanged.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DevicePropertyChanged2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DevicePropertyChanged2.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DevicePropertyError" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DevicePropertyError.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceRead" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceRead.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceStatusTxt" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="DeviceStop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceStop.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceTable.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceTables" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceTables.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeviceTypeTxt" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="DeviceWrite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeviceWrite.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DirectorTxt" xml:space="preserve">
+    <value>Gurux Device Suite Director</value>
+  </data>
+  <data name="ErrNameEmptyTxt" xml:space="preserve">
+    <value>Name can not be empty.</value>
+  </data>
+  <data name="ErrorTryCountIncorrectTxt" xml:space="preserve">
+    <value>Error Try Count must be a positive integer.</value>
+  </data>
+  <data name="ErrorTryCountTxt" xml:space="preserve">
+    <value>Error Try Count</value>
+  </data>
+  <data name="ErrorWaitTimeIncorrectTxt" xml:space="preserve">
+    <value>Error Wait Time must be a positive decimal number.</value>
+  </data>
+  <data name="ErrorWaitTimeTxt" xml:space="preserve">
+    <value>Error Wait Time</value>
+  </data>
+  <data name="ErrUnknownNodeTxt" xml:space="preserve">
+    <value>Node not selected.</value>
+  </data>
+  <data name="HelpNotAvailable" xml:space="preserve">
+    <value>No Help topic is associated with this item.</value>
+  </data>
+  <data name="HourTxt" xml:space="preserve">
+    <value>Hourly</value>
+  </data>
+  <data name="IntervalTxt" xml:space="preserve">
+    <value>Interval</value>
+  </data>
+  <data name="InvalidDayOfMonthTxt" xml:space="preserve">
+    <value>Invalid day of month. Day of month must be between 1 and 31.</value>
+  </data>
+  <data name="InvalidDayOfMonthTxt1" xml:space="preserve">
+    <value>Invalid day of month. Day of month must be between 1 and 31.</value>
+  </data>
+  <data name="InvalidIntervalTxt" xml:space="preserve">
+    <value>Invalid interval. Interval must be over zero.</value>
+  </data>
+  <data name="InvalidTransactionCountTxt" xml:space="preserve">
+    <value>Invalid transaction count. Transaction count must be over zero.</value>
+  </data>
+  <data name="MaxThreadCountIncorrectTxt" xml:space="preserve">
+    <value>Maximum Simultaneous Transactions must be integer with value of 1 or higher.</value>
+  </data>
+  <data name="MaxThreadCountTxt" xml:space="preserve">
+    <value>Maximum Simultaneous Transactions</value>
+  </data>
+  <data name="MinuteTxt" xml:space="preserve">
+    <value>Minutely</value>
+  </data>
+  <data name="MonthlyTxt" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="NameTxt" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NotifyCategoriesTxt" xml:space="preserve">
+    <value>Notify categories</value>
+  </data>
+  <data name="OKHelp" xml:space="preserve">
+    <value>Closes the dialog box and saves any changes you have made.</value>
+  </data>
+  <data name="OKTxt" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnceTxt" xml:space="preserve">
+    <value>Once</value>
+  </data>
+  <data name="ReadTxt" xml:space="preserve">
+    <value>Read</value>
+  </data>
+  <data name="RemoveDeviceGroupTxt" xml:space="preserve">
+    <value>Are you sure you want to delete selected device group?</value>
+  </data>
+  <data name="RemoveDeviceTxt" xml:space="preserve">
+    <value>Are you sure you want to delete selected device(s)?</value>
+  </data>
+  <data name="RemoveItemTxt" xml:space="preserve">
+    <value>Are you sure you want to delete selected item?</value>
+  </data>
+  <data name="RepeatModeTxt" xml:space="preserve">
+    <value>Repeat Mode</value>
+  </data>
+  <data name="SaveChangesTxt" xml:space="preserve">
+    <value>Do you want to save the changes you made to the device list?</value>
+  </data>
+  <data name="ScheduleActionHelp" xml:space="preserve">
+    <value>Lists available actions.</value>
+  </data>
+  <data name="ScheduleConnectionDelayTimeHelp" xml:space="preserve">
+    <value>The delay time of the connection in milliseconds.</value>
+  </data>
+  <data name="ScheduleDayOfMonthHelp" xml:space="preserve">
+    <value>The day of month when the schedule is performed. If the number of the day is 29, 30 or 31, the schedule is done in those months that have that day.</value>
+  </data>
+  <data name="ScheduleEditorTxt" xml:space="preserve">
+    <value>Schedule Editor</value>
+  </data>
+  <data name="ScheduleEndBeforeStartTxt" xml:space="preserve">
+    <value>Schedule end time is before start time.</value>
+  </data>
+  <data name="ScheduleEndDateHelp" xml:space="preserve">
+    <value>The date when the schedule ends, optional.</value>
+  </data>
+  <data name="ScheduleEndTimeTxt" xml:space="preserve">
+    <value>Schedule End Date</value>
+  </data>
+  <data name="ScheduleEndTxt" xml:space="preserve">
+    <value>Schedule finished.</value>
+  </data>
+  <data name="ScheduleErrorTryCountHelp" xml:space="preserve">
+    <value>The amount of retries if an error happens.</value>
+  </data>
+  <data name="ScheduleErrorWaitTimeHelp" xml:space="preserve">
+    <value>The waiting time before retry if an error happens.</value>
+  </data>
+  <data name="ScheduleFriHelp" xml:space="preserve">
+    <value>Friday</value>
+  </data>
+  <data name="ScheduleIntervalHelp" xml:space="preserve">
+    <value>The interval of the schedule. For example, if the schedule is performed weekly and the interval is 2, then the schedule is done every second week.</value>
+  </data>
+  <data name="ScheduleItemExecute" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ScheduleItemExecute.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ScheduleItemOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ScheduleItemOff.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ScheduleItemOn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ScheduleItemOn.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ScheduleItems" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ScheduleItems.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ScheduleMaxThreadCountHelp" xml:space="preserve">
+    <value>The maximum amount devices that can be read simultaneously.</value>
+  </data>
+  <data name="ScheduleMonHelp" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="ScheduleNameHelp" xml:space="preserve">
+    <value>The name of the scheduled task. Name cannot be a number or an empty field.</value>
+  </data>
+  <data name="ScheduleRepeatModeHelp" xml:space="preserve">
+    <value>Selection of the repeat mode of the schedule. Schedule can be done once or it can be repeated weekly, daily or monthly. If the repeat mode is weekly, every day of the week is selected as default. Days not needed can be chosen out. If the repeat mode is monthly, the day of the month needs to be given.</value>
+  </data>
+  <data name="ScheduleSatHelp" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
+  <data name="ScheduleStartDateHelp" xml:space="preserve">
+    <value>The date when the schedule starts.</value>
+  </data>
+  <data name="ScheduleStartTimeTxt" xml:space="preserve">
+    <value>Schedule Start Date</value>
+  </data>
+  <data name="ScheduleSunHelp" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="ScheduleTargetHelp" xml:space="preserve">
+    <value>Selecting the target of the scheduled tasks. The target must be set.</value>
+  </data>
+  <data name="ScheduleThuHelp" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
+  <data name="ScheduleTransactionCountHelp" xml:space="preserve">
+    <value>The amount of the transactions.</value>
+  </data>
+  <data name="ScheduleTransactionEndTimeHelp" xml:space="preserve">
+    <value>The time when the transaction ends.</value>
+  </data>
+  <data name="ScheduleTransactionStartTimeHelp" xml:space="preserve">
+    <value>The time when the transaction starts.</value>
+  </data>
+  <data name="ScheduleTueHelp" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="ScheduleTxt" xml:space="preserve">
+    <value>Scheduled Tasks</value>
+  </data>
+  <data name="ScheduleUpdateFrequencyHelp" xml:space="preserve">
+    <value>Waiting time between transactions.</value>
+  </data>
+  <data name="ScheduleWedHelp" xml:space="preserve">
+    <value>Wednesday</value>
+  </data>
+  <data name="ScheduleWeekdaysNotSetTxt" xml:space="preserve">
+    <value>Atleast one day of week must be set.</value>
+  </data>
+  <data name="SecondTxt" xml:space="preserve">
+    <value>Secondly</value>
+  </data>
+  <data name="SetTransactionCountOrEndTxt" xml:space="preserve">
+    <value>Transaction count or end time must be set.</value>
+  </data>
+  <data name="TargetMustBeSetTxt" xml:space="preserve">
+    <value>Target must be set.</value>
+  </data>
+  <data name="TargetTxt" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="TransactionCountTxt" xml:space="preserve">
+    <value>Transaction Count</value>
+  </data>
+  <data name="TransactionEndBeforeStartTxt" xml:space="preserve">
+    <value>Transaction end time is before start time.</value>
+  </data>
+  <data name="TransactionEndTimeTxt" xml:space="preserve">
+    <value>Transaction End Time</value>
+  </data>
+  <data name="TransactionStartTimeTxt" xml:space="preserve">
+    <value>Transaction Start Time</value>
+  </data>
+  <data name="TransactionStartTimeTxt1" xml:space="preserve">
+    <value>Transaction Start Time</value>
+  </data>
+  <data name="TransactionTxt" xml:space="preserve">
+    <value>Transaction</value>
+  </data>
+  <data name="TypeTxt" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="UnitTxt" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="UpdateChangedValuesTxt" xml:space="preserve">
+    <value>Do you want write changed values to devices?</value>
+  </data>
+  <data name="UpdateFrequencyTxt" xml:space="preserve">
+    <value>Update Interval</value>
+  </data>
+  <data name="WeeklyTxt" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="WriteTxt" xml:space="preserve">
+    <value>Write</value>
+  </data>
+  <data name="SaveChangesQuestionTxt" xml:space="preserve">
+    <value>Do you want to save the changes you made?</value>
+  </data>
+  <data name="ProtocolsUpdatedTxt" xml:space="preserve">
+    <value>Applications updated.</value>
+  </data>
+  <data name="RestartTxt" xml:space="preserve">
+    <value>The application must be restarted to apply the changes.</value>
+  </data>
+  <data name="InstallManufacturersOnlineTxt" xml:space="preserve">
+    <value>Device Profile settings are not present. Do you want to install them online from Gurux Web?</value>
+  </data>
+  <data name="UpdatePresetDevicesOnlineTxt" xml:space="preserve">
+    <value>New Preset Device settings are available. Do you want to update them online from Gurux Web?</value>
+  </data>
+  <data name="GeneralTxt" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="NoDeviceModelsTxt" xml:space="preserve">
+    <value>No device models.</value>
+  </data>
+  <data name="CustomProtocolTxt" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="factory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\factory.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="leaf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\leaf.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="middle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\middle.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TablesTxt" xml:space="preserve">
+    <value>Tables</value>
+  </data>
+  <data name="CategoriesTxt" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="ShowNotifiesTxt" xml:space="preserve">
+    <value>Show Notifies</value>
+  </data>
+  <data name="NotifiesTxt" xml:space="preserve">
+    <value>Notifies</value>
+  </data>
+  <data name="BackTxt" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="CategoryWizardTxt" xml:space="preserve">
+    <value>Category Wizard</value>
+  </data>
+  <data name="PropertyWizardTxt" xml:space="preserve">
+    <value>Property Wizard</value>
+  </data>
+  <data name="TableWizardTxt" xml:space="preserve">
+    <value>Table Wizard</value>
+  </data>
+  <data name="FinishTxt" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="NextTxt" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="DeviceWizardTxt" xml:space="preserve">
+    <value>Device Wizard</value>
+  </data>
+  <data name="WizardStartTxt" xml:space="preserve">
+    <value>This wizard will guide you through general settings of the device</value>
+  </data>
+  <data name="ProtocolSettingsTxt" xml:space="preserve">
+    <value>Protocol Settings</value>
+  </data>
+  <data name="DescriptionTxt" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ResendCountTxt" xml:space="preserve">
+    <value>Resend Count:</value>
+  </data>
+  <data name="WaitTimeTxt" xml:space="preserve">
+    <value>Wait Time:</value>
+  </data>
+  <data name="RemoveTxt" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="OpenProjectTxt" xml:space="preserve">
+    <value>Open Project</value>
+  </data>
+  <data name="NoDevicesPublishedTxt" xml:space="preserve">
+    <value>No devices published.</value>
+  </data>
+  <data name="DoYouWantToRemoveTxt" xml:space="preserve">
+    <value>Do you want to remove </value>
+  </data>
+  <data name="RemoveAllCategoriesTxt" xml:space="preserve">
+    <value>Are you sure that you want to remove all categories?</value>
+  </data>
+  <data name="RemoveAllTablesTxt" xml:space="preserve">
+    <value>Are you sure that you want to remove all tables?</value>
+  </data>
+  <data name="BackArrowTxt" xml:space="preserve">
+    <value>&lt; Back</value>
+  </data>
+  <data name="ChooseFileTypeTxt" xml:space="preserve">
+    <value>Choose source</value>
+  </data>
+  <data name="ChoosePropertiesTxt" xml:space="preserve">
+    <value>Choose properties</value>
+  </data>
+  <data name="DeviceImportTxt" xml:space="preserve">
+    <value>Device Import</value>
+  </data>
+  <data name="FromDeviceTxt" xml:space="preserve">
+    <value>From Device</value>
+  </data>
+  <data name="NextArrowTxt" xml:space="preserve">
+    <value>Next &gt;</value>
+  </data>
+  <data name="SaveAsDefaultSettingsTxt" xml:space="preserve">
+    <value>Save As Default Settings</value>
+  </data>
+  <data name="DeselectAllTxt" xml:space="preserve">
+    <value>Deselect All</value>
+  </data>
+  <data name="ImportingFromDeviceTxt" xml:space="preserve">
+    <value>Importing properties from selected Device</value>
+  </data>
+  <data name="SelectAllTxt" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="SetMediaSettingsTxt" xml:space="preserve">
+    <value>Set media settings</value>
+  </data>
+  <data name="AdvancedTxt" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="DeviceListTxt" xml:space="preserve">
+    <value>Device list</value>
+  </data>
+  <data name="DisabledActionsTxt" xml:space="preserve">
+    <value>Disabled Actions</value>
+  </data>
+  <data name="DisabledGroupsTxt" xml:space="preserve">
+    <value>Disabled Groups</value>
+  </data>
+  <data name="DisableMonitorText" xml:space="preserve">
+    <value>Disable monitoring.</value>
+  </data>
+  <data name="DisableReadText" xml:space="preserve">
+    <value>Disable reading.</value>
+  </data>
+  <data name="DisableScheduleText" xml:space="preserve">
+    <value>Disable scheduling.</value>
+  </data>
+  <data name="DisableWriteText" xml:space="preserve">
+    <value>Disable writing.</value>
+  </data>
+  <data name="ErrDevListNameEmptyTxt" xml:space="preserve">
+    <value>Device list name can't be empty.</value>
+  </data>
+  <data name="MonitorTxt" xml:space="preserve">
+    <value>Monitor</value>
+  </data>
+  <data name="ConnectingTxt" xml:space="preserve">
+    <value>Connecting...</value>
+  </data>
+  <data name="ReadingTxt" xml:space="preserve">
+    <value>Reading...</value>
+  </data>
+  <data name="ReadyTxt" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="WritingTxt" xml:space="preserve">
+    <value>Writing...</value>
+  </data>
+  <data name="CloseAndKillSchedulesTxt" xml:space="preserve">
+    <value>There are still active schedules. Are you sure you want to close Gurux Device Suite.</value>
+  </data>
+  <data name="DisconnectingTxt" xml:space="preserve">
+    <value>Disconnecting...</value>
+  </data>
+  <data name="ResetTxt" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="DeviceNameHelp" xml:space="preserve">
+    <value>The name of the device. Name cannot be an empty field.</value>
+  </data>
+  <data name="DeviceProfileHelp" xml:space="preserve">
+    <value>The Device Profile that defines the behavior of the device. This is created using GXDeviceEditor.</value>
+  </data>
+  <data name="IncorrectResendCountTxt" xml:space="preserve">
+    <value>Incorrect Resend Count value.</value>
+  </data>
+  <data name="MediaListHelp" xml:space="preserve">
+    <value>The media used for connecting to the physical device.</value>
+  </data>
+  <data name="RefreshRateHelp" xml:space="preserve">
+    <value>The interval between read operations when monitoring is active</value>
+  </data>
+  <data name="WizardFinishTitleTxt" xml:space="preserve">
+    <value>Wizard is complete, press Finish to continue.</value>
+  </data>
+  <data name="WizardFinishTxt" xml:space="preserve">
+    <value>Press Finish to continue or Back to alter settings.</value>
+  </data>
+  <data name="CategoryPropertiesTxt" xml:space="preserve">
+    <value>Category Properties</value>
+  </data>
+  <data name="TablePropertiesTxt" xml:space="preserve">
+    <value>Table Properties</value>
+  </data>
+  <data name="EditValueTxt" xml:space="preserve">
+    <value>Edit value</value>
+  </data>
+  <data name="ValueTxt" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="GuruxDeviceSuiteTxt" xml:space="preserve">
+    <value>Gurux Device Suite</value>
+  </data>
+  <data name="AboutGuruxDeviceSuiteTxt" xml:space="preserve">
+    <value>About Gurux Device Suite Community Edition</value>
+  </data>
+  <data name="CopyrightTxt" xml:space="preserve">
+    <value>Copyright© 1998-2013 Gurux Ltd.
+All rights reserved.</value>
+  </data>
+  <data name="CopyTxt" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="ForMoreInfoTxt" xml:space="preserve">
+    <value>For information about Gurux products see:</value>
+  </data>
+  <data name="PublisherInfoDescription" xml:space="preserve">
+    <value>With Gurux device publisher you can publish your Device Profiles so all Gurux Community members can use them.
+
+You will find more information from Gurux Device publisher from 
+www.gurux.org/DevicePublisher</value>
+  </data>
+  <data name="PublisherInfoTitle" xml:space="preserve">
+    <value>Welcome to use Gurux Device Profile Publisher.</value>
+  </data>
+  <data name="Publisher" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Publisher.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="like" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\like.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="unlike" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\unlike.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PublishFailedNotEnoughtData" xml:space="preserve">
+    <value>Device Profile publishing failed because there is not enought data.</value>
+  </data>
+  <data name="CategorySettingsTxt" xml:space="preserve">
+    <value>Category Settings</value>
+  </data>
+  <data name="DeviceGroupSettingsTxt" xml:space="preserve">
+    <value>Device Group Settings</value>
+  </data>
+  <data name="DeviceListSettingsTxt" xml:space="preserve">
+    <value>Device List Settings</value>
+  </data>
+  <data name="DeviceSettingsTxt" xml:space="preserve">
+    <value>Device Settings</value>
+  </data>
+  <data name="AllFilesTxt" xml:space="preserve">
+    <value>All files (*.*)|*.*</value>
+  </data>
+  <data name="DoneTxt" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="ExportedFilesFileTxt" xml:space="preserve">
+    <value>Exported Gurux Device Profile files (*.gxz)|*.gxz|</value>
+  </data>
+  <data name="IsExportedTxt" xml:space="preserve">
+    <value>is successfully exported.</value>
+  </data>
+  <data name="RestartToUpdateAddins" xml:space="preserve">
+    <value>You must restart application to update AddIns.</value>
+  </data>
+  <data name="PublishedTitle" xml:space="preserve">
+    <value>Thank you for publishing your Device Pofile.</value>
+  </data>
+  <data name="PublishedDescription" xml:space="preserve">
+    <value>Your Device Profile will published after check.</value>
+  </data>
+  <data name="PublishedInfo" xml:space="preserve">
+    <value>Your device Profile is checked before publishing. If there are any problems we will let you know. Thank you for your contribution.</value>
+  </data>
+  <data name="ManufacturersTxt" xml:space="preserve">
+    <value>Manufacturers</value>
+  </data>
+  <data name="DeviceProfileWizardTitle" xml:space="preserve">
+    <value>Device Profile Wizard</value>
+  </data>
+  <data name="DeviceProfileWizardCaption" xml:space="preserve">
+    <value>Welcome to use Gurux Device Profile Wizard.</value>
+  </data>
+  <data name="DeviceProfileWizardInfo" xml:space="preserve">
+    <value>With Gurux Device Profile Wizard you can create Device Profiles. To Device Profile you describe what kind of data you want to read from the device.</value>
+  </data>
+  <data name="DeviceSettingsWizardDescription" xml:space="preserve">
+    <value>Name of the Device Template and used protocol.</value>
+  </data>
+  <data name="OverregisterTxt" xml:space="preserve">
+    <value>Do you want to override previously registered device type?</value>
+  </data>
+  <data name="AmiTxt" xml:space="preserve">
+    <value>Gurux Device Suite AMI</value>
+  </data>
+  <data name="GuruxAMINotInitialized" xml:space="preserve">
+    <value>GuruxAMI connection settings must be set before GuruxAMI can be use.</value>
+  </data>
+  <data name="RemoveDataCollectorTxt" xml:space="preserve">
+    <value>Are you sure you want to delete selected Data Collector(s)?</value>
+  </data>
+  <data name="DeviceProfileExistsTxt" xml:space="preserve">
+    <value>Device Profile already exists. Are you sure that you want to replace it?</value>
+  </data>
+  <data name="RemoveDeviceTemplatesTxt" xml:space="preserve">
+    <value>Are you sure you want to delete selected device templates?</value>
+  </data>
+  <data name="NoDataCollectorTxt" xml:space="preserve">
+    <value>GuruxAMI database is created but there is no Data Collector. Do you want to add one?</value>
+  </data>
+  <data name="DeviceProfilesTxt" xml:space="preserve">
+    <value>Device Profiles</value>
+  </data>
+  <data name="AddInsNotInstalled" xml:space="preserve">
+    <value>You must install needed Device AddIns first.</value>
+  </data>
+</root>
