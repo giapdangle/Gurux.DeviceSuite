@@ -843,7 +843,7 @@ namespace Gurux.DeviceSuite
                 bool templateOpen = !string.IsNullOrEmpty(Editor.FileName);
                 NewCategoryMenu.Visible = NewTableMenu.Visible = NewPropertyMenu.Visible = templateOpen;
                 CopyMenu.Enabled = copyToolStripButton.Enabled = DeleteToolStripButton.Enabled = DeleteMenu.Enabled = CloseMenu.Enabled = SaveMenu.Enabled = saveToolStripButton.Enabled = templateOpen;
-                ExportMenu.Enabled = templateOpen && !System.Diagnostics.Debugger.IsAttached;
+                ExportMenu.Enabled = templateOpen;
             }
             else
             {
