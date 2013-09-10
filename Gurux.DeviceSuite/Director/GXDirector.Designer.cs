@@ -96,7 +96,6 @@ namespace Gurux.DeviceSuite.Director
             this.ToLbl = new System.Windows.Forms.Label();
             this.ToPick = new System.Windows.Forms.DateTimePicker();
             this.StartPick = new System.Windows.Forms.DateTimePicker();
-            this.ReadLastTB = new System.Windows.Forms.TextBox();
             this.ReadFromRB = new System.Windows.Forms.RadioButton();
             this.ReadLastRB = new System.Windows.Forms.RadioButton();
             this.ReadAllRB = new System.Windows.Forms.RadioButton();
@@ -181,6 +180,7 @@ namespace Gurux.DeviceSuite.Director
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.TraceClearMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.TraceHexMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReadLastTB = new System.Windows.Forms.NumericUpDown();
             this.DirectorPanel.Panel1.SuspendLayout();
             this.DirectorPanel.Panel2.SuspendLayout();
             this.DirectorPanel.SuspendLayout();
@@ -202,6 +202,7 @@ namespace Gurux.DeviceSuite.Director
             this.ScheduleMenu.SuspendLayout();
             this.TracePage.SuspendLayout();
             this.TraceMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ReadLastTB)).BeginInit();
             this.SuspendLayout();
             // 
             // DirectorPanel
@@ -257,7 +258,7 @@ namespace Gurux.DeviceSuite.Director
             this.toolStripSeparator8,
             this.PropertiesMenu});
             this.DeviceTreeMenu.Name = "ScheduleMenu";
-            this.DeviceTreeMenu.Size = new System.Drawing.Size(193, 392);
+            this.DeviceTreeMenu.Size = new System.Drawing.Size(193, 370);
             this.DeviceTreeMenu.Opening += new System.ComponentModel.CancelEventHandler(this.DeviceTreeMenu_Opening);
             // 
             // AddDeviceGroupMenu
@@ -438,6 +439,7 @@ namespace Gurux.DeviceSuite.Director
             // 
             // ReadingGB
             // 
+            this.ReadingGB.Controls.Add(this.ReadLastTB);
             this.ReadingGB.Controls.Add(this.TableRowCount);
             this.ReadingGB.Controls.Add(this.LastReadValueTP);
             this.ReadingGB.Controls.Add(this.ReadNewValuesCB);
@@ -445,7 +447,6 @@ namespace Gurux.DeviceSuite.Director
             this.ReadingGB.Controls.Add(this.ToLbl);
             this.ReadingGB.Controls.Add(this.ToPick);
             this.ReadingGB.Controls.Add(this.StartPick);
-            this.ReadingGB.Controls.Add(this.ReadLastTB);
             this.ReadingGB.Controls.Add(this.ReadFromRB);
             this.ReadingGB.Controls.Add(this.ReadLastRB);
             this.ReadingGB.Controls.Add(this.ReadAllRB);
@@ -522,14 +523,6 @@ namespace Gurux.DeviceSuite.Director
             this.StartPick.Size = new System.Drawing.Size(112, 20);
             this.StartPick.TabIndex = 13;
             this.StartPick.ValueChanged += new System.EventHandler(this.OnReadingChanged);
-            // 
-            // ReadLastTB
-            // 
-            this.ReadLastTB.Location = new System.Drawing.Point(94, 43);
-            this.ReadLastTB.Name = "ReadLastTB";
-            this.ReadLastTB.Size = new System.Drawing.Size(64, 20);
-            this.ReadLastTB.TabIndex = 12;
-            this.ReadLastTB.Text = "1";
             // 
             // ReadFromRB
             // 
@@ -1256,6 +1249,14 @@ namespace Gurux.DeviceSuite.Director
             this.TraceHexMenu.Text = "&Hex";
             this.TraceHexMenu.Click += new System.EventHandler(this.TraceHexMenu_Click);
             // 
+            // ReadLastTB
+            // 
+            this.ReadLastTB.Location = new System.Drawing.Point(94, 39);
+            this.ReadLastTB.Name = "ReadLastTB";
+            this.ReadLastTB.Size = new System.Drawing.Size(74, 20);
+            this.ReadLastTB.TabIndex = 20;
+            this.ReadLastTB.ValueChanged += new System.EventHandler(this.OnReadingChanged);
+            // 
             // GXDirector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1288,6 +1289,7 @@ namespace Gurux.DeviceSuite.Director
             this.ScheduleMenu.ResumeLayout(false);
             this.TracePage.ResumeLayout(false);
             this.TraceMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ReadLastTB)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1394,7 +1396,6 @@ namespace Gurux.DeviceSuite.Director
         private System.Windows.Forms.Label ToLbl;
         private System.Windows.Forms.DateTimePicker ToPick;
         private System.Windows.Forms.DateTimePicker StartPick;
-        private System.Windows.Forms.TextBox ReadLastTB;
         private System.Windows.Forms.RadioButton ReadFromRB;
         private System.Windows.Forms.RadioButton ReadLastRB;
         private System.Windows.Forms.RadioButton ReadAllRB;
@@ -1414,6 +1415,7 @@ namespace Gurux.DeviceSuite.Director
         public System.Windows.Forms.TabControl TabControl1;
         private System.Windows.Forms.ToolStripMenuItem SelectAllMenu;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.NumericUpDown ReadLastTB;
 
     }
 }

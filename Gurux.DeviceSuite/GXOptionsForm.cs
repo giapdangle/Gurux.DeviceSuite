@@ -239,8 +239,8 @@ namespace Gurux.DeviceSuite
                 {
                     throw new Exception("GuruxAMI port is invalid.");
                 }
-                Gurux.DeviceSuite.Properties.Settings.Default.AmiPort = PortTB.Text;                
-                TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, CreateDBAsync, null);
+                Gurux.DeviceSuite.Properties.Settings.Default.AmiPort = PortTB.Text;
+                TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, CreateDBAsync, "", null);
                 TransactionWork.Start();
             }
             catch (Exception ex)
@@ -257,7 +257,7 @@ namespace Gurux.DeviceSuite
             }
         }
 
-        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state)
+        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state, string text)
         {
             tabControl1.Enabled = CancelBtn.Enabled = OkBtn.Enabled = state != AsyncState.Start;
         }

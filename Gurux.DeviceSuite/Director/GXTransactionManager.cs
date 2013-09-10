@@ -51,11 +51,11 @@ namespace Gurux.DeviceSuite.Director
 
         GXAsyncWork TransactionWork;
 
-        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state)
+        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state, string text)
         {
             foreach (AsyncStateChangeEventHandler e in Events)
             {
-                e(sender, state);
+                e(sender, state, text);
             }
         }
 
@@ -65,7 +65,7 @@ namespace Gurux.DeviceSuite.Director
         /// <param name="item">The item to be read.</param>
         public void Read(System.Windows.Forms.Control sender, object item)
         {
-            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, ReadAsync, new object[] { item });
+            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, ReadAsync, Gurux.DeviceSuite.Properties.Resources.ReadingTxt, new object[] { item });
             TransactionWork.Start();
         }
 
@@ -75,7 +75,7 @@ namespace Gurux.DeviceSuite.Director
         /// <param name="item">The item to be written.</param>
         public void Write(System.Windows.Forms.Control sender, object item)
         {
-            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, WriteAsync, new object[] { item });
+            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, WriteAsync,Gurux.DeviceSuite.Properties.Resources.WritingTxt, new object[] { item });
             TransactionWork.Start();
         }
 
@@ -85,7 +85,7 @@ namespace Gurux.DeviceSuite.Director
         /// <param name="item">The item to be connected.</param>
         public void Connect(System.Windows.Forms.Control sender, object item)
         {
-            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, ConnectAsync, new object[] { item });
+            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, ConnectAsync, Gurux.DeviceSuite.Properties.Resources.ConnectingTxt, new object[] { item });
             TransactionWork.Start();
         }
 
@@ -95,7 +95,7 @@ namespace Gurux.DeviceSuite.Director
         /// <param name="item">The item to be disconnected.</param>
         public void Disconnect(System.Windows.Forms.Control sender, object item)
         {
-            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, DisconnectAsync, new object[] { item });
+            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, DisconnectAsync, Gurux.DeviceSuite.Properties.Resources.DisconnectingTxt, new object[] { item });
             TransactionWork.Start();
         }
 
@@ -105,7 +105,7 @@ namespace Gurux.DeviceSuite.Director
         /// <param name="item">The item to be monitored.</param>
         public void StartMonitoring(System.Windows.Forms.Control sender, object item)
         {
-            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, StartMonitoringAsync, new object[] { item });
+            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, StartMonitoringAsync, Gurux.DeviceSuite.Properties.Resources.MonitorTxt, new object[] { item });
             TransactionWork.Start();
         }
 
@@ -115,7 +115,7 @@ namespace Gurux.DeviceSuite.Director
         /// <param name="item">An item to halt monitoring on.</param>
         public void StopMonitoring(System.Windows.Forms.Control sender, object item)
         {
-            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, StopMonitoringAsync, new object[] { item });
+            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, StopMonitoringAsync, Gurux.DeviceSuite.Properties.Resources.MonitorTxt, new object[] { item });
             TransactionWork.Start();
         }
 

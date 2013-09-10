@@ -60,7 +60,7 @@ namespace Gurux.DeviceSuite.Director
         bool EventFollowLast = true;
         bool TraceFollowLast = false;
         public event System.EventHandler OnItemActivated;
-        public System.Diagnostics.TraceLevel m_TraceLevel = System.Diagnostics.TraceLevel.Off; 
+        public System.Diagnostics.TraceLevel m_TraceLevel = System.Diagnostics.TraceLevel.Off;
         MainForm ParentComponent;
         TreeNode m_ListNode = null;
 
@@ -3070,7 +3070,7 @@ namespace Gurux.DeviceSuite.Director
                 GXProperty prop = m_DeviceList.SelectedItem as GXProperty;
                 if (prop != null)
                 {
-                    prop.Read();
+                    ParentComponent.TransactionManager.Read(this, prop);
                 }
             }
             catch (Exception Ex)
@@ -3085,11 +3085,11 @@ namespace Gurux.DeviceSuite.Director
         private void WriteBtn_Click(object sender, EventArgs e)
         {
             try
-            {
+            {                
                 GXProperty prop = m_DeviceList.SelectedItem as GXProperty;
                 if (prop != null)
                 {
-                    prop.Write();
+                    ParentComponent.TransactionManager.Write(this, prop);
                 }
             }
             catch (Exception Ex)
@@ -3242,11 +3242,8 @@ namespace Gurux.DeviceSuite.Director
                     else if (ReadLastRB.Checked)//Read last n. Days.
                     {
                         partialRead.Type = PartialReadType.Last;
-                        if (oldType != partialRead.Type)
-                        {
-                            partialRead.Start = DateTime.Now.Date.AddDays(-Convert.ToInt32(ReadLastTB.Text));
-                            partialRead.End = DateTime.MaxValue;                            
-                        }
+                        partialRead.Start = DateTime.Now.Date.AddDays(-Convert.ToInt32(ReadLastTB.Text));
+                        partialRead.End = DateTime.MaxValue;                            
                     }
                     else if (ReadFromRB.Checked)//Read between days
                     {

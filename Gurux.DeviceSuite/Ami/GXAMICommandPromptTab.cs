@@ -264,7 +264,7 @@ namespace Gurux.DeviceSuite.Ami
             Connected.WaitOne();
         }
 
-        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state)
+        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state, string text)
         {
             CommandPromptTB.Visible = CommandPromptClearBtn.Visible = state != AsyncState.Start;
             CancelBtn.Visible = state == AsyncState.Start;            
@@ -282,7 +282,7 @@ namespace Gurux.DeviceSuite.Ami
                 }
                 else
                 {
-                    TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, new object[] { Collector.Guid, Media, Settings });
+                    TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, Gurux.DeviceSuite.Properties.Resources.ConnectingTxt, new object[] { Collector.Guid, Media, Settings });
                     TransactionWork.Start();
                 }
             }

@@ -47,20 +47,22 @@ namespace Gurux.DeviceSuite.Director
     }
 
     public delegate void AsyncTransaction(System.Windows.Forms.Control sender, object[] parameters);
-    public delegate void AsyncStateChangeEventHandler(System.Windows.Forms.Control sender, AsyncState state);
+    public delegate void AsyncStateChangeEventHandler(System.Windows.Forms.Control sender, AsyncState state, string text);
     
     public delegate void ErrorEventHandler(System.Windows.Forms.Control sender, Exception ex);
 
     internal class GXAsyncWork
     {
+        string Text;
         System.Windows.Forms.Control Sender;
         AsyncTransaction Command;
         object[] Parameters;
         Thread Thread;
         AsyncStateChangeEventHandler OnAsyncStateChangeEventHandler;
 
-        public GXAsyncWork(System.Windows.Forms.Control sender, AsyncStateChangeEventHandler e, AsyncTransaction command, object[] parameters)
+        public GXAsyncWork(System.Windows.Forms.Control sender, AsyncStateChangeEventHandler e, AsyncTransaction command, string text, object[] parameters)
         {
+            Text = text;
             OnAsyncStateChangeEventHandler = e;
             Sender = sender;
             Command = command;
@@ -79,11 +81,11 @@ namespace Gurux.DeviceSuite.Director
                 Command(Sender, Parameters);
                 if (Sender.InvokeRequired)
                 {
-                    Sender.BeginInvoke(OnAsyncStateChangeEventHandler, Sender, AsyncState.Finish);
+                    Sender.BeginInvoke(OnAsyncStateChangeEventHandler, Sender, AsyncState.Finish, null);
                 }
                 else
                 {
-                    OnAsyncStateChangeEventHandler(Sender, AsyncState.Finish);
+                    OnAsyncStateChangeEventHandler(Sender, AsyncState.Finish, null);
                 }
             }
             catch (ThreadAbortException)//User has abort the thread.
@@ -105,7 +107,7 @@ namespace Gurux.DeviceSuite.Director
 
         public void Start()
         {
-            OnAsyncStateChangeEventHandler(Sender, AsyncState.Start);
+            OnAsyncStateChangeEventHandler(Sender, AsyncState.Start, Text);
             Thread = new Thread(new ThreadStart(Run));
             Thread.IsBackground = true;
             Thread.Start();
@@ -114,7 +116,7 @@ namespace Gurux.DeviceSuite.Director
         public void Cancel()
         {
             Thread.Abort();
-            OnAsyncStateChangeEventHandler(Sender, AsyncState.Cancel);
+            OnAsyncStateChangeEventHandler(Sender, AsyncState.Cancel, null);
         }
     }
 }

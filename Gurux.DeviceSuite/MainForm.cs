@@ -71,7 +71,7 @@ namespace Gurux.DeviceSuite
     {
         AppType SelectedApplication;
         object TransactionObject;
-        GXTransactionManager TransactionManager;
+        internal GXTransactionManager TransactionManager;
         ToolStripMenuItem SelectedTraceMenu;
         GXDirector Director;
         internal GXDeviceEditor Editor;
@@ -584,8 +584,7 @@ namespace Gurux.DeviceSuite
                     UpdateTraceLevel((System.Diagnostics.TraceLevel)Gurux.DeviceSuite.Properties.Settings.Default.TraceLevel);
                 }
                 Director.OnDirty += new DirtyEventHandler(this.OnDirty);
-                Editor.OnDirty += new DirtyEventHandler(this.OnDirty);
-                Gurux.Common.GXUpdateChecker.ApplicationsOnly = true;
+                Editor.OnDirty += new DirtyEventHandler(this.OnDirty);                
                 //Check protocol and application updates.
                 Gurux.Common.CheckUpdatesEventHandler p = (Gurux.Common.CheckUpdatesEventHandler)this.OnCheckUpdatesEnabled;
                 ThreadPool.QueueUserWorkItem(Gurux.Common.GXUpdateChecker.CheckUpdates, p);
@@ -1299,17 +1298,21 @@ namespace Gurux.DeviceSuite
             {
                 GXCommon.ShowError(Ex);
             }
-        }        
+        }
 
-        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state)
+        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state, string text)
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new AsyncStateChangeEventHandler(this.OnAsyncStateChange), sender, state);
+                BeginInvoke(new AsyncStateChangeEventHandler(this.OnAsyncStateChange), sender, state, text);
             }
             else
             {
-                if (state == AsyncState.Cancel)
+                if (state == AsyncState.Start)
+                {
+                    StatusLbl.Text = text;
+                }
+                else if (state == AsyncState.Cancel)
                 {
                     ToolsDisconnectMenu_Click(this, null);
                 }
@@ -1425,6 +1428,11 @@ namespace Gurux.DeviceSuite
             
         }
 
+        /// <summary>
+        /// Show available protocols.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ProtocolAddinsMenu_Click(object sender, EventArgs e)
         {
             try

@@ -109,7 +109,7 @@ namespace Gurux.DeviceSuite.Ami
             }
         }
 
-        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state)
+        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state, string text)
         {
             panel1.Visible = panel2.Visible = MediaFrame.Visible = state != AsyncState.Start;
             ConnectingPanel.Visible = state == AsyncState.Start;
@@ -171,7 +171,7 @@ namespace Gurux.DeviceSuite.Ami
                     ((IGXPropertyPage)PropertiesForm).Apply();
                 }
                 SelectedMedia.Validate();
-                TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, new object[] { DataCollector.Guid, SelectedMedia.MediaType, SelectedMedia.Settings });
+                TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, "", new object[] { DataCollector.Guid, SelectedMedia.MediaType, SelectedMedia.Settings });
                 TransactionWork.Start();
             }            
             catch (Exception ex)
@@ -184,7 +184,7 @@ namespace Gurux.DeviceSuite.Ami
 
         void ShowError(string message)
         {
-            OnAsyncStateChange(this, AsyncState.Cancel);
+            OnAsyncStateChange(this, AsyncState.Cancel, null);
             MessageBox.Show(this, message);
         }
 
