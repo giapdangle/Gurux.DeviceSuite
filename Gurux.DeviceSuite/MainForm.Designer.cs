@@ -83,6 +83,7 @@ namespace Gurux.DeviceSuite
             this.CloseMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.ImportMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.ImportFromDataCollectorMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ExportMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.AddDeviceProfileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenExportedMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -158,7 +159,7 @@ namespace Gurux.DeviceSuite
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.WorkArea = new System.Windows.Forms.Panel();
-            this.ImportFromDataCollectorMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowMediaTrace = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.DirectorMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -370,6 +371,13 @@ namespace Gurux.DeviceSuite
             this.ImportMenu.Text = "Import";
             this.ImportMenu.Click += new System.EventHandler(this.ImportMenu_Click);
             // 
+            // ImportFromDataCollectorMenu
+            // 
+            this.ImportFromDataCollectorMenu.Name = "ImportFromDataCollectorMenu";
+            this.ImportFromDataCollectorMenu.Size = new System.Drawing.Size(228, 22);
+            this.ImportFromDataCollectorMenu.Text = "Import From Data Collector...";
+            this.ImportFromDataCollectorMenu.Click += new System.EventHandler(this.ImportFromDataCollectorMenu_Click);
+            // 
             // ExportMenu
             // 
             this.ExportMenu.Name = "ExportMenu";
@@ -489,6 +497,7 @@ namespace Gurux.DeviceSuite
             this.StatusBarMnu,
             this.UserModMenu,
             this.TraceMenu,
+            this.ShowMediaTrace,
             this.toolStripMenuItem2,
             this.ViewDirectorMenu,
             this.ViewDeviceEditorMenu,
@@ -531,12 +540,14 @@ namespace Gurux.DeviceSuite
             this.NormalMenu.Name = "NormalMenu";
             this.NormalMenu.Size = new System.Drawing.Size(137, 22);
             this.NormalMenu.Text = "Normal";
+            this.NormalMenu.Click += new System.EventHandler(this.UsermodeMenu_Click);
             // 
             // ExperiencedMenu
             // 
             this.ExperiencedMenu.Name = "ExperiencedMenu";
             this.ExperiencedMenu.Size = new System.Drawing.Size(137, 22);
             this.ExperiencedMenu.Text = "Experienced";
+            this.ExperiencedMenu.Click += new System.EventHandler(this.UsermodeMenu_Click);
             // 
             // TraceMenu
             // 
@@ -991,12 +1002,12 @@ namespace Gurux.DeviceSuite
             this.WorkArea.Size = new System.Drawing.Size(821, 373);
             this.WorkArea.TabIndex = 41;
             // 
-            // ImportFromDataCollectorMenu
+            // ShowMediaTrace
             // 
-            this.ImportFromDataCollectorMenu.Name = "ImportFromDataCollectorMenu";
-            this.ImportFromDataCollectorMenu.Size = new System.Drawing.Size(228, 22);
-            this.ImportFromDataCollectorMenu.Text = "Import From Data Collector...";
-            this.ImportFromDataCollectorMenu.Click += new System.EventHandler(this.ImportFromDataCollectorMenu_Click);
+            this.ShowMediaTrace.Name = "ShowMediaTrace";
+            this.ShowMediaTrace.Size = new System.Drawing.Size(183, 22);
+            this.ShowMediaTrace.Text = "Show Media Trace";
+            this.ShowMediaTrace.Click += new System.EventHandler(this.ShowMediaTrace_Click);
             // 
             // MainForm
             // 
@@ -1124,6 +1135,7 @@ namespace Gurux.DeviceSuite
         private System.Windows.Forms.ToolStripMenuItem ToolsOptionsMenu;
         private System.Windows.Forms.ToolStripMenuItem ReportABugMenu;
         private System.Windows.Forms.ToolStripMenuItem ImportFromDataCollectorMenu;
+        private System.Windows.Forms.ToolStripMenuItem ShowMediaTrace;
     }
 }
 

@@ -18,7 +18,7 @@ namespace Gurux.DeviceSuite.Ami
 {
     public partial class GXAmiCommandPromptForm : Form
     {
-        GXAsyncWork TransactionWork;
+        Gurux.DeviceSuite.Director.GXAsyncWork TransactionWork;
         AutoResetEvent Connected = new AutoResetEvent(false);
         GXAmiTask ExecutedTask;
         Form PropertiesForm;
@@ -171,7 +171,7 @@ namespace Gurux.DeviceSuite.Ami
                     ((IGXPropertyPage)PropertiesForm).Apply();
                 }
                 SelectedMedia.Validate();
-                TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, "", new object[] { DataCollector.Guid, SelectedMedia.MediaType, SelectedMedia.Settings });
+                TransactionWork = new Gurux.DeviceSuite.Director.GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, "", new object[] { DataCollector.Guid, SelectedMedia.MediaType, SelectedMedia.Settings });
                 TransactionWork.Start();
             }            
             catch (Exception ex)

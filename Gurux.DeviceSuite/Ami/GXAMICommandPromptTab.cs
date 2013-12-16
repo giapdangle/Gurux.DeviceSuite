@@ -22,7 +22,7 @@ namespace Gurux.DeviceSuite.Ami
         GXAmiClient Client;
         GXAmiDataCollector Collector;
         Control ParentForm;
-        GXAsyncWork TransactionWork;
+        Gurux.DeviceSuite.Director.GXAsyncWork TransactionWork;
         AutoResetEvent Connected = new AutoResetEvent(false);
         GXAmiTask ExecutedTask;
 
@@ -282,7 +282,7 @@ namespace Gurux.DeviceSuite.Ami
                 }
                 else
                 {
-                    TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, Gurux.DeviceSuite.Properties.Resources.ConnectingTxt, new object[] { Collector.Guid, Media, Settings });
+                    TransactionWork = new Gurux.DeviceSuite.Director.GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, Gurux.DeviceSuite.Properties.Resources.ConnectingTxt, new object[] { Collector.Guid, Media, Settings });
                     TransactionWork.Start();
                 }
             }

@@ -50,7 +50,7 @@ namespace Gurux.DeviceSuite
 {
     public partial class GXOptionsForm : Form
     {
-        GXAsyncWork TransactionWork;
+        Gurux.DeviceSuite.Director.GXAsyncWork TransactionWork;
         GXAmi AmiForm;
         public GXOptionsForm(AppType type, GXAmi ami)
         {
@@ -240,7 +240,7 @@ namespace Gurux.DeviceSuite
                     throw new Exception("GuruxAMI port is invalid.");
                 }
                 Gurux.DeviceSuite.Properties.Settings.Default.AmiPort = PortTB.Text;
-                TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, CreateDBAsync, "", null);
+                TransactionWork = new Gurux.DeviceSuite.Director.GXAsyncWork(this, OnAsyncStateChange, CreateDBAsync, "", null);
                 TransactionWork.Start();
             }
             catch (Exception ex)

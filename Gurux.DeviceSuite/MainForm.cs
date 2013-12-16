@@ -78,6 +78,8 @@ namespace Gurux.DeviceSuite
         GXAmi AMI;
         internal MRUManager MruManager;
         GXDeviceManufacturerCollection Published;
+        internal bool m_ShowMediaTrace;
+
         public MainForm()
         {            
             InitializeComponent();
@@ -570,6 +572,7 @@ namespace Gurux.DeviceSuite
                         MruManager.Insert(-1, it);
                     }
                 }
+                m_ShowMediaTrace = ShowMediaTrace.Checked = Gurux.DeviceSuite.Properties.Settings.Default.ShowMediaTrace;
                 Editor.Visible = true;
                 Editor.Visible = false;
                 Director.Visible = true;
@@ -584,10 +587,14 @@ namespace Gurux.DeviceSuite
                     UpdateTraceLevel((System.Diagnostics.TraceLevel)Gurux.DeviceSuite.Properties.Settings.Default.TraceLevel);
                 }
                 Director.OnDirty += new DirtyEventHandler(this.OnDirty);
-                Editor.OnDirty += new DirtyEventHandler(this.OnDirty);                
-                //Check protocol and application updates.
-                Gurux.Common.CheckUpdatesEventHandler p = (Gurux.Common.CheckUpdatesEventHandler)this.OnCheckUpdatesEnabled;
-                ThreadPool.QueueUserWorkItem(Gurux.Common.GXUpdateChecker.CheckUpdates, p);
+                Editor.OnDirty += new DirtyEventHandler(this.OnDirty);                                
+                //Do not check updates while debugging.
+                if (!System.Diagnostics.Debugger.IsAttached)
+                {
+                    //Check protocol and application updates.                
+                    Gurux.Common.CheckUpdatesEventHandler p = (Gurux.Common.CheckUpdatesEventHandler)this.OnCheckUpdatesEnabled;
+                    ThreadPool.QueueUserWorkItem(Gurux.Common.GXUpdateChecker.CheckUpdates, p);
+                }                
                 GXDeviceManufacturerCollection.Load(Editor.Manufacturers);
                 PublishMenu.Enabled = Editor.Manufacturers.IsPresetDevices();
                 Director.Manufacturers = Editor.Manufacturers;
@@ -1031,6 +1038,7 @@ namespace Gurux.DeviceSuite
                 List<string> columns = new List<string>();
                 Gurux.DeviceSuite.Properties.Settings.Default.ShowToolBar = toolStrip1.Visible;
                 Gurux.DeviceSuite.Properties.Settings.Default.ShowStatusBar = statusStrip1.Visible;
+                Gurux.DeviceSuite.Properties.Settings.Default.ShowMediaTrace = ShowMediaTrace.Checked;
                 Director.SaveSettings();
                 Editor.SaveSettings();
                 AMI.SaveSettings();
@@ -1304,7 +1312,7 @@ namespace Gurux.DeviceSuite
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new AsyncStateChangeEventHandler(this.OnAsyncStateChange), sender, state, text);
+                BeginInvoke(new Gurux.DeviceSuite.Director.AsyncStateChangeEventHandler(this.OnAsyncStateChange), sender, state, text);
             }
             else
             {
@@ -1633,6 +1641,7 @@ namespace Gurux.DeviceSuite
                 {
                     Director.TraceLevel = System.Diagnostics.TraceLevel.Verbose;
                 }
+                ShowMediaTrace.Enabled = SelectedTraceMenu == TraceVerboseMenu;
                 Editor.TraceLevel = Director.TraceLevel;
                 if (SelectedApplication == AppType.Ami)
                 {
@@ -1730,7 +1739,7 @@ namespace Gurux.DeviceSuite
         private void CheckForUpdatesMenu_Click(object sender, EventArgs e)
         {
             try
-            {
+            {                           
                 ProtocolUpdateStatus status = Gurux.Common.GXUpdateChecker.ShowUpdates(this, true, true);
                 UpdateProtocolsMenu.Visible = false;
                 openToolStripButton.Enabled = newToolStripButton.Enabled = OpenMenu.Enabled = FileNewMnu.Enabled = GXDeviceList.Protocols.Count != 0;
@@ -1922,6 +1931,12 @@ namespace Gurux.DeviceSuite
             {
                 GXCommon.ShowError(Ex);
             }
+        }
+
+        private void ShowMediaTrace_Click(object sender, EventArgs e)
+        {
+            m_ShowMediaTrace = !m_ShowMediaTrace;
+            ShowMediaTrace.Checked = m_ShowMediaTrace;
         }
 
     }

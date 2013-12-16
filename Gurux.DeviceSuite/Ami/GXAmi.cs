@@ -303,14 +303,29 @@ namespace Gurux.DeviceSuite.Ami
             }
         }
 
+        delegate void DataCollectorsClearEventHandler(object sender);
+
+        void OnDataCollectorsClear(object sender)
+        {
+            //Clear items...
+            DCList.Items.Clear();
+            DCToListViewItem.Clear();                
+        }
+
         public void Start(bool waitStart)
         {
             //if DB is configured.
             if (!string.IsNullOrEmpty(Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName) && 
                 (ServerThread == null || !ServerThread.IsAlive))
             {
-                DCList.Items.Clear();
-                DCToListViewItem.Clear();
+                if (this.InvokeRequired)
+                {
+                    this.BeginInvoke(new DataCollectorsClearEventHandler(OnDataCollectorsClear), this);
+                }
+                else
+                {
+                    OnDataCollectorsClear(this);
+                }
                 ServerThread = new Thread(new ThreadStart(StartServer));
                 ServerThread.IsBackground = true;
                 ServerThread.Start();
@@ -369,7 +384,7 @@ namespace Gurux.DeviceSuite.Ami
                         Client = new GXAmiClient(baseUr,
                             Gurux.DeviceSuite.Properties.Settings.Default.AmiUserName,
                             Gurux.DeviceSuite.Properties.Settings.Default.AmiPassword);
-                    }                    
+                    }
                     if (Client.IsDatabaseCreated())
                     {
                         Client.OnDeviceTemplatesAdded += new DeviceTemplatesAddedEventHandler(Client_OnDeviceTemplatesAdded);

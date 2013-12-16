@@ -39,13 +39,6 @@ using Gurux.Common;
 
 namespace Gurux.DeviceSuite.Director
 {
-    public enum AsyncState
-    {
-        Start,
-        Finish,
-        Cancel
-    }
-
     public delegate void AsyncTransaction(System.Windows.Forms.Control sender, object[] parameters);
     public delegate void AsyncStateChangeEventHandler(System.Windows.Forms.Control sender, AsyncState state, string text);
     

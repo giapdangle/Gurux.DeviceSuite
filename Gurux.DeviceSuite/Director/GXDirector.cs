@@ -1524,6 +1524,11 @@ namespace Gurux.DeviceSuite.Director
             if (e.Item is GXTable)
             {
                 GXTableEventArgs t = e as GXTableEventArgs;
+                //If other table is selected.
+                if (m_DeviceList.SelectedItem != t.Item)
+                {
+                    return;
+                }
                 if ((t.Status & TableStates.RowsAdded) != 0 && TableData.ColumnCount != 0)
                 {
                     foreach (object[] it in t.Rows)
@@ -1998,15 +2003,18 @@ namespace Gurux.DeviceSuite.Director
 
         void OnTrace(object sender, TraceEventArgs e)
         {
+            //Are media sent and received bytes shown.
+            if (!ParentComponent.m_ShowMediaTrace && sender is IGXMedia)
+            {
+                if ((e.Type & (TraceTypes.Sent | TraceTypes.Received)) != 0)
+                {
+                    return;
+                }
+            }
             if (TracePause)
             {
                 return;
-            }
-            //Ignore client send and receive trace because we want to show media traces.
-            if ((e.Type & (TraceTypes.Sent | TraceTypes.Received)) != 0 && sender is Gurux.Communication.GXClient)
-            {
-                return;
-            }
+            }            
             if (InvokeRequired)
             {
                 this.BeginInvoke(new TraceEventHandler(OnTrace), new object[] { sender, e });
@@ -2014,17 +2022,23 @@ namespace Gurux.DeviceSuite.Director
             }
             lock (TraceEvents)
             {
+                bool update = false;
                 //Remove first item if maximum item count is reached.
                 if (Gurux.DeviceSuite.Properties.Settings.Default.TraceMaximumCount > 0 && 
                     TraceEvents.Count == Gurux.DeviceSuite.Properties.Settings.Default.TraceMaximumCount)
                 {
-                    TraceEvents.RemoveAt(0);
+                    update = true;
+                    TraceEvents.RemoveAt(0);                    
                 }
                 TraceEvents.Add(e);
                 TraceView.VirtualListSize = TraceEvents.Count;
                 if (TraceFollowLast)
                 {                    
                     TraceView.EnsureVisible(TraceEvents.Count - 1);
+                }
+                if (update)
+                {
+                    TraceView.Refresh();
                 }
             }           
         }

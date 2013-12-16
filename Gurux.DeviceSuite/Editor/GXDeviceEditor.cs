@@ -81,6 +81,10 @@ namespace Gurux.DeviceSuite.Editor
         {
             if (Device != null)
             {
+                if (!Device.ImportFromDeviceEnabled)
+                {
+                    return false;
+                }
                 return Device.AddIn.ImportFromDeviceEnabled;
             }
             return false;
@@ -1112,10 +1116,13 @@ namespace Gurux.DeviceSuite.Editor
 
         void OnTrace(object sender, TraceEventArgs e)
         {
-            //Ignore client send and receive trace because we want to show media traces.
-            if ((e.Type & (TraceTypes.Sent | TraceTypes.Received)) != 0 && sender is Gurux.Communication.GXClient)
-            {
-                return;
+            //Are media sent and received bytes shown.
+            if (!ParentComponent.m_ShowMediaTrace && sender is IGXMedia)
+            {                
+                if ((e.Type & (TraceTypes.Sent | TraceTypes.Received)) != 0)
+                {
+                    return;
+                }
             }
             if (InvokeRequired)
             {
