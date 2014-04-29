@@ -48,8 +48,8 @@ namespace Gurux.DeviceSuite.Editor
     public partial class OpenDlg : Form
     {
         GXDeviceManufacturerCollection Manufacturers;
-        public GXDeviceType Checked;
-        GXDeviceType Target;
+        public GXDeviceProfile Checked;
+        GXDeviceProfile Target;
         System.Collections.Hashtable PresetItemToListViewItem = new System.Collections.Hashtable();
 
         public OpenDlg()
@@ -60,7 +60,7 @@ namespace Gurux.DeviceSuite.Editor
         /// <summary>
 		/// Initializes a new instance of the OpenDlg class.
 		/// </summary>
-        public OpenDlg(GXDeviceManufacturerCollection manufacturers, GXDeviceType target)
+        public OpenDlg(GXDeviceManufacturerCollection manufacturers, GXDeviceProfile target)
 		{			
 			InitializeComponent();
             Target = target;
@@ -86,7 +86,7 @@ namespace Gurux.DeviceSuite.Editor
         {
             try
             {                
-                GXDeviceType removed = GetChecked();
+                GXDeviceProfile removed = GetChecked();
                 if (removed != null)
                 {
                     DialogResult dr = GXCommon.ShowQuestion(this, Gurux.DeviceSuite.Properties.Resources.DoYouWantToRemoveTxt + removed.ToString());
@@ -94,9 +94,9 @@ namespace Gurux.DeviceSuite.Editor
                     {
                         return;
                     }
-                    if (removed is GXPublishedDeviceType)
+                    if (removed is GXPublishedDeviceProfile)
                     {
-                        GXPublishedDeviceType pd = removed as GXPublishedDeviceType;
+                        GXPublishedDeviceProfile pd = removed as GXPublishedDeviceProfile;
                         string manufacturer, model, version, presetName;
                         pd.GetInfo(out manufacturer, out model, out version, out presetName);
                         GXDevice.Unregister(manufacturer, model, version, presetName);
@@ -119,7 +119,7 @@ namespace Gurux.DeviceSuite.Editor
         /// Get the checked item.
         /// </summary>
         /// <returns>The checked item or null if nothing is checked.</returns>
-        protected GXDeviceType GetChecked()
+        protected GXDeviceProfile GetChecked()
         {
             if (tabControl1.SelectedTab == PresetPage)
             {
@@ -127,13 +127,13 @@ namespace Gurux.DeviceSuite.Editor
                 {
                     return null;
                 }
-                return PresetList.SelectedItems[0].Tag as GXDeviceType;
+                return PresetList.SelectedItems[0].Tag as GXDeviceProfile;
             }
             if (CustomDeviceType.SelectedItems.Count != 1)
             {
                 return null;
             }
-            return CustomDeviceType.SelectedItems[0] as GXDeviceType;
+            return CustomDeviceType.SelectedItems[0] as GXDeviceProfile;
         }
 
         private void DeviceTypeLB_DoubleClick(object sender, System.EventArgs e)
@@ -167,7 +167,7 @@ namespace Gurux.DeviceSuite.Editor
                 {
                     foreach (GXDeviceVersion dv in model.Versions)
                     {
-                        foreach (GXPublishedDeviceType type in dv.Templates)
+                        foreach (GXPublishedDeviceProfile type in dv.Templates)
                         {
                             ListViewItem item = new ListViewItem(type.PresetName);
                             item.SubItems.Add(man.Name);
@@ -205,7 +205,7 @@ namespace Gurux.DeviceSuite.Editor
                 return;
             }
             SortedList sl = new SortedList();
-            foreach (GXDeviceType type in GXDeviceList.GetDeviceTypes(false, null))
+            foreach (GXDeviceProfile type in GXDeviceList.GetDeviceTypes(false, null))
             {
                 CustomDeviceType.Items.Add(type);
             }

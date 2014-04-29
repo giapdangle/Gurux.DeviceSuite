@@ -66,10 +66,10 @@ namespace Gurux.DeviceSuite.Ami
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.PresetPage = new System.Windows.Forms.TabPage();
             this.PresetList = new System.Windows.Forms.ListView();
-            this.PresetNameCH = new System.Windows.Forms.ColumnHeader();
-            this.ManufacturerCH = new System.Windows.Forms.ColumnHeader();
-            this.ModelCH = new System.Windows.Forms.ColumnHeader();
-            this.VersionCH = new System.Windows.Forms.ColumnHeader();
+            this.PresetNameCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ManufacturerCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ModelCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.VersionCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CustomPage = new System.Windows.Forms.TabPage();
             this.CustomDeviceType = new Gurux.DeviceSuite.Common.CustomDeviceTypeListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -102,9 +102,9 @@ namespace Gurux.DeviceSuite.Ami
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.PresetPage);
             this.tabControl1.Controls.Add(this.CustomPage);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -182,7 +182,7 @@ namespace Gurux.DeviceSuite.Ami
             this.CustomDeviceType.FormattingEnabled = true;
             this.CustomDeviceType.Location = new System.Drawing.Point(3, 3);
             this.CustomDeviceType.Name = "CustomDeviceType";
-            this.CustomDeviceType.Size = new System.Drawing.Size(356, 186);
+            this.CustomDeviceType.Size = new System.Drawing.Size(356, 189);
             this.CustomDeviceType.Sorted = true;
             this.CustomDeviceType.TabIndex = 0;
             this.CustomDeviceType.DoubleClick += new System.EventHandler(this.OKBtn_Click);
@@ -214,7 +214,7 @@ namespace Gurux.DeviceSuite.Ami
             this.Name = "GXAmiImportForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Add Device Template";
+            this.Text = "Add Device Profile";
             this.tabControl1.ResumeLayout(false);
             this.PresetPage.ResumeLayout(false);
             this.CustomPage.ResumeLayout(false);

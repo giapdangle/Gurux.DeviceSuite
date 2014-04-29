@@ -119,8 +119,8 @@ namespace Gurux.DeviceSuite.Publisher
                     GXDeviceManufacturer man = Manufacturers[0];
                     GXDeviceModel model = man.Models[0];
                     GXDeviceVersion dv = model.Versions[0];
-                    GXDeviceType dt = dv.Templates[0];
-                    GXPublishedDeviceType type = Manufacturers.Find(man.Name, model.Name, dv.Name, dt.PresetName) as GXPublishedDeviceType; 
+                    GXDeviceProfile dt = dv.Templates[0];
+                    GXPublishedDeviceProfile type = Manufacturers.Find(man.Name, model.Name, dv.Name, dt.PresetName) as GXPublishedDeviceProfile; 
                     Close();
                     DialogResult = DialogResult.OK;
                     return;

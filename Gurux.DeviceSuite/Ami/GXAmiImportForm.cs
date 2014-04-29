@@ -50,11 +50,11 @@ namespace Gurux.DeviceSuite.Ami
     public partial class GXAmiImportForm : Gurux.DeviceSuite.Editor.OpenDlg
     {
         GXAmiClient Client;
-        GuruxAMI.Common.GXAmiDataCollector[] Collectors;
+
         /// <summary>
 		/// Initializes a new instance of the GXAmiImportForm class.
 		/// </summary>
-        public GXAmiImportForm(GXAmiClient client, GXDeviceManufacturerCollection manufacturers, GuruxAMI.Common.GXAmiDataCollector[] collectors)
+        public GXAmiImportForm(GXAmiClient client, GXDeviceManufacturerCollection manufacturers)
             : base(manufacturers, null)
 		{
 			InitializeComponent();
@@ -71,18 +71,18 @@ namespace Gurux.DeviceSuite.Ami
                     throw new Exception("Imported device template not selected.");
                 }
                 GXDevice device = null;
-                if (this.Checked is GXPublishedDeviceType)
+                if (this.Checked is GXPublishedDeviceProfile)
                 {
                     string manufacturer, model, version, presetName;
-                    (this.Checked as GXPublishedDeviceType).GetInfo(out manufacturer, out model, out version, out presetName);
+                    (this.Checked as GXPublishedDeviceProfile).GetInfo(out manufacturer, out model, out version, out presetName);
                     device = GXDevice.Create(manufacturer, model, version, presetName, "import");
                 }
                 else
                 {
                     device = GXDevice.Create(this.Checked.Protocol, this.Checked.Name, "import");
                 }
-                GXAmiDeviceTemplate[] templates = Client.GetDeviceTemplates(false);
-                foreach (GXAmiDeviceTemplate it in templates)
+                GXAmiDeviceProfile[] templates = Client.GetDeviceProfiles(true, false);
+                foreach (GXAmiDeviceProfile it in templates)
                 {
                     if (it.Guid == device.Guid)
                     {
@@ -94,7 +94,7 @@ namespace Gurux.DeviceSuite.Ami
                         break;
                     }
                 }
-                Client.AddDeviceTemplate(Client.GetUserGroups(false), device);
+                Client.AddDeviceProfile(Client.GetUserGroups(false), device);
                 device.Dispose();
                 this.DialogResult = DialogResult.OK;
                 this.Close();

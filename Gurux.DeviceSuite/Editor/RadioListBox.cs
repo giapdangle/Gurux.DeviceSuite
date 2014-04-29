@@ -173,7 +173,7 @@ namespace Gurux.DeviceSuite.Editor
             rc.Location = new Point(sz + 2, e.Bounds.Top);
 
             string str = string.Empty;
-            GXPublishedDeviceType type = this.Items[e.Index] as GXPublishedDeviceType;
+            GXPublishedDeviceProfile type = this.Items[e.Index] as GXPublishedDeviceProfile;
             if (type != null)
             {
                 GXDeviceVersion ver = type.Parent.Parent as GXDeviceVersion;
@@ -191,7 +191,7 @@ namespace Gurux.DeviceSuite.Editor
             }
             else
             {
-                GXDeviceType tp = this.Items[e.Index] as GXDeviceType;
+                GXDeviceProfile tp = this.Items[e.Index] as GXDeviceProfile;
                 if (tp != null)
                 {
                     str = tp.Name;

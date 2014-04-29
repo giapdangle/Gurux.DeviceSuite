@@ -61,14 +61,14 @@ namespace Gurux.DeviceSuite.Publisher
 
         public void Next()
         {
-            if (DeviceTemplateCB.SelectedIndex == -1)
+            if (DeviceProfilesCB.SelectedIndex == -1)
             {
-                DeviceTemplateCB.Focus();
+                DeviceProfilesCB.Focus();
                 throw new Exception(Gurux.DeviceSuite.Properties.Resources.ErrNameEmptyTxt);
             }
             //Update selected manufacturer to target.            
             GXDeviceVersion ver = Target as GXDeviceVersion;
-            GXPublishedDeviceType type = ver.Templates.Find(DeviceTemplateCB.SelectedItem.ToString());
+            GXPublishedDeviceProfile type = ver.Templates.Find(DeviceProfilesCB.SelectedItem.ToString());
             Target = type;
             Item.Manufacturers[0].Models[0].Versions[0].Templates.Clear();
             GXDevice dev = GXDevice.Load(type.Path);
@@ -102,11 +102,11 @@ namespace Gurux.DeviceSuite.Publisher
             if (Target is GXDeviceVersion)
             {
                 GXDeviceVersion ver = Target as GXDeviceVersion;
-                foreach (GXPublishedDeviceType it in ver.Templates)
+                foreach (GXPublishedDeviceProfile it in ver.Templates)
                 {
-                    DeviceTemplateCB.Items.Add(it.PresetName);
+                    DeviceProfilesCB.Items.Add(it.PresetName);
                 }
-                DeviceTemplateCB.SelectedItem = DeviceTemplateCB.Items[0];
+                DeviceProfilesCB.SelectedItem = DeviceProfilesCB.Items[0];
             }
         }
 

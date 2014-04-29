@@ -70,16 +70,20 @@ namespace Gurux.DeviceSuite.Ami
             this.DescriptionTB = new System.Windows.Forms.TextBox();
             this.GuidLbl = new System.Windows.Forms.Label();
             this.GuidTB = new System.Windows.Forms.TextBox();
+            this.LastConnectedLbl = new System.Windows.Forms.Label();
+            this.LastConnectedTB = new System.Windows.Forms.TextBox();
+            this.RefreshBtn = new System.Windows.Forms.Button();
+            this.InternalCB = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // OkBtn
             // 
             this.OkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.OkBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OkBtn.Location = new System.Drawing.Point(156, 130);
+            this.OkBtn.Location = new System.Drawing.Point(156, 185);
             this.OkBtn.Name = "OkBtn";
             this.OkBtn.Size = new System.Drawing.Size(75, 23);
-            this.OkBtn.TabIndex = 5;
+            this.OkBtn.TabIndex = 7;
             this.OkBtn.Text = "OK";
             this.OkBtn.UseVisualStyleBackColor = true;
             this.OkBtn.Click += new System.EventHandler(this.OkBtn_Click);
@@ -88,10 +92,10 @@ namespace Gurux.DeviceSuite.Ami
             // 
             this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelBtn.Location = new System.Drawing.Point(237, 130);
+            this.CancelBtn.Location = new System.Drawing.Point(237, 185);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
-            this.CancelBtn.TabIndex = 6;
+            this.CancelBtn.TabIndex = 8;
             this.CancelBtn.Text = "Cancel";
             this.CancelBtn.UseVisualStyleBackColor = true;
             // 
@@ -142,7 +146,7 @@ namespace Gurux.DeviceSuite.Ami
             this.DescriptionTB.Location = new System.Drawing.Point(90, 64);
             this.DescriptionTB.Name = "DescriptionTB";
             this.DescriptionTB.Size = new System.Drawing.Size(222, 20);
-            this.DescriptionTB.TabIndex = 3;
+            this.DescriptionTB.TabIndex = 2;
             // 
             // GuidLbl
             // 
@@ -159,7 +163,45 @@ namespace Gurux.DeviceSuite.Ami
             this.GuidTB.Name = "GuidTB";
             this.GuidTB.ReadOnly = true;
             this.GuidTB.Size = new System.Drawing.Size(222, 20);
-            this.GuidTB.TabIndex = 4;
+            this.GuidTB.TabIndex = 3;
+            // 
+            // LastConnectedLbl
+            // 
+            this.LastConnectedLbl.AutoSize = true;
+            this.LastConnectedLbl.Location = new System.Drawing.Point(9, 143);
+            this.LastConnectedLbl.Name = "LastConnectedLbl";
+            this.LastConnectedLbl.Size = new System.Drawing.Size(82, 13);
+            this.LastConnectedLbl.TabIndex = 141;
+            this.LastConnectedLbl.Text = "Last Connected";
+            // 
+            // LastConnectedTB
+            // 
+            this.LastConnectedTB.Location = new System.Drawing.Point(90, 140);
+            this.LastConnectedTB.Name = "LastConnectedTB";
+            this.LastConnectedTB.ReadOnly = true;
+            this.LastConnectedTB.Size = new System.Drawing.Size(131, 20);
+            this.LastConnectedTB.TabIndex = 5;
+            // 
+            // RefreshBtn
+            // 
+            this.RefreshBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.RefreshBtn.Location = new System.Drawing.Point(237, 137);
+            this.RefreshBtn.Name = "RefreshBtn";
+            this.RefreshBtn.Size = new System.Drawing.Size(75, 23);
+            this.RefreshBtn.TabIndex = 6;
+            this.RefreshBtn.Text = "Refresh...";
+            this.RefreshBtn.UseVisualStyleBackColor = true;
+            this.RefreshBtn.Click += new System.EventHandler(this.RefreshBtn_Click);
+            // 
+            // InternalCB
+            // 
+            this.InternalCB.AutoSize = true;
+            this.InternalCB.Location = new System.Drawing.Point(11, 119);
+            this.InternalCB.Name = "InternalCB";
+            this.InternalCB.Size = new System.Drawing.Size(61, 17);
+            this.InternalCB.TabIndex = 4;
+            this.InternalCB.Text = "Internal";
+            this.InternalCB.UseVisualStyleBackColor = true;
             // 
             // GXAmiDataCollectorForm
             // 
@@ -167,7 +209,11 @@ namespace Gurux.DeviceSuite.Ami
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
-            this.ClientSize = new System.Drawing.Size(324, 165);
+            this.ClientSize = new System.Drawing.Size(324, 220);
+            this.Controls.Add(this.InternalCB);
+            this.Controls.Add(this.RefreshBtn);
+            this.Controls.Add(this.LastConnectedLbl);
+            this.Controls.Add(this.LastConnectedTB);
             this.Controls.Add(this.GuidLbl);
             this.Controls.Add(this.GuidTB);
             this.Controls.Add(this.DescriptionLbl);
@@ -180,6 +226,7 @@ namespace Gurux.DeviceSuite.Ami
             this.Controls.Add(this.CancelBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "GXAmiDataCollectorForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Data Collector Settings";
             this.ResumeLayout(false);
@@ -199,5 +246,9 @@ namespace Gurux.DeviceSuite.Ami
         private System.Windows.Forms.TextBox DescriptionTB;
         private System.Windows.Forms.Label GuidLbl;
         private System.Windows.Forms.TextBox GuidTB;
+        private System.Windows.Forms.Label LastConnectedLbl;
+        private System.Windows.Forms.TextBox LastConnectedTB;
+        private System.Windows.Forms.Button RefreshBtn;
+        private System.Windows.Forms.CheckBox InternalCB;
     }
 }

@@ -66,27 +66,30 @@ namespace Gurux.DeviceSuite.Ami
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.AssignedTab = new System.Windows.Forms.TabPage();
             this.DCList = new System.Windows.Forms.ListView();
-            this.DcCH = new System.Windows.Forms.ColumnHeader();
+            this.DcCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DataCollectorMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.NewDeviceMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.NewDataCollectorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.DeleteMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.PropertiesMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.ShowDCDevicesMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.AddCommandPromptMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.DCSearchBtn = new System.Windows.Forms.TextBox();
             this.UnAssignedTab = new System.Windows.Forms.TabPage();
             this.UnassignedDCList = new System.Windows.Forms.ListView();
-            this.MACAddressLbl = new System.Windows.Forms.ColumnHeader();
-            this.IPAddressCH = new System.Windows.Forms.ColumnHeader();
+            this.MACAddressLbl = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.IPAddressCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.UnAssignedMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.AssignMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.RemoveUnAssignedMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.DevicesList = new System.Windows.Forms.ListView();
-            this.DeviceNameCH = new System.Windows.Forms.ColumnHeader();
-            this.DeviceStatusCH = new System.Windows.Forms.ColumnHeader();
-            this.DeviceTypeCH = new System.Windows.Forms.ColumnHeader();
+            this.DeviceNameCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DeviceStatusCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DeviceTypeCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DeviceMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.DeviceNewDeviceMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.DeviceDeleteMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,14 +99,16 @@ namespace Gurux.DeviceSuite.Ami
             this.DeviceStopMonitorMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.DevicePropertiesMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.DeviceSearchBtn = new System.Windows.Forms.TextBox();
             this.TablePanel = new System.Windows.Forms.Panel();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.ValuesTab = new System.Windows.Forms.TabPage();
             this.PropertyList = new System.Windows.Forms.ListView();
-            this.PropertyNameCH = new System.Windows.Forms.ColumnHeader();
-            this.PropertyTypeCH = new System.Windows.Forms.ColumnHeader();
-            this.PropertyValueCH = new System.Windows.Forms.ColumnHeader();
-            this.TimestampCH = new System.Windows.Forms.ColumnHeader();
+            this.PropertyNameCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.PropertyTypeCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.PropertyValueCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TimestampCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TableTab = new System.Windows.Forms.TabPage();
             this.TableData = new System.Windows.Forms.DataGridView();
             this.TableTabs = new System.Windows.Forms.TabControl();
@@ -133,9 +138,9 @@ namespace Gurux.DeviceSuite.Ami
             this.TabControl1 = new System.Windows.Forms.TabControl();
             this.EventLogTab = new System.Windows.Forms.TabPage();
             this.EventsList = new System.Windows.Forms.ListView();
-            this.EventTimeCH = new System.Windows.Forms.ColumnHeader();
-            this.EventDeviceNameCH = new System.Windows.Forms.ColumnHeader();
-            this.EventDescriptionCH = new System.Windows.Forms.ColumnHeader();
+            this.EventTimeCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.EventDeviceNameCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.EventDescriptionCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.EventMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.EventPauseMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.EventCopyMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -144,11 +149,11 @@ namespace Gurux.DeviceSuite.Ami
             this.EventClear = new System.Windows.Forms.ToolStripMenuItem();
             this.SchedulesTab = new System.Windows.Forms.TabPage();
             this.Schedules = new System.Windows.Forms.ListView();
-            this.ScheduleNameCH = new System.Windows.Forms.ColumnHeader();
-            this.ScheduleRepeatModeCH = new System.Windows.Forms.ColumnHeader();
-            this.ScheduleNextRunTimeCH = new System.Windows.Forms.ColumnHeader();
-            this.LastRunTimeCH = new System.Windows.Forms.ColumnHeader();
-            this.ScheduleProgressCH = new System.Windows.Forms.ColumnHeader();
+            this.ScheduleNameCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ScheduleRepeatModeCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ScheduleNextRunTimeCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.LastRunTimeCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ScheduleProgressCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ScheduleMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ScheduleAddMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ScheduleDeleteMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -162,21 +167,30 @@ namespace Gurux.DeviceSuite.Ami
             this.SchedulePropertiesMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.TasksTab = new System.Windows.Forms.TabPage();
             this.TaskList = new System.Windows.Forms.ListView();
-            this.TaskDescriptionCH = new System.Windows.Forms.ColumnHeader();
-            this.TaskTargetCH = new System.Windows.Forms.ColumnHeader();
-            this.TaskCreationTimeCH = new System.Windows.Forms.ColumnHeader();
-            this.TaskClaimTimeCH = new System.Windows.Forms.ColumnHeader();
+            this.TaskDescriptionCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TaskSenderCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TaskTargetCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TaskCreationTimeCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TaskClaimTimeCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TasksMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TasksPauseMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.TasksFollowLastMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.TasksRemoveMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.TasksClearMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.TaskLogTab = new System.Windows.Forms.TabPage();
+            this.TaskLogList = new System.Windows.Forms.ListView();
+            this.TaskLogDescriptionCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TaskLogSenderCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TaskLogTargetCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TaskLogCreationTimeCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TaskLogClaimTimeCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TaskLogFinishTimeCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TraceTab = new System.Windows.Forms.TabPage();
             this.TraceView = new System.Windows.Forms.ListView();
-            this.TimeCH = new System.Windows.Forms.ColumnHeader();
-            this.LevelCH = new System.Windows.Forms.ColumnHeader();
-            this.DescriptionCH = new System.Windows.Forms.ColumnHeader();
+            this.TimeCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.LevelCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DescriptionCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TraceMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TraceCopyMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.SelectAllMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -187,17 +201,17 @@ namespace Gurux.DeviceSuite.Ami
             this.TraceClearMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.TraceHexMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.DeviceProfilesTab = new System.Windows.Forms.TabPage();
-            this.DeviceTemplateList = new System.Windows.Forms.ListView();
-            this.ManufacturerCH = new System.Windows.Forms.ColumnHeader();
-            this.ModelCH = new System.Windows.Forms.ColumnHeader();
-            this.VersionCH = new System.Windows.Forms.ColumnHeader();
-            this.PresetNameCH = new System.Windows.Forms.ColumnHeader();
-            this.ProtocolCH = new System.Windows.Forms.ColumnHeader();
-            this.TemplateCH = new System.Windows.Forms.ColumnHeader();
-            this.DeviceTemplateVersionCH = new System.Windows.Forms.ColumnHeader();
-            this.DeviceTemplateMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.DeviceTemplateNew = new System.Windows.Forms.ToolStripMenuItem();
-            this.DeviceTemplateDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeviceProfilesList = new System.Windows.Forms.ListView();
+            this.ManufacturerCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ModelCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.VersionCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.PresetNameCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ProtocolCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TemplateCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DeviceProfilesVersionCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DeviceProfilesMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.DeviceProfilesNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeviceProfilesDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.AmiPanel.Panel1.SuspendLayout();
             this.AmiPanel.Panel2.SuspendLayout();
@@ -205,6 +219,7 @@ namespace Gurux.DeviceSuite.Ami
             this.tabControl2.SuspendLayout();
             this.AssignedTab.SuspendLayout();
             this.DataCollectorMenu.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.UnAssignedTab.SuspendLayout();
             this.UnAssignedMenu.SuspendLayout();
             this.splitContainer2.Panel1.SuspendLayout();
@@ -214,6 +229,7 @@ namespace Gurux.DeviceSuite.Ami
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.DeviceMenu.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.TablePanel.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.ValuesTab.SuspendLayout();
@@ -230,10 +246,11 @@ namespace Gurux.DeviceSuite.Ami
             this.ScheduleMenu.SuspendLayout();
             this.TasksTab.SuspendLayout();
             this.TasksMenu.SuspendLayout();
+            this.TaskLogTab.SuspendLayout();
             this.TraceTab.SuspendLayout();
             this.TraceMenu.SuspendLayout();
             this.DeviceProfilesTab.SuspendLayout();
-            this.DeviceTemplateMenu.SuspendLayout();
+            this.DeviceProfilesMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // AmiPanel
@@ -249,7 +266,7 @@ namespace Gurux.DeviceSuite.Ami
             // AmiPanel.Panel2
             // 
             this.AmiPanel.Panel2.Controls.Add(this.splitContainer2);
-            this.AmiPanel.Size = new System.Drawing.Size(838, 710);
+            this.AmiPanel.Size = new System.Drawing.Size(838, 694);
             this.AmiPanel.SplitterDistance = 127;
             this.AmiPanel.TabIndex = 10;
             // 
@@ -262,16 +279,17 @@ namespace Gurux.DeviceSuite.Ami
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(127, 710);
+            this.tabControl2.Size = new System.Drawing.Size(127, 694);
             this.tabControl2.TabIndex = 0;
             // 
             // AssignedTab
             // 
             this.AssignedTab.Controls.Add(this.DCList);
+            this.AssignedTab.Controls.Add(this.panel1);
             this.AssignedTab.Location = new System.Drawing.Point(4, 4);
             this.AssignedTab.Name = "AssignedTab";
             this.AssignedTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AssignedTab.Size = new System.Drawing.Size(119, 684);
+            this.AssignedTab.Size = new System.Drawing.Size(119, 668);
             this.AssignedTab.TabIndex = 0;
             this.AssignedTab.Text = "Data Collectors";
             this.AssignedTab.UseVisualStyleBackColor = true;
@@ -284,13 +302,14 @@ namespace Gurux.DeviceSuite.Ami
             this.DCList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DCList.FullRowSelect = true;
             this.DCList.HideSelection = false;
-            this.DCList.Location = new System.Drawing.Point(3, 3);
+            this.DCList.Location = new System.Drawing.Point(3, 36);
             this.DCList.Name = "DCList";
-            this.DCList.Size = new System.Drawing.Size(113, 678);
+            this.DCList.Size = new System.Drawing.Size(113, 629);
             this.DCList.TabIndex = 10;
             this.DCList.UseCompatibleStateImageBehavior = false;
             this.DCList.View = System.Windows.Forms.View.Details;
             this.DCList.SelectedIndexChanged += new System.EventHandler(this.DCList_SelectedIndexChanged);
+            this.DCList.DoubleClick += new System.EventHandler(this.PropertiesMenu_Click);
             this.DCList.Enter += new System.EventHandler(this.OnEnter);
             // 
             // DcCH
@@ -301,22 +320,28 @@ namespace Gurux.DeviceSuite.Ami
             // DataCollectorMenu
             // 
             this.DataCollectorMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.NewDeviceMenu,
+            this.NewDataCollectorMenuItem,
+            this.toolStripMenuItem5,
             this.DeleteMenu,
-            this.toolStripMenuItem3,
             this.PropertiesMenu,
             this.toolStripMenuItem4,
+            this.ShowDCDevicesMenu,
             this.AddCommandPromptMenu});
             this.DataCollectorMenu.Name = "ScheduleMenu";
-            this.DataCollectorMenu.Size = new System.Drawing.Size(209, 104);
+            this.DataCollectorMenu.Size = new System.Drawing.Size(209, 126);
             this.DataCollectorMenu.Opening += new System.ComponentModel.CancelEventHandler(this.DataCollectorMenu_Opening);
             // 
-            // NewDeviceMenu
+            // NewDataCollectorMenuItem
             // 
-            this.NewDeviceMenu.Name = "NewDeviceMenu";
-            this.NewDeviceMenu.Size = new System.Drawing.Size(208, 22);
-            this.NewDeviceMenu.Text = "New Device...";
-            this.NewDeviceMenu.Click += new System.EventHandler(this.NewDeviceMenu_Click);
+            this.NewDataCollectorMenuItem.Name = "NewDataCollectorMenuItem";
+            this.NewDataCollectorMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.NewDataCollectorMenuItem.Text = "New Data Collector...";
+            this.NewDataCollectorMenuItem.Click += new System.EventHandler(this.NewDataCollectorMenuItem_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(205, 6);
             // 
             // DeleteMenu
             // 
@@ -324,11 +349,6 @@ namespace Gurux.DeviceSuite.Ami
             this.DeleteMenu.Size = new System.Drawing.Size(208, 22);
             this.DeleteMenu.Text = "Delete";
             this.DeleteMenu.Click += new System.EventHandler(this.DeleteMenu_Click);
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(205, 6);
             // 
             // PropertiesMenu
             // 
@@ -342,12 +362,39 @@ namespace Gurux.DeviceSuite.Ami
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(205, 6);
             // 
+            // ShowDCDevicesMenu
+            // 
+            this.ShowDCDevicesMenu.Name = "ShowDCDevicesMenu";
+            this.ShowDCDevicesMenu.Size = new System.Drawing.Size(208, 22);
+            this.ShowDCDevicesMenu.Text = "Show Devices";
+            this.ShowDCDevicesMenu.ToolTipText = "Show Devices that this DC can access.";
+            this.ShowDCDevicesMenu.Click += new System.EventHandler(this.ShowDCDevicesMenu_Click);
+            // 
             // AddCommandPromptMenu
             // 
             this.AddCommandPromptMenu.Name = "AddCommandPromptMenu";
             this.AddCommandPromptMenu.Size = new System.Drawing.Size(208, 22);
             this.AddCommandPromptMenu.Text = "Add Command Prompt...";
             this.AddCommandPromptMenu.Click += new System.EventHandler(this.AddCommandPromptMenu_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.DCSearchBtn);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(113, 33);
+            this.panel1.TabIndex = 11;
+            // 
+            // DCSearchBtn
+            // 
+            this.DCSearchBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DCSearchBtn.Location = new System.Drawing.Point(3, 5);
+            this.DCSearchBtn.Name = "DCSearchBtn";
+            this.DCSearchBtn.Size = new System.Drawing.Size(107, 20);
+            this.DCSearchBtn.TabIndex = 0;
+            this.DCSearchBtn.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DCSearchBtn_KeyUp);
             // 
             // UnAssignedTab
             // 
@@ -426,8 +473,8 @@ namespace Gurux.DeviceSuite.Ami
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.TabControl1);
-            this.splitContainer2.Size = new System.Drawing.Size(707, 710);
-            this.splitContainer2.SplitterDistance = 468;
+            this.splitContainer2.Size = new System.Drawing.Size(707, 694);
+            this.splitContainer2.SplitterDistance = 457;
             this.splitContainer2.TabIndex = 0;
             // 
             // splitContainer1
@@ -439,11 +486,12 @@ namespace Gurux.DeviceSuite.Ami
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.DevicesList);
+            this.splitContainer1.Panel1.Controls.Add(this.panel2);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.TablePanel);
-            this.splitContainer1.Size = new System.Drawing.Size(707, 468);
+            this.splitContainer1.Size = new System.Drawing.Size(707, 457);
             this.splitContainer1.SplitterDistance = 235;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -457,13 +505,14 @@ namespace Gurux.DeviceSuite.Ami
             this.DevicesList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DevicesList.FullRowSelect = true;
             this.DevicesList.HideSelection = false;
-            this.DevicesList.Location = new System.Drawing.Point(0, 0);
+            this.DevicesList.Location = new System.Drawing.Point(0, 33);
             this.DevicesList.Name = "DevicesList";
-            this.DevicesList.Size = new System.Drawing.Size(235, 468);
+            this.DevicesList.Size = new System.Drawing.Size(235, 424);
             this.DevicesList.TabIndex = 9;
             this.DevicesList.UseCompatibleStateImageBehavior = false;
             this.DevicesList.View = System.Windows.Forms.View.Details;
             this.DevicesList.SelectedIndexChanged += new System.EventHandler(this.DevicesList_SelectedIndexChanged);
+            this.DevicesList.DoubleClick += new System.EventHandler(this.PropertiesMenu_Click);
             this.DevicesList.Enter += new System.EventHandler(this.OnEnter);
             // 
             // DeviceNameCH
@@ -548,13 +597,32 @@ namespace Gurux.DeviceSuite.Ami
             this.DevicePropertiesMenu.Text = "Properties...";
             this.DevicePropertiesMenu.Click += new System.EventHandler(this.PropertiesMenu_Click);
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.DeviceSearchBtn);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(235, 33);
+            this.panel2.TabIndex = 12;
+            // 
+            // DeviceSearchBtn
+            // 
+            this.DeviceSearchBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DeviceSearchBtn.Location = new System.Drawing.Point(3, 5);
+            this.DeviceSearchBtn.Name = "DeviceSearchBtn";
+            this.DeviceSearchBtn.Size = new System.Drawing.Size(222, 20);
+            this.DeviceSearchBtn.TabIndex = 0;
+            this.DeviceSearchBtn.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DeviceSearchBtn_KeyUp);
+            // 
             // TablePanel
             // 
             this.TablePanel.Controls.Add(this.tabControl3);
             this.TablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TablePanel.Location = new System.Drawing.Point(0, 0);
             this.TablePanel.Name = "TablePanel";
-            this.TablePanel.Size = new System.Drawing.Size(468, 468);
+            this.TablePanel.Size = new System.Drawing.Size(468, 457);
             this.TablePanel.TabIndex = 12;
             // 
             // tabControl3
@@ -565,7 +633,7 @@ namespace Gurux.DeviceSuite.Ami
             this.tabControl3.Location = new System.Drawing.Point(0, 0);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(468, 468);
+            this.tabControl3.Size = new System.Drawing.Size(468, 457);
             this.tabControl3.TabIndex = 0;
             // 
             // ValuesTab
@@ -574,7 +642,7 @@ namespace Gurux.DeviceSuite.Ami
             this.ValuesTab.Location = new System.Drawing.Point(4, 22);
             this.ValuesTab.Name = "ValuesTab";
             this.ValuesTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ValuesTab.Size = new System.Drawing.Size(460, 442);
+            this.ValuesTab.Size = new System.Drawing.Size(460, 431);
             this.ValuesTab.TabIndex = 0;
             this.ValuesTab.Text = "Values";
             this.ValuesTab.UseVisualStyleBackColor = true;
@@ -590,7 +658,7 @@ namespace Gurux.DeviceSuite.Ami
             this.PropertyList.FullRowSelect = true;
             this.PropertyList.Location = new System.Drawing.Point(3, 3);
             this.PropertyList.Name = "PropertyList";
-            this.PropertyList.Size = new System.Drawing.Size(454, 436);
+            this.PropertyList.Size = new System.Drawing.Size(454, 425);
             this.PropertyList.TabIndex = 19;
             this.PropertyList.UseCompatibleStateImageBehavior = false;
             this.PropertyList.View = System.Windows.Forms.View.Details;
@@ -880,8 +948,8 @@ namespace Gurux.DeviceSuite.Ami
             // 
             // TableCB
             // 
-            this.TableCB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.TableCB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TableCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TableCB.FormattingEnabled = true;
             this.TableCB.Location = new System.Drawing.Point(50, 19);
@@ -895,6 +963,7 @@ namespace Gurux.DeviceSuite.Ami
             this.TabControl1.Controls.Add(this.EventLogTab);
             this.TabControl1.Controls.Add(this.SchedulesTab);
             this.TabControl1.Controls.Add(this.TasksTab);
+            this.TabControl1.Controls.Add(this.TaskLogTab);
             this.TabControl1.Controls.Add(this.TraceTab);
             this.TabControl1.Controls.Add(this.DeviceProfilesTab);
             this.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -902,7 +971,7 @@ namespace Gurux.DeviceSuite.Ami
             this.TabControl1.Location = new System.Drawing.Point(0, 0);
             this.TabControl1.Name = "TabControl1";
             this.TabControl1.SelectedIndex = 0;
-            this.TabControl1.Size = new System.Drawing.Size(707, 238);
+            this.TabControl1.Size = new System.Drawing.Size(707, 233);
             this.TabControl1.TabIndex = 40;
             this.TabControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TabControl1_MouseUp);
             // 
@@ -912,7 +981,7 @@ namespace Gurux.DeviceSuite.Ami
             this.EventLogTab.Location = new System.Drawing.Point(4, 23);
             this.EventLogTab.Name = "EventLogTab";
             this.EventLogTab.Padding = new System.Windows.Forms.Padding(3);
-            this.EventLogTab.Size = new System.Drawing.Size(699, 211);
+            this.EventLogTab.Size = new System.Drawing.Size(699, 206);
             this.EventLogTab.TabIndex = 0;
             this.EventLogTab.Text = "Event log";
             this.EventLogTab.UseVisualStyleBackColor = true;
@@ -928,7 +997,7 @@ namespace Gurux.DeviceSuite.Ami
             this.EventsList.FullRowSelect = true;
             this.EventsList.Location = new System.Drawing.Point(3, 3);
             this.EventsList.Name = "EventsList";
-            this.EventsList.Size = new System.Drawing.Size(693, 205);
+            this.EventsList.Size = new System.Drawing.Size(693, 200);
             this.EventsList.TabIndex = 3;
             this.EventsList.UseCompatibleStateImageBehavior = false;
             this.EventsList.View = System.Windows.Forms.View.Details;
@@ -1022,7 +1091,7 @@ namespace Gurux.DeviceSuite.Ami
             this.Schedules.UseCompatibleStateImageBehavior = false;
             this.Schedules.View = System.Windows.Forms.View.Details;
             this.Schedules.SelectedIndexChanged += new System.EventHandler(this.Schedules_SelectedIndexChanged);
-            this.Schedules.DoubleClick += new System.EventHandler(this.SchedulePropertiesMenu_Click);
+            this.Schedules.DoubleClick += new System.EventHandler(this.PropertiesMenu_Click);
             this.Schedules.Enter += new System.EventHandler(this.OnEnter);
             // 
             // ScheduleNameCH
@@ -1131,7 +1200,7 @@ namespace Gurux.DeviceSuite.Ami
             this.SchedulePropertiesMenu.Name = "SchedulePropertiesMenu";
             this.SchedulePropertiesMenu.Size = new System.Drawing.Size(136, 22);
             this.SchedulePropertiesMenu.Text = "Properties...";
-            this.SchedulePropertiesMenu.Click += new System.EventHandler(this.SchedulePropertiesMenu_Click);
+            this.SchedulePropertiesMenu.Click += new System.EventHandler(this.PropertiesMenu_Click);
             // 
             // TasksTab
             // 
@@ -1148,6 +1217,7 @@ namespace Gurux.DeviceSuite.Ami
             // 
             this.TaskList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.TaskDescriptionCH,
+            this.TaskSenderCH,
             this.TaskTargetCH,
             this.TaskCreationTimeCH,
             this.TaskClaimTimeCH});
@@ -1166,6 +1236,11 @@ namespace Gurux.DeviceSuite.Ami
             // 
             this.TaskDescriptionCH.Text = "Description";
             this.TaskDescriptionCH.Width = 149;
+            // 
+            // TaskSenderCH
+            // 
+            this.TaskSenderCH.Text = "Sender:";
+            this.TaskSenderCH.Width = 76;
             // 
             // TaskTargetCH
             // 
@@ -1227,6 +1302,68 @@ namespace Gurux.DeviceSuite.Ami
             this.TasksClearMenu.Text = "Clear";
             this.TasksClearMenu.Click += new System.EventHandler(this.TasksClearMenu_Click);
             // 
+            // TaskLogTab
+            // 
+            this.TaskLogTab.Controls.Add(this.TaskLogList);
+            this.TaskLogTab.Location = new System.Drawing.Point(4, 23);
+            this.TaskLogTab.Name = "TaskLogTab";
+            this.TaskLogTab.Padding = new System.Windows.Forms.Padding(3);
+            this.TaskLogTab.Size = new System.Drawing.Size(699, 206);
+            this.TaskLogTab.TabIndex = 5;
+            this.TaskLogTab.Text = "Task Log";
+            this.TaskLogTab.UseVisualStyleBackColor = true;
+            // 
+            // TaskLogList
+            // 
+            this.TaskLogList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.TaskLogDescriptionCH,
+            this.TaskLogSenderCH,
+            this.TaskLogTargetCH,
+            this.TaskLogCreationTimeCH,
+            this.TaskLogClaimTimeCH,
+            this.TaskLogFinishTimeCH});
+            this.TaskLogList.ContextMenuStrip = this.TasksMenu;
+            this.TaskLogList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TaskLogList.FullRowSelect = true;
+            this.TaskLogList.Location = new System.Drawing.Point(3, 3);
+            this.TaskLogList.Name = "TaskLogList";
+            this.TaskLogList.Size = new System.Drawing.Size(693, 200);
+            this.TaskLogList.TabIndex = 5;
+            this.TaskLogList.UseCompatibleStateImageBehavior = false;
+            this.TaskLogList.View = System.Windows.Forms.View.Details;
+            this.TaskLogList.VirtualMode = true;
+            this.TaskLogList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.TaskLogList_RetrieveVirtualItem);
+            // 
+            // TaskLogDescriptionCH
+            // 
+            this.TaskLogDescriptionCH.Text = "Description";
+            this.TaskLogDescriptionCH.Width = 149;
+            // 
+            // TaskLogSenderCH
+            // 
+            this.TaskLogSenderCH.Text = "Sender:";
+            this.TaskLogSenderCH.Width = 69;
+            // 
+            // TaskLogTargetCH
+            // 
+            this.TaskLogTargetCH.Text = "Target";
+            this.TaskLogTargetCH.Width = 105;
+            // 
+            // TaskLogCreationTimeCH
+            // 
+            this.TaskLogCreationTimeCH.Text = "Creation Time";
+            this.TaskLogCreationTimeCH.Width = 98;
+            // 
+            // TaskLogClaimTimeCH
+            // 
+            this.TaskLogClaimTimeCH.Text = "Claim Time";
+            this.TaskLogClaimTimeCH.Width = 75;
+            // 
+            // TaskLogFinishTimeCH
+            // 
+            this.TaskLogFinishTimeCH.Text = "Finish Time";
+            this.TaskLogFinishTimeCH.Width = 86;
+            // 
             // TraceTab
             // 
             this.TraceTab.Controls.Add(this.TraceView);
@@ -1254,8 +1391,8 @@ namespace Gurux.DeviceSuite.Ami
             this.TraceView.UseCompatibleStateImageBehavior = false;
             this.TraceView.View = System.Windows.Forms.View.Details;
             this.TraceView.VirtualMode = true;
-            this.TraceView.Enter += new System.EventHandler(this.OnEnter);
             this.TraceView.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.TraceView_RetrieveVirtualItem);
+            this.TraceView.Enter += new System.EventHandler(this.OnEnter);
             // 
             // TimeCH
             // 
@@ -1343,7 +1480,7 @@ namespace Gurux.DeviceSuite.Ami
             // 
             // DeviceProfilesTab
             // 
-            this.DeviceProfilesTab.Controls.Add(this.DeviceTemplateList);
+            this.DeviceProfilesTab.Controls.Add(this.DeviceProfilesList);
             this.DeviceProfilesTab.Location = new System.Drawing.Point(4, 23);
             this.DeviceProfilesTab.Name = "DeviceProfilesTab";
             this.DeviceProfilesTab.Padding = new System.Windows.Forms.Padding(3);
@@ -1352,27 +1489,27 @@ namespace Gurux.DeviceSuite.Ami
             this.DeviceProfilesTab.Text = "Device Profiles";
             this.DeviceProfilesTab.UseVisualStyleBackColor = true;
             // 
-            // DeviceTemplateList
+            // DeviceProfilesList
             // 
-            this.DeviceTemplateList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.DeviceProfilesList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ManufacturerCH,
             this.ModelCH,
             this.VersionCH,
             this.PresetNameCH,
             this.ProtocolCH,
             this.TemplateCH,
-            this.DeviceTemplateVersionCH});
-            this.DeviceTemplateList.ContextMenuStrip = this.DeviceTemplateMenu;
-            this.DeviceTemplateList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DeviceTemplateList.FullRowSelect = true;
-            this.DeviceTemplateList.HideSelection = false;
-            this.DeviceTemplateList.Location = new System.Drawing.Point(3, 3);
-            this.DeviceTemplateList.Name = "DeviceTemplateList";
-            this.DeviceTemplateList.Size = new System.Drawing.Size(693, 205);
-            this.DeviceTemplateList.TabIndex = 5;
-            this.DeviceTemplateList.UseCompatibleStateImageBehavior = false;
-            this.DeviceTemplateList.View = System.Windows.Forms.View.Details;
-            this.DeviceTemplateList.Enter += new System.EventHandler(this.OnEnter);
+            this.DeviceProfilesVersionCH});
+            this.DeviceProfilesList.ContextMenuStrip = this.DeviceProfilesMenu;
+            this.DeviceProfilesList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DeviceProfilesList.FullRowSelect = true;
+            this.DeviceProfilesList.HideSelection = false;
+            this.DeviceProfilesList.Location = new System.Drawing.Point(3, 3);
+            this.DeviceProfilesList.Name = "DeviceProfilesList";
+            this.DeviceProfilesList.Size = new System.Drawing.Size(693, 205);
+            this.DeviceProfilesList.TabIndex = 5;
+            this.DeviceProfilesList.UseCompatibleStateImageBehavior = false;
+            this.DeviceProfilesList.View = System.Windows.Forms.View.Details;
+            this.DeviceProfilesList.Enter += new System.EventHandler(this.OnEnter);
             // 
             // ManufacturerCH
             // 
@@ -1401,33 +1538,33 @@ namespace Gurux.DeviceSuite.Ami
             // 
             this.TemplateCH.Text = "Template";
             // 
-            // DeviceTemplateVersionCH
+            // DeviceProfilesVersionCH
             // 
-            this.DeviceTemplateVersionCH.Text = "Device Template Version";
-            this.DeviceTemplateVersionCH.Width = 101;
+            this.DeviceProfilesVersionCH.Text = "Device Template Version";
+            this.DeviceProfilesVersionCH.Width = 101;
             // 
-            // DeviceTemplateMenu
+            // DeviceProfilesMenu
             // 
-            this.DeviceTemplateMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.DeviceTemplateNew,
-            this.DeviceTemplateDelete});
-            this.DeviceTemplateMenu.Name = "ScheduleMenu";
-            this.DeviceTemplateMenu.Size = new System.Drawing.Size(197, 48);
-            this.DeviceTemplateMenu.Opening += new System.ComponentModel.CancelEventHandler(this.DeviceTemplateMenu_Opening);
+            this.DeviceProfilesMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DeviceProfilesNew,
+            this.DeviceProfilesDelete});
+            this.DeviceProfilesMenu.Name = "ScheduleMenu";
+            this.DeviceProfilesMenu.Size = new System.Drawing.Size(181, 48);
+            this.DeviceProfilesMenu.Opening += new System.ComponentModel.CancelEventHandler(this.DeviceProfilesMenu_Opening);
             // 
-            // DeviceTemplateNew
+            // DeviceProfilesNew
             // 
-            this.DeviceTemplateNew.Name = "DeviceTemplateNew";
-            this.DeviceTemplateNew.Size = new System.Drawing.Size(196, 22);
-            this.DeviceTemplateNew.Text = "Add Device Template...";
-            this.DeviceTemplateNew.Click += new System.EventHandler(this.NewDeviceTemplateMenu_Click);
+            this.DeviceProfilesNew.Name = "DeviceProfilesNew";
+            this.DeviceProfilesNew.Size = new System.Drawing.Size(180, 22);
+            this.DeviceProfilesNew.Text = "Add Device Profile...";
+            this.DeviceProfilesNew.Click += new System.EventHandler(this.NewDeviceProfilesMenu_Click);
             // 
-            // DeviceTemplateDelete
+            // DeviceProfilesDelete
             // 
-            this.DeviceTemplateDelete.Name = "DeviceTemplateDelete";
-            this.DeviceTemplateDelete.Size = new System.Drawing.Size(196, 22);
-            this.DeviceTemplateDelete.Text = "Delete";
-            this.DeviceTemplateDelete.Click += new System.EventHandler(this.DeleteMenu_Click);
+            this.DeviceProfilesDelete.Name = "DeviceProfilesDelete";
+            this.DeviceProfilesDelete.Size = new System.Drawing.Size(180, 22);
+            this.DeviceProfilesDelete.Text = "Delete";
+            this.DeviceProfilesDelete.Click += new System.EventHandler(this.DeleteMenu_Click);
             // 
             // imageList1
             // 
@@ -1440,7 +1577,7 @@ namespace Gurux.DeviceSuite.Ami
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(838, 710);
+            this.ClientSize = new System.Drawing.Size(838, 694);
             this.Controls.Add(this.AmiPanel);
             this.Name = "GXAmi";
             this.Text = "GXDirector";
@@ -1450,6 +1587,8 @@ namespace Gurux.DeviceSuite.Ami
             this.tabControl2.ResumeLayout(false);
             this.AssignedTab.ResumeLayout(false);
             this.DataCollectorMenu.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.UnAssignedTab.ResumeLayout(false);
             this.UnAssignedMenu.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
@@ -1459,6 +1598,8 @@ namespace Gurux.DeviceSuite.Ami
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.DeviceMenu.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.TablePanel.ResumeLayout(false);
             this.tabControl3.ResumeLayout(false);
             this.ValuesTab.ResumeLayout(false);
@@ -1478,10 +1619,11 @@ namespace Gurux.DeviceSuite.Ami
             this.ScheduleMenu.ResumeLayout(false);
             this.TasksTab.ResumeLayout(false);
             this.TasksMenu.ResumeLayout(false);
+            this.TaskLogTab.ResumeLayout(false);
             this.TraceTab.ResumeLayout(false);
             this.TraceMenu.ResumeLayout(false);
             this.DeviceProfilesTab.ResumeLayout(false);
-            this.DeviceTemplateMenu.ResumeLayout(false);
+            this.DeviceProfilesMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1501,10 +1643,6 @@ namespace Gurux.DeviceSuite.Ami
         private System.Windows.Forms.ToolStripMenuItem ScheduleRunMenu;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem SchedulePropertiesMenu;
-        private System.Windows.Forms.ContextMenuStrip DataCollectorMenu;
-        private System.Windows.Forms.ToolStripMenuItem NewDeviceMenu;
-        private System.Windows.Forms.ToolStripMenuItem DeleteMenu;
-        private System.Windows.Forms.ToolStripMenuItem PropertiesMenu;
         private System.Windows.Forms.ContextMenuStrip TraceMenu;
         private System.Windows.Forms.TabPage EventLogTab;
         internal System.Windows.Forms.ListView EventsList;
@@ -1557,7 +1695,6 @@ namespace Gurux.DeviceSuite.Ami
         private System.Windows.Forms.TabPage UnAssignedTab;
         internal System.Windows.Forms.ListView UnassignedDCList;
         private System.Windows.Forms.ColumnHeader IPAddressCH;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.TabPage TasksTab;
         internal System.Windows.Forms.ListView TaskList;
         private System.Windows.Forms.ColumnHeader TaskCreationTimeCH;
@@ -1572,22 +1709,22 @@ namespace Gurux.DeviceSuite.Ami
         private System.Windows.Forms.ToolStripMenuItem TasksRemoveMenu;
         internal System.Windows.Forms.ListView DCList;
         private System.Windows.Forms.ColumnHeader DcCH;
-        private System.Windows.Forms.ContextMenuStrip DeviceTemplateMenu;
-        private System.Windows.Forms.ToolStripMenuItem DeviceTemplateNew;
-        private System.Windows.Forms.ToolStripMenuItem DeviceTemplateDelete;
+        private System.Windows.Forms.ContextMenuStrip DeviceProfilesMenu;
+        private System.Windows.Forms.ToolStripMenuItem DeviceProfilesNew;
+        private System.Windows.Forms.ToolStripMenuItem DeviceProfilesDelete;
         private System.Windows.Forms.ContextMenuStrip UnAssignedMenu;
         private System.Windows.Forms.ToolStripMenuItem AssignMenu;
         private System.Windows.Forms.ToolStripMenuItem RemoveUnAssignedMenu;
         private System.Windows.Forms.ColumnHeader MACAddressLbl;
         private System.Windows.Forms.TabPage DeviceProfilesTab;
-        internal System.Windows.Forms.ListView DeviceTemplateList;
+        internal System.Windows.Forms.ListView DeviceProfilesList;
         private System.Windows.Forms.ColumnHeader ManufacturerCH;
         private System.Windows.Forms.ColumnHeader ModelCH;
         private System.Windows.Forms.ColumnHeader VersionCH;
         private System.Windows.Forms.ColumnHeader PresetNameCH;
         private System.Windows.Forms.ColumnHeader ProtocolCH;
         private System.Windows.Forms.ColumnHeader TemplateCH;
-        private System.Windows.Forms.ColumnHeader DeviceTemplateVersionCH;
+        private System.Windows.Forms.ColumnHeader DeviceProfilesVersionCH;
         private System.Windows.Forms.Panel TablePanel;
         private System.Windows.Forms.TabControl tabControl3;
         private System.Windows.Forms.TabPage ValuesTab;
@@ -1622,9 +1759,28 @@ namespace Gurux.DeviceSuite.Ami
         private System.Windows.Forms.Label TableNameLbl;
         private System.Windows.Forms.ComboBox TableCB;
         private System.Windows.Forms.ColumnHeader TimestampCH;
-        private System.Windows.Forms.ToolStripMenuItem AddCommandPromptMenu;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox DCSearchBtn;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox DeviceSearchBtn;
+        private System.Windows.Forms.TabPage TaskLogTab;
+        internal System.Windows.Forms.ListView TaskLogList;
+        private System.Windows.Forms.ColumnHeader TaskLogDescriptionCH;
+        private System.Windows.Forms.ColumnHeader TaskLogTargetCH;
+        private System.Windows.Forms.ColumnHeader TaskLogCreationTimeCH;
+        private System.Windows.Forms.ColumnHeader TaskLogClaimTimeCH;
+        private System.Windows.Forms.ColumnHeader TaskLogSenderCH;
+        private System.Windows.Forms.ColumnHeader TaskSenderCH;
+        private System.Windows.Forms.ColumnHeader TaskLogFinishTimeCH;
+        private System.Windows.Forms.ContextMenuStrip DataCollectorMenu;
+        private System.Windows.Forms.ToolStripMenuItem ShowDCDevicesMenu;
+        private System.Windows.Forms.ToolStripMenuItem NewDataCollectorMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem DeleteMenu;
+        private System.Windows.Forms.ToolStripMenuItem PropertiesMenu;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem AddCommandPromptMenu;
 
     }
 }

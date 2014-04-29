@@ -44,11 +44,11 @@ namespace Gurux.DeviceSuite.Publisher
         /// Published item.
         /// </summary>
         GXPublisher Item;
-        GXPublisherDlg ParentForm;
+        GXPublisherDlg ParentDlg;
 
         public GXPublisherPage(GXPublisherDlg parent, GXPublisher item)
         {
-            ParentForm = parent;
+            ParentDlg = parent;
             Item = item;
             InitializeComponent();
         }
@@ -89,7 +89,7 @@ namespace Gurux.DeviceSuite.Publisher
                 Gurux.DeviceSuite.Properties.Settings.Default.UserName = null;
             }
 
-            ParentForm.Client.SetCredentials(NameTb.Text, pw);
+            ParentDlg.Client.SetCredentials(NameTb.Text, pw);
             Item.Anynomous = AnonymousCB.Checked;
         }
 

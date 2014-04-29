@@ -86,6 +86,8 @@ namespace Gurux.DeviceSuite
             this.HostTB = new System.Windows.Forms.TextBox();
             this.HostLbl = new System.Windows.Forms.Label();
             this.Progress = new System.Windows.Forms.ProgressBar();
+            this.GetDataCollectorsAutomaticallyCB = new System.Windows.Forms.CheckBox();
+            this.GetDevicesAutomaticallyCB = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.DirectorTab.SuspendLayout();
@@ -119,9 +121,9 @@ namespace Gurux.DeviceSuite
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.GeneralTab);
             this.tabControl1.Controls.Add(this.DeviceEditorTab);
             this.tabControl1.Controls.Add(this.DirectorTab);
@@ -148,8 +150,8 @@ namespace Gurux.DeviceSuite
             // 
             // MaximimTraceCountTB
             // 
-            this.MaximimTraceCountTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.MaximimTraceCountTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MaximimTraceCountTB.Location = new System.Drawing.Point(139, 40);
             this.MaximimTraceCountTB.Name = "MaximimTraceCountTB";
             this.MaximimTraceCountTB.Size = new System.Drawing.Size(85, 20);
@@ -165,8 +167,8 @@ namespace Gurux.DeviceSuite
             // 
             // MaximimErrorCountTB
             // 
-            this.MaximimErrorCountTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.MaximimErrorCountTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MaximimErrorCountTB.Location = new System.Drawing.Point(139, 14);
             this.MaximimErrorCountTB.Name = "MaximimErrorCountTB";
             this.MaximimErrorCountTB.Size = new System.Drawing.Size(85, 20);
@@ -203,8 +205,8 @@ namespace Gurux.DeviceSuite
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.ShowPropertyValueCB);
             this.groupBox1.Controls.Add(this.ShowCategoriesCB);
             this.groupBox1.Controls.Add(this.ShowTablesCB);
@@ -302,8 +304,10 @@ namespace Gurux.DeviceSuite
             // 
             // AMISettings
             // 
-            this.AMISettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.AMISettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AMISettings.Controls.Add(this.GetDevicesAutomaticallyCB);
+            this.AMISettings.Controls.Add(this.GetDataCollectorsAutomaticallyCB);
             this.AMISettings.Controls.Add(this.TestBtn);
             this.AMISettings.Controls.Add(this.DatabaseSettingsBtn);
             this.AMISettings.Controls.Add(this.PortTB);
@@ -341,8 +345,8 @@ namespace Gurux.DeviceSuite
             // 
             // PortTB
             // 
-            this.PortTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.PortTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PortTB.Location = new System.Drawing.Point(103, 45);
             this.PortTB.Name = "PortTB";
             this.PortTB.Size = new System.Drawing.Size(231, 20);
@@ -358,8 +362,8 @@ namespace Gurux.DeviceSuite
             // 
             // HostTB
             // 
-            this.HostTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.HostTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.HostTB.Location = new System.Drawing.Point(103, 19);
             this.HostTB.Name = "HostTB";
             this.HostTB.Size = new System.Drawing.Size(231, 20);
@@ -375,13 +379,37 @@ namespace Gurux.DeviceSuite
             // 
             // Progress
             // 
-            this.Progress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.Progress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Progress.Location = new System.Drawing.Point(5, 271);
             this.Progress.Name = "Progress";
             this.Progress.Size = new System.Drawing.Size(198, 8);
             this.Progress.TabIndex = 46;
             this.Progress.Visible = false;
+            // 
+            // GetDataCollectorsAutomaticallyCB
+            // 
+            this.GetDataCollectorsAutomaticallyCB.AutoSize = true;
+            this.GetDataCollectorsAutomaticallyCB.Checked = true;
+            this.GetDataCollectorsAutomaticallyCB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.GetDataCollectorsAutomaticallyCB.Location = new System.Drawing.Point(9, 74);
+            this.GetDataCollectorsAutomaticallyCB.Name = "GetDataCollectorsAutomaticallyCB";
+            this.GetDataCollectorsAutomaticallyCB.Size = new System.Drawing.Size(182, 17);
+            this.GetDataCollectorsAutomaticallyCB.TabIndex = 40;
+            this.GetDataCollectorsAutomaticallyCB.Text = "Get DataCollectors automatically.";
+            this.GetDataCollectorsAutomaticallyCB.UseVisualStyleBackColor = true;
+            // 
+            // GetDevicesAutomaticallyCB
+            // 
+            this.GetDevicesAutomaticallyCB.AutoSize = true;
+            this.GetDevicesAutomaticallyCB.Checked = true;
+            this.GetDevicesAutomaticallyCB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.GetDevicesAutomaticallyCB.Location = new System.Drawing.Point(9, 97);
+            this.GetDevicesAutomaticallyCB.Name = "GetDevicesAutomaticallyCB";
+            this.GetDevicesAutomaticallyCB.Size = new System.Drawing.Size(152, 17);
+            this.GetDevicesAutomaticallyCB.TabIndex = 41;
+            this.GetDevicesAutomaticallyCB.Text = "Get Devices automatically.";
+            this.GetDevicesAutomaticallyCB.UseVisualStyleBackColor = true;
             // 
             // GXOptionsForm
             // 
@@ -441,5 +469,7 @@ namespace Gurux.DeviceSuite
         private System.Windows.Forms.CheckBox ShowCategoriesCB;
         private System.Windows.Forms.CheckBox ShowPropertyValueCB;
         private System.Windows.Forms.ProgressBar Progress;
+        private System.Windows.Forms.CheckBox GetDevicesAutomaticallyCB;
+        private System.Windows.Forms.CheckBox GetDataCollectorsAutomaticallyCB;
     }
 }

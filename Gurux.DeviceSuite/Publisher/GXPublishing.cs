@@ -42,11 +42,11 @@ namespace Gurux.DeviceSuite.Publisher
     public partial class GXPublishing : Form, IGXWizardPage
     {
         GXPublisher Item;
-        GXPublisherDlg ParentForm;
+        GXPublisherDlg ParentDlg;
         public GXPublishing(GXPublisherDlg parent, GXPublisher item)
         {
             Item = item;
-            ParentForm = parent;
+            ParentDlg = parent;
             InitializeComponent();
         }
 
@@ -77,11 +77,11 @@ namespace Gurux.DeviceSuite.Publisher
         {
             try
             {
-                ParentForm.NextBtn.Enabled = false;
+                ParentDlg.NextBtn.Enabled = false;
                 timer1.Enabled = true;
-                ParentForm.Client.Post(Item);
-                ParentForm.NextBtn.Enabled = true;
-                ParentForm.NextBtn.PerformClick();
+                ParentDlg.Client.Post(Item);
+                ParentDlg.NextBtn.Enabled = true;
+                ParentDlg.NextBtn.PerformClick();
             }
             finally
             {

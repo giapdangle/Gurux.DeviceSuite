@@ -396,7 +396,7 @@ namespace Gurux.DeviceSuite.Import
                 {
                     Gurux.DeviceSuite.Properties.Settings.Default.EditorSelectedMedia = new System.Collections.Specialized.StringCollection();
                 }
-                string newKey = m_GXDevice.ProtocolName + m_GXDevice.DeviceType;
+                string newKey = m_GXDevice.ProtocolName + m_GXDevice.DeviceProfile;
                 newKey = newKey.GetHashCode().ToString();
                 int pos = -1;
                 foreach(string it in Gurux.DeviceSuite.Properties.Settings.Default.EditorSelectedMedia)
@@ -422,7 +422,7 @@ namespace Gurux.DeviceSuite.Import
                     Gurux.DeviceSuite.Properties.Settings.Default.EditorSelectedMediaSettings = new System.Collections.Specialized.StringCollection();
                 }
                 found = false;
-                newKey = m_GXDevice.ProtocolName + m_GXDevice.DeviceType + MediaSettings.SelectedMedia.MediaType;
+                newKey = m_GXDevice.ProtocolName + m_GXDevice.DeviceProfile + MediaSettings.SelectedMedia.MediaType;
                 newKey = newKey.GetHashCode().ToString();
                 pos = -1;
                 foreach(string it in Gurux.DeviceSuite.Properties.Settings.Default.EditorSelectedMediaSettings)

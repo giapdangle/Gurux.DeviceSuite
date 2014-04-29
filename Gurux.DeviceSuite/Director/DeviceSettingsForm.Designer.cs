@@ -76,7 +76,7 @@ namespace Gurux.DeviceSuite.Director
             this.RefreshRateLbl = new System.Windows.Forms.Label();
             this.NameLbl = new System.Windows.Forms.Label();
             this.NameTB = new System.Windows.Forms.TextBox();
-            this.CustomDeviceType = new Gurux.DeviceSuite.Common.CustomDeviceTypeListBox();
+            this.CustomDeviceProfile = new Gurux.DeviceSuite.Common.CustomDeviceTypeListBox();
             this.PresetList = new System.Windows.Forms.ListView();
             this.PresetNameCH = new System.Windows.Forms.ColumnHeader();
             this.ManufacturerCH = new System.Windows.Forms.ColumnHeader();
@@ -189,7 +189,7 @@ namespace Gurux.DeviceSuite.Director
             // 
             // splitContainer3.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.CustomDeviceType);
+            this.splitContainer3.Panel2.Controls.Add(this.CustomDeviceProfile);
             this.splitContainer3.Panel2.Controls.Add(this.PresetList);
             this.splitContainer3.Panel2.Controls.Add(this.panel1);
             this.splitContainer3.Size = new System.Drawing.Size(504, 168);
@@ -265,15 +265,15 @@ namespace Gurux.DeviceSuite.Director
             // 
             // CustomDeviceType
             // 
-            this.CustomDeviceType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.CustomDeviceType.FormattingEnabled = true;
-            this.CustomDeviceType.Location = new System.Drawing.Point(297, 3);
-            this.CustomDeviceType.Name = "CustomDeviceType";
-            this.CustomDeviceType.Size = new System.Drawing.Size(204, 69);
-            this.CustomDeviceType.Sorted = true;
-            this.CustomDeviceType.TabIndex = 7;
-            this.CustomDeviceType.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.CustomDeviceType_DrawItem);
-            this.CustomDeviceType.SelectedIndexChanged += new System.EventHandler(this.CustomDeviceType_SelectedIndexChanged);
+            this.CustomDeviceProfile.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.CustomDeviceProfile.FormattingEnabled = true;
+            this.CustomDeviceProfile.Location = new System.Drawing.Point(297, 3);
+            this.CustomDeviceProfile.Name = "CustomDeviceType";
+            this.CustomDeviceProfile.Size = new System.Drawing.Size(204, 69);
+            this.CustomDeviceProfile.Sorted = true;
+            this.CustomDeviceProfile.TabIndex = 7;
+            this.CustomDeviceProfile.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.CustomDeviceType_DrawItem);
+            this.CustomDeviceProfile.SelectedIndexChanged += new System.EventHandler(this.CustomDeviceType_SelectedIndexChanged);
             // 
             // PresetList
             // 
@@ -484,7 +484,7 @@ namespace Gurux.DeviceSuite.Director
         private System.Windows.Forms.ColumnHeader ManufacturerCH;
         private System.Windows.Forms.ColumnHeader ModelCH;
         private System.Windows.Forms.ColumnHeader VersionCH;
-        private Gurux.DeviceSuite.Common.CustomDeviceTypeListBox CustomDeviceType;
+        private Gurux.DeviceSuite.Common.CustomDeviceTypeListBox CustomDeviceProfile;
         private System.Windows.Forms.Panel MediaFrame;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ComboBox MediaCB;

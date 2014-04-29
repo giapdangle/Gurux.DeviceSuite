@@ -45,7 +45,7 @@ namespace Gurux.DeviceSuite.Import
 {
     public partial class GXImportStartForm : Form, IGXWizardPage
     {
-        bool Show;
+        bool IsShown;
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -58,14 +58,14 @@ namespace Gurux.DeviceSuite.Import
             DeviceRB.Enabled = DeviceRB.Checked = addIn.ImportFromDeviceEnabled;
             CustomProtocolRB.Text = addIn.Name + " File";
             //This page is shown only if both import from device and file are enabled.
-            Show = addIn.ImportFromDeviceEnabled && addIn.ImportFromFileEnabled;
+            IsShown = addIn.ImportFromDeviceEnabled && addIn.ImportFromFileEnabled;
         }
 
         #region IGXWizardPage Members
 
         bool IGXWizardPage.IsShown()
         {
-            return Show;
+            return IsShown;
         }
 
         void IGXWizardPage.Next()

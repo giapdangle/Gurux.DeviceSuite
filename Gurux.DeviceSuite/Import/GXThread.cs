@@ -56,11 +56,10 @@ namespace Gurux.DeviceSuite.Import
         }
 
         /// <summary>
-        /// Search available devices.
+        /// Import data from the device.
         /// </summary>
         public void SearchThread()
         {
-
             try
             {
                 if (m_Parent.Start.DeviceRB.Checked)

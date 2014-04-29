@@ -103,7 +103,7 @@ namespace Gurux.DeviceSuite.Editor
                 }
                 if (string.IsNullOrEmpty(Device.PresetName))
                 {
-                    return Device.Name + " [" + Device.DeviceType + "]";
+                    return Device.Name + " [" + Device.DeviceProfile + "]";
                 }                
                 return Device.PresetName + " [" + Device.Manufacturer + " " + Device.Model + "]";
             }
@@ -306,7 +306,7 @@ namespace Gurux.DeviceSuite.Editor
         {
             try
             {
-                Device.Save(Device.DeviceTemplatePath);
+                Device.Save(Device.ProfilePath);
             }
             catch (Exception Ex)
             {
@@ -453,7 +453,7 @@ namespace Gurux.DeviceSuite.Editor
                     return;
                 }                
                 Device = dlg.Target as GXDevice;
-                Device.Save(Device.DeviceTemplatePath);                
+                Device.Save(Device.ProfilePath);                
                 Device.Register();                
                 ShowProperties(Device);                
                 ParentComponent.CloseMenu.Enabled = true;
@@ -527,7 +527,7 @@ namespace Gurux.DeviceSuite.Editor
             }
         }
 
-        private void LoadDevice(GXDeviceType deviceType)
+        private void LoadDevice(GXDeviceProfile deviceType)
         {
             try
             {
@@ -560,7 +560,7 @@ namespace Gurux.DeviceSuite.Editor
             GXProtocolAddIn AddIn = device.AddIn;
             GXProtocolAddIn.VisibilityItems func = AddIn.ItemVisibility;
             //Show device properties
-            TreeNode DevNode = PropertyTree.Nodes.Add(device.DeviceType);
+            TreeNode DevNode = PropertyTree.Nodes.Add(device.DeviceProfile);
             DevNode.SelectedImageIndex = DevNode.ImageIndex = 0;
             DevNode.Tag = device;
             ObjectToTreeNode[device] = DevNode;
@@ -924,7 +924,7 @@ namespace Gurux.DeviceSuite.Editor
                 dlg.Filter = Gurux.DeviceSuite.Properties.Resources.ExportedFilesFileTxt + Gurux.DeviceSuite.Properties.Resources.AllFilesTxt;
                 dlg.ValidateNames = true;
                 dlg.DefaultExt = "gxz";
-                dlg.FileName = Device.DeviceType;
+                dlg.FileName = Device.DeviceProfile;
                 if (dlg.ShowDialog(ParentComponent) == DialogResult.OK)
                 {
                     string Path = dlg.FileName;
@@ -968,7 +968,7 @@ namespace Gurux.DeviceSuite.Editor
                     return;
                 }
                 this.Cursor = Cursors.WaitCursor;
-                GXDeviceType gxtype = GXZip.Import(this, dlg.FileName);
+                GXDeviceProfile gxtype = GXZip.Import(this, dlg.FileName);
                 if (gxtype == null)
                 {
                     MessageBox.Show(this, Gurux.DeviceSuite.Properties.Resources.RestartToUpdateAddins, Gurux.DeviceSuite.Properties.Resources.DeviceEditorTxt, MessageBoxButtons.OK);
@@ -1125,7 +1125,7 @@ namespace Gurux.DeviceSuite.Editor
                 }
             }
             if (InvokeRequired)
-            {
+            {               
                 this.BeginInvoke(new TraceEventHandler(OnTrace), new object[] { sender, e });
                 return;
             }

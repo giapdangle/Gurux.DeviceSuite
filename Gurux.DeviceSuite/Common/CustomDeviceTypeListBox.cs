@@ -75,7 +75,7 @@ namespace Gurux.DeviceSuite.Common
             Rectangle rc = e.Bounds;
             rc.Location = new Point(0, e.Bounds.Top);
             string str = string.Empty;
-            GXDeviceType tp = this.Items[e.Index] as GXDeviceType;
+            GXDeviceProfile tp = this.Items[e.Index] as GXDeviceProfile;
             if (tp != null)
             {
                 str = tp.Name;
@@ -87,8 +87,8 @@ namespace Gurux.DeviceSuite.Common
             }
             else
             {
-                GXAmiDeviceTemplate dt = this.Items[e.Index] as GXAmiDeviceTemplate;
-                str = dt.Template;
+                GXAmiDeviceProfile dt = this.Items[e.Index] as GXAmiDeviceProfile;
+                str = dt.Profile;
                 e.Graphics.DrawString(str, e.Font, textBrush, rc, StringFormat.GenericDefault);
                 str = "[" + dt.Protocol + "]";
                 SizeF size = e.Graphics.MeasureString(str, e.Font);

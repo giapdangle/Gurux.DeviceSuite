@@ -49,6 +49,7 @@ using Gurux.Device;
 using GuruxAMI.Client;
 using GuruxAMI.Common;
 using Gurux.Serial;
+using System.IO;
 
 namespace Gurux.DeviceSuite.Ami
 {    
@@ -64,45 +65,108 @@ namespace Gurux.DeviceSuite.Ami
         internal Gurux.Common.IGXMedia SelectedMedia;
         Gurux.Device.GXDevice UIDevice;
         public GuruxAMI.Common.GXAmiDevice Device;
-        List<GXAmiDeviceTemplate> Templates = new List<GXAmiDeviceTemplate>();
+        List<GXAmiDeviceProfile> Templates = new List<GXAmiDeviceProfile>();
         GXParameters DeviceParameters = new GXParameters();
+        List<GXAmiDeviceMedia> MediaConnections = new List<GXAmiDeviceMedia>();
 
-        public GXAmiDeviceSettingsForm(GXAmiClient client, GuruxAMI.Common.GXAmiDevice device, GXAmiDataCollector[] dcs)
+        /// <summary>
+        /// Get available medias from selected DC. If DC is not selected show all medias from all DCs.
+        /// </summary>
+        ulong GetAllAvailableMediasFromDCs()
         {
-            DataCollectors = dcs;
-            AvailableMedias = new List<string>();
-            foreach(GXAmiDataCollector it in DataCollectors)
+            AvailableMedias.Clear();
+            ulong id = 0;
+            //If device is edited.
+            if (Device != null && Device.Medias[0].DataCollectorId != null)
             {
-                foreach(string media in it.Medias)
+                id = Device.Medias[0].DataCollectorId.Value;
+            }
+            foreach (GXAmiDataCollector it in DataCollectors)
+            {
+                if (id == 0 || id == it.Id)
                 {
-                    if (!AvailableMedias.Contains(media))
+                    foreach (string media in it.Medias)
                     {
-                        AvailableMedias.Add(media);
+                        if (!AvailableMedias.Contains(media))
+                        {
+                            AvailableMedias.Add(media);
+                        }
                     }
                 }
             }
-            Client = client;
-            Device = device;            
+            return id;
+        }
+
+        public GXAmiDeviceSettingsForm(GXAmiClient client, GuruxAMI.Common.GXAmiDevice device, GXAmiDataCollector[] dcs)
+        {
             InitializeComponent();            
-            SettingsPanel.Dock = PropertyGrid.Dock = PresetList.Dock = CustomDeviceType.Dock = DockStyle.Fill;
-            //GuruxAMI.Common.Device type can not be changed after creation. This is for secure reasons.
-            PresetCB.Enabled = CustomRB.Enabled = PresetList.Enabled = CustomDeviceType.Enabled = Device == null;                  
-            CustomDeviceType.Visible = false;            
+            DataCollectors = dcs;
+            AvailableMedias = new List<string>();                    
+            Client = client;
+            Device = device;
+            ulong id = GetAllAvailableMediasFromDCs();
             if (Device != null)
-            {                                
+            {
+                MediaConnections.AddRange(Device.Medias);
+            }
+            this.CollectorsCB.Items.Add("");
+            foreach (GXAmiDataCollector it in DataCollectors)
+            {
+                int pos2 = this.CollectorsCB.Items.Add(it);                
+                if (id == it.Id)             
+                {
+                    this.CollectorsCB.SelectedIndex = pos2;
+                }
+            }
+            if (this.CollectorsCB.SelectedIndex == -1)
+            {
+                this.CollectorsCB.SelectedIndex = 0;
+            }
+            SettingsPanel.Dock = PropertyGrid.Dock = PresetList.Dock = CustomDeviceProfile.Dock = DockStyle.Fill;
+            //GuruxAMI.Common.Device type can not be changed after creation. This is for secure reasons.
+            PresetCB.Enabled = CustomRB.Enabled = PresetList.Enabled = CustomDeviceProfile.Enabled = Device == null;                  
+            CustomDeviceProfile.Visible = false;            
+            if (Device != null)
+            {
+                //Add redundant conections.
+                for (int pos = 1; pos < Device.Medias.Length; ++pos)
+                {
+                    AddConnection(Device.Medias[pos]);
+                }            
                 NameTB.Text = Device.Name;
                 RefreshRateTp.Value = new DateTime(((long)Device.UpdateInterval) * 10000000 + RefreshRateTp.MinDate.Ticks);
                 UpdateResendCnt(Device.ResendCount);
                 UpdateWaitTime(Device.WaitTime);
                 //Create UI Device so all assemblys are loaded.
-                if (string.IsNullOrEmpty(Device.PresetName))
+                string path = Path.Combine(Gurux.Common.GXCommon.ApplicationDataPath, "Gurux");
+                if (!Directory.Exists(path))
                 {
-                    UIDevice = GXDevice.Create(Device.Protocol, Device.Template, "");
+                    Directory.CreateDirectory(path);
+                    Gurux.Common.GXFileSystemSecurity.UpdateDirectorySecurity(path);
                 }
-                else
+                path = Path.Combine(path, "Gurux.DeviceSuite");
+                if (!Directory.Exists(path))
                 {
-                    UIDevice = GXDevice.Create(Device.Manufacturer, Device.Model,Device.Version, Device.PresetName, "");
+                    Directory.CreateDirectory(path);
+                    Gurux.Common.GXFileSystemSecurity.UpdateDirectorySecurity(path);
                 }
+                path = Path.Combine(path, "DeviceProfiles");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                    Gurux.Common.GXFileSystemSecurity.UpdateDirectorySecurity(path);
+                }
+                path = Path.Combine(path, Device.ProfileGuid.ToString());
+                //Load Device template if not loaded yet.                                 
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                    Gurux.Common.GXFileSystemSecurity.UpdateDirectorySecurity(path);
+                    byte[] data = Client.GetDeviceProfilesData(Device.ProfileGuid);
+                    GXZip.Import(this, data, path + "\\");
+                }
+                path = Path.Combine(path, Device.ProfileGuid.ToString() + ".gxp");
+                UIDevice = GXDevice.Load(path);                
             }
             else
             {
@@ -125,7 +189,7 @@ namespace Gurux.DeviceSuite.Ami
         {
             bool preset = PresetCB.Checked;
             PresetList.Visible = preset;
-            CustomDeviceType.Visible = !preset;
+            CustomDeviceProfile.Visible = !preset;
         }
 
         private void UpdateResendCnt(int resendCnt)
@@ -158,9 +222,9 @@ namespace Gurux.DeviceSuite.Ami
                     {
                         PresetList.Items[0].Selected = true;
                     }
-                    else if (CustomDeviceType.Items.Count != 0)
+                    else if (CustomDeviceProfile.Items.Count != 0)
                     {
-                        CustomDeviceType.SelectedIndex = 0;
+                        CustomDeviceProfile.SelectedIndex = 0;
                     }
                     else // If no device templates are installed.
                     {
@@ -177,7 +241,7 @@ namespace Gurux.DeviceSuite.Ami
 
         void ShowPresetDevices()
         {
-            GXAmiDeviceTemplate[] templates = Client.GetDeviceTypes(true, null, false);
+            GXAmiDeviceProfile[] templates = Client.GetDeviceProfiles(true, null, false, false);
             if (templates.Length == 0)
             {
                 CustomRB.Checked = true;
@@ -185,39 +249,39 @@ namespace Gurux.DeviceSuite.Ami
                 return;
             }
             Templates.AddRange(templates);
-            GXAmiDeviceTemplate deviceTemplate = null;            
+            GXAmiDeviceProfile DeviceProfiles = null;            
             if (Device != null)
             {
-                deviceTemplate = FindDeviceTemplate(Device.TemplateId, templates);                
+                DeviceProfiles = FindDeviceProfiles(Device.ProfileId, templates);                
             }
-            Dictionary<GXAmiDeviceTemplate, ListViewItem> items = new Dictionary<GXAmiDeviceTemplate, ListViewItem>();
-            foreach (GXAmiDeviceTemplate it in templates)
+            Dictionary<GXAmiDeviceProfile, ListViewItem> items = new Dictionary<GXAmiDeviceProfile, ListViewItem>();
+            foreach (GXAmiDeviceProfile it in templates)
             {
                 ListViewItem item = new ListViewItem(new string[]{it.Manufacturer, it.Model, 
-                                it.Version, it.PresetName, it.TemplateVersion.ToString()});
+                                it.Version, it.PresetName, it.ProfileVersion.ToString()});
                 item.Tag = it;
                 items.Add(it, item);               
             }
             PresetList.Items.AddRange(items.Values.ToArray());
             //Select found device.
-            if (deviceTemplate != null)
+            if (DeviceProfiles != null)
             {               
                 this.PresetList.SelectedIndexChanged -= new System.EventHandler(this.PresetList_SelectedIndexChanged);
-                items[deviceTemplate].Selected = true;
+                items[DeviceProfiles].Selected = true;
                 this.PresetList.SelectedIndexChanged += new System.EventHandler(this.PresetList_SelectedIndexChanged);          
-                UpdateMedias();
+                UpdateMedias(true);
             }             
         }
 
-        GXAmiDeviceTemplate FindDeviceTemplate(ulong id, GXAmiDeviceTemplate[] templates)
+        GXAmiDeviceProfile FindDeviceProfiles(ulong id, GXAmiDeviceProfile[] templates)
         {
             if (id == 0)
             {
                 return null;
             }
-            foreach (GXAmiDeviceTemplate it in templates)
+            foreach (GXAmiDeviceProfile it in templates)
             {
-                if (it.Id == Device.TemplateId)
+                if (it.Id == Device.ProfileId)
                 {
                     return it;
                 }
@@ -227,7 +291,7 @@ namespace Gurux.DeviceSuite.Ami
 
         void ShowCustomDeviceTypes()
         {
-            GXAmiDeviceTemplate[] templates = Client.GetDeviceTypes(false, null, false);
+            GXAmiDeviceProfile[] templates = Client.GetDeviceProfiles(false, null, false, false);
             if (templates.Length == 0)
             {
                 PresetCB.Checked = true;
@@ -235,20 +299,20 @@ namespace Gurux.DeviceSuite.Ami
                 return;
             }
             Templates.AddRange(templates);            
-            GXAmiDeviceTemplate deviceTemplate = null;
+            GXAmiDeviceProfile DeviceProfiles = null;
             if (Device != null)
             {
-                deviceTemplate = FindDeviceTemplate(Device.TemplateId, templates);                
+                DeviceProfiles = FindDeviceProfiles(Device.ProfileId, templates);                
             }
-            foreach (GXAmiDeviceTemplate type in templates)
+            foreach (GXAmiDeviceProfile type in templates)
             {
-                int pos = CustomDeviceType.Items.Add(type);
-                if (deviceTemplate != null && deviceTemplate.Protocol == type.Protocol && type.Template == deviceTemplate.Template)
+                int pos = CustomDeviceProfile.Items.Add(type);
+                if (DeviceProfiles != null && DeviceProfiles.Protocol == type.Protocol && type.Profile == DeviceProfiles.Profile)
                 {
-                    this.CustomDeviceType.SelectedIndexChanged -= new System.EventHandler(this.CustomDeviceType_SelectedIndexChanged);
-                    CustomDeviceType.SelectedIndices.Add(pos);
-                    this.CustomDeviceType.SelectedIndexChanged += new System.EventHandler(this.CustomDeviceType_SelectedIndexChanged);
-                    UpdateMedias();
+                    this.CustomDeviceProfile.SelectedIndexChanged -= new System.EventHandler(this.CustomDeviceType_SelectedIndexChanged);
+                    CustomDeviceProfile.SelectedIndices.Add(pos);
+                    this.CustomDeviceProfile.SelectedIndexChanged += new System.EventHandler(this.CustomDeviceType_SelectedIndexChanged);
+                    UpdateMedias(true);
                     break;
                 }
             }
@@ -257,7 +321,7 @@ namespace Gurux.DeviceSuite.Ami
         private void CustomDeviceType_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
-            if (CustomDeviceType.Items.Count <= e.Index || e.Index == -1)
+            if (CustomDeviceProfile.Items.Count <= e.Index || e.Index == -1)
             {
                 return;
             }
@@ -274,7 +338,7 @@ namespace Gurux.DeviceSuite.Ami
             Rectangle rc = e.Bounds;
             rc.Location = new Point(0, e.Bounds.Top);
             string str = string.Empty;
-            GXDeviceType tp = CustomDeviceType.Items[e.Index] as GXDeviceType;
+            GXDeviceProfile tp = CustomDeviceProfile.Items[e.Index] as GXDeviceProfile;
             str = tp.Name;
             e.Graphics.DrawString(str, e.Font, textBrush, rc, StringFormat.GenericDefault);
             str = "[" + tp.Protocol + "]";
@@ -294,11 +358,11 @@ namespace Gurux.DeviceSuite.Ami
             {
                 if (PresetList.SelectedIndices.Count == 1)
                 {
-                    CustomDeviceType.SelectedItems.Clear();
-                    GXAmiDeviceTemplate template = PresetList.SelectedItems[0].Tag as GXAmiDeviceTemplate;
+                    CustomDeviceProfile.SelectedItems.Clear();
+                    GXAmiDeviceProfile template = PresetList.SelectedItems[0].Tag as GXAmiDeviceProfile;
                     Device = Client.CreateDevice(template);
                     UIDevice = GXDevice.Create(Device.Manufacturer, Device.Model, Device.Version, Device.PresetName, "");
-                    UpdateMedias();
+                    UpdateMedias(false);
                 }
             }
             catch (Exception ex)
@@ -316,22 +380,22 @@ namespace Gurux.DeviceSuite.Ami
         {
             try
             {
-                if (CustomDeviceType.SelectedItems.Count == 1)
+                if (CustomDeviceProfile.SelectedItems.Count == 1)
                 {
                     PresetList.SelectedItems.Clear();
-                    GXAmiDeviceTemplate type = CustomDeviceType.SelectedItems[0] as GXAmiDeviceTemplate;
-                    GXAmiDeviceTemplate deviceTemplate = null;
+                    GXAmiDeviceProfile type = CustomDeviceProfile.SelectedItems[0] as GXAmiDeviceProfile;
+                    GXAmiDeviceProfile DeviceProfiles = null;
                     if (Device != null)
                     {
-                        deviceTemplate = FindDeviceTemplate(Device.TemplateId, Templates.ToArray());            
+                        DeviceProfiles = FindDeviceProfiles(Device.ProfileId, Templates.ToArray());            
                     }
-                    if (deviceTemplate == null || 
-                        deviceTemplate.Protocol != type.Protocol ||
-                        deviceTemplate.Template != type.Name)
+                    if (DeviceProfiles == null || 
+                        DeviceProfiles.Protocol != type.Protocol ||
+                        DeviceProfiles.Profile != type.Name)
                     {
                         Device = Client.CreateDevice(type);
-                        UIDevice = GXDevice.Create(Device.Protocol, Device.Template, "");
-                        UpdateMedias();
+                        UIDevice = GXDevice.Create(Device.Protocol, Device.Profile, "");
+                        UpdateMedias(false);
                     }                     
                 }
             }
@@ -341,25 +405,39 @@ namespace Gurux.DeviceSuite.Ami
             }
         }
 
-        void UpdateMedias()
+        void UpdateMedias(bool loading)
         {
-            MediaCB.Items.Clear();
-            GXAmiDeviceTemplate template = FindDeviceTemplate(Device.TemplateId, Templates.ToArray());
+            GXAmiDeviceMedia selectedmedia = null;
+            MediaCB.Items.Clear();            
+            GXAmiDeviceProfile template = FindDeviceProfiles(Device.ProfileId, Templates.ToArray());
             foreach (GXAmiMediaType mt in template.AllowedMediaTypes)
             {
                 if (AvailableMedias.Contains(mt.Name))
                 {
                     int pos = MediaCB.Items.Add(mt);
-                    if (Device != null && string.Compare(Device.MediaName, mt.Name) == 0)
+                    if (selectedmedia == null)
                     {
-                        MediaCB.SelectedIndex = pos;
+                        foreach (GXAmiDeviceMedia media in MediaConnections)
+                        {
+                            if (string.Compare(media.Name, mt.Name) == 0)
+                            {
+                                selectedmedia = media;
+                                MediaCB.SelectedIndex = pos;
+                                break;
+                            }
+                        }
                     }
                 }
             }
-            if (MediaCB.SelectedIndex == -1)
+            if (MediaCB.Items.Count == 0)
             {
+                MediaCB.Enabled = false;
+                return;
+            }
+            if (MediaCB.SelectedIndex == -1)
+            {                
                 MediaCB.SelectedIndex = 0;
-            }            
+            }
             DeviceParameters.Clear();
             DeviceParameters.AddRange(Device.Parameters);
             PropertyGrid.SelectedObject = DeviceParameters;
@@ -384,6 +462,10 @@ namespace Gurux.DeviceSuite.Ami
                     properties[it.Name].SetValue(UIDevice, it.Value);
                 }
                 SettingsForm = AddIn.GetCustomUI(UIDevice);
+            }
+            else if(UIDevice != null)
+            {
+                SettingsForm = UIDevice.AddIn.GetCustomUI(UIDevice);
             }
             if (SettingsForm != null)
             {
@@ -410,7 +492,20 @@ namespace Gurux.DeviceSuite.Ami
                     }
                     SettingsPanel.Controls.Add(ctr);
                 }
-                Device.MediaSettings = SelectedMedia.Settings;
+                if (MediaConnections.Count != 0)
+                {
+                    if (!loading)
+                    {
+                        GXAmiDeviceMedia m = MediaConnections[0];
+                        m.Name = SelectedMedia.Name;
+                        m.Settings = SelectedMedia.Settings;
+                    }
+                    else
+                    {
+                        SelectedMedia.Settings = MediaConnections[0].Settings;
+                        ((IGXPropertyPage)PropertiesForm).Initialize();
+                    }
+                }
             }
             else
             {
@@ -426,8 +521,13 @@ namespace Gurux.DeviceSuite.Ami
         {
             try
             {
-                MediaFrame.Controls.Clear();                
-                if (string.IsNullOrEmpty(Device.MediaName) || Device.MediaName != MediaCB.Text)
+                MediaFrame.Controls.Clear();
+                string mediaName = null;
+                if (MediaConnections.Count != 0)
+                {
+                    mediaName = MediaConnections[0].Name;
+                }
+                if (string.IsNullOrEmpty(mediaName) || mediaName != MediaCB.Text)
                 {
                     GXAmiMediaType mt = MediaCB.SelectedItem as GXAmiMediaType;
                     SelectedMedia = UIDevice.GXClient.SelectMedia(mt.Name);
@@ -435,8 +535,8 @@ namespace Gurux.DeviceSuite.Ami
                 }
                 else
                 {
-                    SelectedMedia = UIDevice.GXClient.SelectMedia(Device.MediaName);
-                    SelectedMedia.Settings = Device.MediaSettings;
+                    SelectedMedia = UIDevice.GXClient.SelectMedia(mediaName);
+                    SelectedMedia.Settings = MediaConnections[0].Settings;
                 }
                 if (SelectedMedia == null)
                 {
@@ -504,6 +604,13 @@ namespace Gurux.DeviceSuite.Ami
                 ((IGXPropertyPage)PropertiesForm).Apply();                
                 //Validate media settings.
                 SelectedMedia.Validate();
+                //If we are adding new device.
+                if (MediaConnections.Count == 0)
+                {
+                    MediaConnections.Add(new GXAmiDeviceMedia());
+                }
+                MediaConnections[0].Name = SelectedMedia.MediaType;
+                MediaConnections[0].Settings = SelectedMedia.Settings;
                 int resendCount = -3;
                 double NoOutput;
                 if (!ResendCountTb.ReadOnly)
@@ -529,9 +636,18 @@ namespace Gurux.DeviceSuite.Ami
                 if (UIDevice != null)
                 {
                     PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(UIDevice);
+                    object tmp;
                     foreach (GXAmiParameter it in Device.Parameters)
                     {
-                        properties[it.Name].SetValue(UIDevice, it.Value);
+                        if (it.Type.IsEnum)
+                        {
+                            tmp = Enum.Parse(properties[it.Name].PropertyType, it.Value.ToString());
+                        }
+                        else
+                        {
+                            tmp = Convert.ChangeType(it.Value, properties[it.Name].PropertyType);
+                        }                        
+                        properties[it.Name].SetValue(UIDevice, tmp);
                     }
                     //Validate device settings.
                     GXTaskCollection tasks = new GXTaskCollection();
@@ -546,17 +662,17 @@ namespace Gurux.DeviceSuite.Ami
                 Device.WaitTime = waitTime;
                 Device.ResendCount = resendCount;
                 Device.Name = NameTB.Text;
-                Device.MediaName = SelectedMedia.MediaType;
-                Device.MediaSettings = SelectedMedia.Settings;
+                int index = -1;
+                foreach (var it in MediaConnections)
+                {
+                    it.Index = ++index;
+                }
+                Device.Medias = MediaConnections.ToArray();
                 //Add disabled actions.
                 Device.DisabledActions = m_DisActions.DisabledActions;
                 if (Device.Id == 0)
                 {
-                    Client.AddDevice(Device, Client.GetDeviceGroups(false));
-                    foreach (GXAmiDataCollector it in DataCollectors)
-                    {
-                        Client.AddDataCollector(it, new GuruxAMI.Common.GXAmiDevice[] { Device });
-                    }
+                    Client.AddDevice(Device, Client.GetDeviceGroups(false));                   
                 }
                 else
                 {
@@ -586,6 +702,157 @@ namespace Gurux.DeviceSuite.Ami
             }
             // Set flag to show that the Help event as been handled
             hevent.Handled = true;
+        }
+
+        void AddConnection(GXAmiDeviceMedia m)
+        {
+            //Find name of DC.
+            string dc = "";
+            foreach (GXAmiDataCollector it in DataCollectors)
+            {
+                if (it.Id == m.DataCollectorId)
+                {
+                    dc = it.Name;
+                    break;
+                }
+            }
+            ListViewItem li = RedundantConnectionsList.Items.Add(m.Name);
+            li.SubItems.AddRange(new string[] {m.Settings, dc });
+            li.Tag = m;
+        }
+
+        private void AddMenu_Click(object sender, EventArgs e)
+        {
+            GXAmiDeviceMedia m = new GXAmiDeviceMedia();
+            GXAmiDeviceProfile template = FindDeviceProfiles(Device.ProfileId, Templates.ToArray());
+            RedundantForm dlg = new RedundantForm(UIDevice.GXClient, DataCollectors, template.AllowedMediaTypes, m);
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                MediaConnections.Add(m);
+                AddConnection(m);
+            }
+        }
+
+        private void EditMenu_Click(object sender, EventArgs e)
+        {
+            ListViewItem li = RedundantConnectionsList.SelectedItems[0];
+            GXAmiDeviceMedia m = li.Tag as GXAmiDeviceMedia;
+            GXAmiDeviceProfile template = FindDeviceProfiles(Device.ProfileId, Templates.ToArray());
+            RedundantForm dlg = new RedundantForm(UIDevice.GXClient, DataCollectors, template.AllowedMediaTypes, m);
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                //Find name of DC.
+                string dc = "";
+                foreach (GXAmiDataCollector it in DataCollectors)
+                {
+                    if (it.Id == m.DataCollectorId)
+                    {
+                        dc = it.Name;
+                        break;
+                    }
+                }                
+                li.SubItems[0].Text = m.Name;
+                li.SubItems[1].Text = m.Settings;
+                li.SubItems[2].Text = dc;
+            }
         }       
+
+        private void RemoveMenu_Click(object sender, EventArgs e)
+        {
+            if (GXCommon.ShowQuestion(Gurux.DeviceSuite.Properties.Resources.RemoveItemTxt) != DialogResult.Yes)
+            {
+                return;
+            }
+            ListViewItem it = RedundantConnectionsList.SelectedItems[0];
+            it.Remove();
+            MediaConnections.Remove(it.Tag as GXAmiDeviceMedia);
+        }
+
+        /// <summary>
+        /// Move redundant connection Up.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MoveUpMenu_Click(object sender, EventArgs e)
+        {
+            ListViewItem it = RedundantConnectionsList.SelectedItems[0];            
+            int index = it.Index;
+            RedundantConnectionsList.Items.RemoveAt(index);
+            RedundantConnectionsList.Items.Insert(index - 1, it);
+            index = MediaConnections.IndexOf(it.Tag as GXAmiDeviceMedia) - 1;
+            MediaConnections.Remove(it.Tag as GXAmiDeviceMedia);
+            MediaConnections.Insert(index, it.Tag as GXAmiDeviceMedia);
+        }
+
+        /// <summary>
+        /// Move redundant connection Down.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MoveDownMenu_Click(object sender, EventArgs e)
+        {
+            ListViewItem it = RedundantConnectionsList.SelectedItems[0];
+            int index = it.Index;
+            RedundantConnectionsList.Items.RemoveAt(index);
+            RedundantConnectionsList.Items.Insert(index + 1, it);
+            index = MediaConnections.IndexOf(it.Tag as GXAmiDeviceMedia) + 1;
+            MediaConnections.Remove(it.Tag as GXAmiDeviceMedia);
+            MediaConnections.Insert(index, it.Tag as GXAmiDeviceMedia);
+        }
+
+        private void RedundantMenu_Opening(object sender, CancelEventArgs e)
+        {
+            bool Selected = RedundantConnectionsList.SelectedItems.Count != 0;
+            EditMenu.Enabled = RemoveMenu.Enabled = Selected;
+            MoveUpMenu.Enabled = Selected && RedundantConnectionsList.SelectedItems[0].Index != 0;
+            MoveDownMenu.Enabled = Selected && RedundantConnectionsList.SelectedItems[0].Index != RedundantConnectionsList.Items.Count - 1;
+        }
+
+        /// <summary>
+        /// Show available medias when DC change.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CollectorsCB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //This is not do on load.
+                if (SelectedMedia != null)
+                {
+                    //If new device
+                    if (Device.Medias == null)
+                    {
+                        Device.Medias = new GXAmiDeviceMedia[] { new GXAmiDeviceMedia() };
+                        MediaConnections.AddRange(Device.Medias);
+                    }
+                    if ((CollectorsCB.SelectedItem is string))
+                    {
+                        MediaConnections[0].DataCollectorId = null;
+                    }
+                    else
+                    {
+                        MediaConnections[0].DataCollectorId = ((GXAmiDataCollector)CollectorsCB.SelectedItem).Id;                        
+                    }
+                    GetAllAvailableMediasFromDCs();
+                    ((IGXPropertyPage)PropertiesForm).Apply();                    
+                    MediaConnections[0].Name = SelectedMedia.MediaType;
+                    if (AvailableMedias.Contains(SelectedMedia.MediaType))
+                    {
+                        MediaConnections[0].Settings = SelectedMedia.Settings;
+                    }
+                    else
+                    {
+                        MediaConnections[0].Settings = "";
+                    }
+                    UpdateMedias(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                GXCommon.ShowError(this, ex);                
+            }
+        }
+
     }  
 }

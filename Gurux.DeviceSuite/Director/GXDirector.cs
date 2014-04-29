@@ -787,6 +787,8 @@ namespace Gurux.DeviceSuite.Director
 
         private void AddScheduleItem(GXSchedule item)
         {
+
+
             ListViewItem it = new ListViewItem(item.Name);
             it.SubItems.Add(GXScheduleEditorDlg.ScheduleRepeatToString(item.RepeatMode));
             //Next run time
@@ -1359,21 +1361,14 @@ namespace Gurux.DeviceSuite.Director
                         case ScheduleState.TaskStart:
                             it.ImageIndex = (int)ScheduleImages.ScheduleItemExecute;
 
-                            try
+                            if (!m_IntervalCntSwapNode.Contains(item))
+                            {
+                                m_IntervalCntSwapNode[item] = item.Statistics.RunCount;
+                            }
+                            else
                             {
                                 m_IntervalCntSwapNode[item] = ((int)m_IntervalCntSwapNode[item]) + 1;
-                            }
-                            catch
-                            {
-                                if (!m_IntervalCntSwapNode.Contains(item))
-                                {
-                                    m_IntervalCntSwapNode[item] = item.Statistics.RunCount;
-                                }
-                                else
-                                {
-                                    throw;
-                                }
-                            }
+                            }                            
 
                             if (item.TransactionCount == 0)
                             {
@@ -1689,7 +1684,7 @@ namespace Gurux.DeviceSuite.Director
         void AddDeviceToDeviceList(GXDevice device)
         {
             ListViewItem item = new ListViewItem(device.Name);            
-            item.SubItems.AddRange(new string[] {"", device.DeviceType});
+            item.SubItems.AddRange(new string[] {"", device.DeviceProfile});
             item.Tag = device;
             item.ImageIndex = (int)((device.Status & DeviceStates.Connected) != 0 ? DeviceImageType.DeviceConnected : DeviceImageType.DeviceDisconnected);
             DevicesList.Items.Add(item);
@@ -1846,7 +1841,7 @@ namespace Gurux.DeviceSuite.Director
                         SelectedDeviceLbl.Text = device.Name;
                         if (string.IsNullOrEmpty(device.Manufacturer))
                         {
-                            DeviceTypeTB.Text = device.ProtocolName + " " + device.DeviceType;
+                            DeviceTypeTB.Text = device.ProtocolName + " " + device.DeviceProfile;
                         }
                         else
                         {
@@ -2017,7 +2012,7 @@ namespace Gurux.DeviceSuite.Director
             }            
             if (InvokeRequired)
             {
-                this.BeginInvoke(new TraceEventHandler(OnTrace), new object[] { sender, e });
+                this.Invoke(new TraceEventHandler(OnTrace), new object[] { sender, e });
                 return;
             }
             lock (TraceEvents)
@@ -2251,6 +2246,19 @@ namespace Gurux.DeviceSuite.Director
             UpdateTree(true);
             Schedules.Items.Clear();
             ScheduleToTreeNode.Clear();
+            foreach (GXDevice it in m_DeviceList.DeviceGroups.GetDevicesRecursive())
+            {
+                GuruxAMI.Gateway.GXAmiGateway gw = it.GXClient.Media as GuruxAMI.Gateway.GXAmiGateway;
+                if (gw != null)
+                {
+                    gw.Host = Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName;
+                    gw.Port = Convert.ToInt32(Gurux.DeviceSuite.Properties.Settings.Default.AmiPort);
+                    gw.UserName = Gurux.DeviceSuite.Properties.Settings.Default.AmiUserName;
+                    gw.Password = Gurux.DeviceSuite.Properties.Settings.Default.AmiPassword;
+                    gw.GXClient = it.GXClient;
+                }
+            }
+
             foreach (GXSchedule it in m_DeviceList.Schedules)
             {
                 AddScheduleItem(it);

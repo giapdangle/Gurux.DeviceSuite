@@ -49,7 +49,6 @@ namespace Gurux.DeviceSuite.Ami
 {
 	public partial class GXAmiScheduleEditorDlg : Form
 	{
-        GXAmiDataCollector DataCollector;
         GXAmiClient Client;
         GXAmiSchedule m_ScheduleItem;
 
@@ -58,19 +57,10 @@ namespace Gurux.DeviceSuite.Ami
         /// </summary>
         /// <param name="client"></param>
         /// <param name="scheduleItem"></param>
-        public GXAmiScheduleEditorDlg(GXAmiClient client, GXAmiDataCollector dc, GXAmiSchedule schedule)
-        {
-            DataCollector = dc;
+        public GXAmiScheduleEditorDlg(GXAmiClient client, GXAmiSchedule schedule)
+        {         
             Client = client;
             InitializeComponent();
-            if (schedule == null)
-            {
-                schedule = new GXAmiSchedule();
-                schedule.ScheduleStartTime = DateTime.Now;
-                schedule.ScheduleEndTime = DateTime.MaxValue;
-                schedule.TransactionStartTime = DateTime.MinValue;
-                schedule.TransactionEndTime = DateTime.MaxValue;
-            }
             m_ScheduleItem = schedule;
             if (System.Globalization.DateTimeFormatInfo.CurrentInfo.FirstDayOfWeek == DayOfWeek.Sunday)
             {
@@ -87,25 +77,25 @@ namespace Gurux.DeviceSuite.Ami
             UpdateResouces();
 
             NameTb.Text = m_ScheduleItem.Name;
-            if (m_ScheduleItem.TransactionStartTime != DateTime.MinValue)
+            if (m_ScheduleItem.TransactionStartTime != null)
             {
-                TransactionStartTimeTp.Value = m_ScheduleItem.TransactionStartTime;
+                TransactionStartTimeTp.Value = m_ScheduleItem.TransactionStartTime.Value;
             }
             else
             {
                 TransactionStartTimeTp.Checked = false;
             }
-            if (m_ScheduleItem.TransactionEndTime != DateTime.MaxValue)
+            if (m_ScheduleItem.TransactionEndTime != null)
             {
-                TransactionEndTimeTp.Value = m_ScheduleItem.TransactionEndTime;
+                TransactionEndTimeTp.Value = m_ScheduleItem.TransactionEndTime.Value;
             }
             //Has to be done to uncheck, known issue in .NET
             TransactionEndTimeTp.Checked = true; //Has to be done to uncheck, known issue in .NET
-            TransactionEndTimeTp.Checked = m_ScheduleItem.TransactionEndTime != DateTime.MaxValue;
+            TransactionEndTimeTp.Checked = m_ScheduleItem.TransactionEndTime != null;
 
-            if (m_ScheduleItem.TransactionEndTime != DateTime.MaxValue)
+            if (m_ScheduleItem.TransactionEndTime != null)
             {
-                TransactionEndTimeTp.Value = m_ScheduleItem.TransactionEndTime;
+                TransactionEndTimeTp.Value = m_ScheduleItem.TransactionEndTime.Value;
             }
             if (m_ScheduleItem.TransactionCount == 0)
             {
@@ -122,16 +112,16 @@ namespace Gurux.DeviceSuite.Ami
             DayOfMonthTb.Text = m_ScheduleItem.DayOfMonth.ToString();
             IntervalTb.Text = m_ScheduleItem.Interval.ToString();
             ActionCb.SelectedItem = ScheduleActionToString(m_ScheduleItem.Action);
-            if (m_ScheduleItem.ScheduleStartTime != DateTime.MinValue)
+            if (m_ScheduleItem.ScheduleStartTime != null)
             {
-                ScheduleStartDateTp.Value = m_ScheduleItem.ScheduleStartTime;
+                ScheduleStartDateTp.Value = m_ScheduleItem.ScheduleStartTime.Value;
             }
-            if (m_ScheduleItem.ScheduleEndTime != DateTime.MaxValue)
+            if (m_ScheduleItem.ScheduleEndTime != null)
             {
-                ScheduleEndDateTp.Value = m_ScheduleItem.ScheduleEndTime;
+                ScheduleEndDateTp.Value = m_ScheduleItem.ScheduleEndTime.Value;
             }
             ScheduleEndDateTp.Checked = true; //Has to be done to uncheck, known issue in .NET
-            ScheduleEndDateTp.Checked = m_ScheduleItem.ScheduleEndTime != DateTime.MaxValue;
+            ScheduleEndDateTp.Checked = m_ScheduleItem.ScheduleEndTime != null;
             UpdateTargetCheckTree();
 
             ErrorWaitTimeTp.Value = new DateTime(ErrorWaitTimeTp.MinDate.Ticks + ((long)m_ScheduleItem.FailWaitTime) * 10000);
@@ -159,7 +149,7 @@ namespace Gurux.DeviceSuite.Ami
                 DaySatCb.Checked = list.Contains(DayOfWeek.Saturday);
                 DaySunCb.Checked = list.Contains(DayOfWeek.Sunday);
             }
-            OKBtn.Enabled = (m_ScheduleItem.State & ScheduleState.Run) == 0;
+            OKBtn.Enabled = (m_ScheduleItem.Status & ScheduleState.Run) == 0;
         }
 
 
@@ -211,20 +201,16 @@ namespace Gurux.DeviceSuite.Ami
 
 		private bool SetScheduleTarget(GXAmiSchedule scheduleItem, TreeNode deviceListNode)
 		{
-            //If data collector is checked.
-            if (deviceListNode.Checked)
-            {
-                scheduleItem.Targets.Add(new GXAmiScheduleTarget(TargetType.DataCollector, DataCollector.Id));
-                return true;
-            }
+            List<GXAmiScheduleTarget> targets = new List<GXAmiScheduleTarget>();
             foreach (TreeNode it in deviceListNode.Nodes)
             {
                 if (it.Checked)
                 {
-                    scheduleItem.Targets.Add(new GXAmiScheduleTarget(TargetType.Device, (it.Tag as GuruxAMI.Common.GXAmiDevice).Id));
+                    targets.Add(new GXAmiScheduleTarget(scheduleItem, TargetType.Device, (it.Tag as GuruxAMI.Common.GXAmiDevice).Id));
                 }
             }
-            return scheduleItem.Targets.Count != 0;
+            scheduleItem.Targets = targets.ToArray();
+            return targets.Count != 0;
 		}
 
 		private void FillEnums()
@@ -242,15 +228,20 @@ namespace Gurux.DeviceSuite.Ami
 			ActionCb.Items.Add(ScheduleActionToString(ScheduleAction.Write));
 		}
 
+        /// <summary>
+        /// Is schedule target item checked.
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
         bool IsChecked(ulong deviceId)
         {
-            if (this.m_ScheduleItem.Targets.Count == 0)
+            if (this.m_ScheduleItem.Targets == null || this.m_ScheduleItem.Targets.Length == 0)
             {
                 return true;
             }
             foreach(GXAmiScheduleTarget it in this.m_ScheduleItem.Targets)
             {
-                if (it.TargetID == it.TargetID)
+                if (it.TargetID == deviceId)
                 {
                     return true;
                 }
@@ -308,20 +299,22 @@ namespace Gurux.DeviceSuite.Ami
 			treeImageList.Images.Add(bm);
 		}
 
+        /// <summary>
+        /// Show targets.
+        /// </summary>
 		private void UpdateTargetCheckTree()
 		{
 			TargetCheckTree.ImageList = new ImageList();
 			LoadImages(TargetCheckTree.ImageList);
-            TreeNode Node = new TreeNode(DataCollector.Name);
-            Node.Tag = DataCollector;
-			Node.SelectedImageIndex = Node.ImageIndex = 0;
-            if (this.m_ScheduleItem.Targets.Count == 0)
+            TreeNode Node = new TreeNode("Devices");
+            Node.SelectedImageIndex = Node.ImageIndex = 0;
+            if (this.m_ScheduleItem.Targets == null || this.m_ScheduleItem.Targets.Length == 0)
             {
                 Node.Checked = true;
             }
-			TargetCheckTree.Nodes.Add(Node);
-            CreateDeviceGroupTree(Client.GetDevices(DataCollector, false, false), Node);			
-			TargetCheckTree.ExpandAll();
+            CreateDeviceGroupTree(Client.GetDevices(false, DeviceContentType.Main), Node);
+            TargetCheckTree.Nodes.Add(Node);
+            TargetCheckTree.ExpandAll();           
 		}
 
 		private void UpdateResouces()
@@ -525,7 +518,7 @@ namespace Gurux.DeviceSuite.Ami
 				}
 				else
 				{
-					m_ScheduleItem.TransactionStartTime = DateTime.MinValue;
+					m_ScheduleItem.TransactionStartTime = null;
 				}
 
 				if (TransactionEndTimeTp.Checked)
@@ -534,7 +527,7 @@ namespace Gurux.DeviceSuite.Ami
 				}
 				else
 				{
-					m_ScheduleItem.TransactionEndTime = DateTime.MaxValue;
+                    m_ScheduleItem.TransactionEndTime = null;
 				}
 				if (TransactionCountCb.Checked)
 				{
@@ -562,7 +555,7 @@ namespace Gurux.DeviceSuite.Ami
 				}
 				else
 				{
-					m_ScheduleItem.ScheduleEndTime = DateTime.MaxValue;
+                    m_ScheduleItem.ScheduleEndTime = null;
 				}
 
 				System.Collections.Generic.List<DayOfWeek> list = new System.Collections.Generic.List<DayOfWeek>();
@@ -603,11 +596,15 @@ namespace Gurux.DeviceSuite.Ami
 					}
 				}
 
-				//Create new item.
-				if (m_ScheduleItem.Id == 0)
-				{
+                //Create new item.
+                if (m_ScheduleItem.Id == 0)
+                {
                     Client.AddSchedules(new GXAmiSchedule[] { m_ScheduleItem });
-				}
+                }
+                else
+                {
+                    Client.Update(m_ScheduleItem);
+                }
 				this.Close();
 			}
 			catch (Exception Ex)

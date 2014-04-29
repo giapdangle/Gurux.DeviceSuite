@@ -21,8 +21,8 @@ namespace Gurux.DeviceSuite.Ami
         string Settings;
         GXAmiClient Client;
         GXAmiDataCollector Collector;
-        Control ParentForm;
-        Gurux.DeviceSuite.Director.GXAsyncWork TransactionWork;
+        Control ParentDlg;
+        GXAsyncWork TransactionWork;
         AutoResetEvent Connected = new AutoResetEvent(false);
         GXAmiTask ExecutedTask;
 
@@ -33,7 +33,7 @@ namespace Gurux.DeviceSuite.Ami
 
         public GXAMICommandPromptTab(Control parentForm, GXAmiClient client, GXAmiDataCollector collector, string media, string settings)
         {
-            ParentForm = parentForm;
+            ParentDlg = parentForm;
             Media = media;
             Settings = settings.Replace(Environment.NewLine, "");
             Client = client;
@@ -54,13 +54,16 @@ namespace Gurux.DeviceSuite.Ami
                     //It's OK if this fails.
                 }
             }
-        }
+        }        
 
         public void CloseConnection()
         {
             try
             {
                 Client.MediaClose(Collector.Guid, Media, Settings);
+                Connected.WaitOne();
+                Client.OnDeviceErrorsAdded -= new DeviceErrorsAddedEventHandler(Client_OnDeviceErrorsAdded);
+                Client.OnTasksAdded -= new TasksAddedEventHandler(Client_OnTasksAdded);
             }
             catch
             {
@@ -74,7 +77,7 @@ namespace Gurux.DeviceSuite.Ami
         {
             if (HexCB.Checked)
             {
-                CommandPromptTB.AppendText(BitConverter.ToString(data).Replace("-", " ") + Environment.NewLine);
+                CommandPromptTB.AppendText(GXCommon.ToHex(data, true) + Environment.NewLine);
             }
             else
             {
@@ -84,6 +87,12 @@ namespace Gurux.DeviceSuite.Ami
             CommandPromptTB.ScrollToCaret();
         }
 
+        /// <summary>
+        /// Show reconnect text if connection is closed.
+        /// Otherwice show clear text.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void OnMediaStateChange(object sender, MediaStateEventArgs e)
         {
             this.CommandPromptTB.Enabled = e.State == MediaState.Open;
@@ -98,63 +107,63 @@ namespace Gurux.DeviceSuite.Ami
         }
 
         /// <summary>
-        /// If task is failed. If task failed dialog is not closed.
+        /// Show occurred errors on command prompth.
         /// </summary>
-        void Client_OnDeviceErrorsAdded(object sender, GXAmiDeviceError[] errors)
+        void OnDeviceErrorsAdded(object sender, GXAmiDeviceError[] errors)
         {
-            return;
-            /*
             foreach (GXAmiDeviceError it in errors)
             {
-                if (it.TaskID == ExecutedTask.Id)
-                {
-                    DialogResult = DialogResult.None;
-                    this.BeginInvoke(new ShowErrorEventHandler(ShowError), it.Message);
-                    break;
-                }
+                CommandPromptTB.AppendText(it.Message + Environment.NewLine);
+                CommandPromptTB.SelectionStart = CommandPromptTB.Text.Length;
+                CommandPromptTB.ScrollToCaret();
             }
-             * */
+        }
+
+        void Client_OnDeviceErrorsAdded(object sender, GXAmiDeviceError[] errors)
+        {
+            if (ParentDlg.InvokeRequired)
+            {
+                this.BeginInvoke(new DeviceErrorsAddedEventHandler(Client_OnDeviceErrorsAdded), sender, errors);
+            }
+            else 
+            {
+                Client_OnDeviceErrorsAdded(sender, errors);
+            }
         }
 
         void Client_OnTasksAdded(object sender, GXAmiTask[] tasks)
         {
             foreach (GXAmiTask it in tasks)
             {
-                if (it.TaskType == TaskType.MediaState && it.SenderDataCollectorGuid == Collector.Guid)
+                System.Diagnostics.Debug.Assert(it.SenderDataCollectorGuid == Collector.Guid);
+                if (it.TaskType == TaskType.MediaState)
                 {
-                    string[] tmp = it.Data.Split(new string[]{Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
+                    Connected.Set();
+                    string[] tmp = it.Data.Split(new string[]{Environment.NewLine}, StringSplitOptions.None);
                     string media = tmp[0];
                     string settings = tmp[1];
                     if (Media == media && Settings == settings)
                     {
-                        if (ParentForm.InvokeRequired)
+                        if (ParentDlg.InvokeRequired)
                         {
-                            ParentForm.BeginInvoke(new MediaStateChangeEventHandler(OnMediaStateChange), sender, new MediaStateEventArgs((MediaState)Convert.ToInt32(tmp[2])));
+                            ParentDlg.BeginInvoke(new MediaStateChangeEventHandler(OnMediaStateChange), sender, new MediaStateEventArgs((MediaState)Convert.ToInt32(tmp[2])));
                         }
                         else
                         {
                             OnMediaStateChange(sender, new MediaStateEventArgs((MediaState)Convert.ToInt32(tmp[2])));
                         }
-                        Client.RemoveTask(it, true);
+                        Client.RemoveTask(it);
                     }
                 }
-                if (it.TaskType == TaskType.MediaWrite && it.SenderDataCollectorGuid == Collector.Guid)
+                if (it.TaskType == TaskType.MediaWrite)
                 {
-                    string[] tmp = it.Data.Split(new string[]{Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
+                    string[] tmp = it.Data.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
                     string media = tmp[0];
                     string settings = tmp[1];
                     if (Media == media && Settings == settings)
                     {
-                        string data = tmp[2];
-                        byte[] d = new byte[data.Length / 2];
-                        for (int pos = 0; pos < d.Length; ++pos)
-                        {
-                            int a = int.Parse(data[2 * pos].ToString(), System.Globalization.NumberStyles.HexNumber);
-                            int b = int.Parse(data[(2 * pos) + 1].ToString(), System.Globalization.NumberStyles.HexNumber);
-                            d[pos] = (byte)((a << 4) + b);
-                        }
-                        ParentForm.BeginInvoke(new UpdateDataEventHandler(UpdateData), d);
-                        Client.RemoveTask(it, true);
+                        ParentDlg.BeginInvoke(new UpdateDataEventHandler(UpdateData), Gurux.Common.GXCommon.HexToBytes(tmp[2], false));
+                        Client.RemoveTask(it);
                     }
                 }
             }
@@ -230,7 +239,7 @@ namespace Gurux.DeviceSuite.Ami
             }
             catch (Exception ex)
             {
-                GXCommon.ShowError(ParentForm, Gurux.DeviceSuite.Properties.Resources.GuruxDeviceSuiteTxt, ex);
+                GXCommon.ShowError(ParentDlg, Gurux.DeviceSuite.Properties.Resources.GuruxDeviceSuiteTxt, ex);
             }
         }
 
@@ -258,17 +267,18 @@ namespace Gurux.DeviceSuite.Ami
 
         }
 
-        void ConnectAsync(object sender, object[] parameters)
+        void ConnectAsync(object sender, GXAsyncWork work, object[] parameters)
         {
             ExecutedTask = Client.MediaOpen((Guid)parameters[0], (string)parameters[1], (string)parameters[2]);
-            Connected.WaitOne();
+            Connected.WaitOne();            
         }
 
-        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state, string text)
+        void OnAsyncStateChange(object sender, GXAsyncWork work, object[] parameters, AsyncState state, string text)
         {
             CommandPromptTB.Visible = CommandPromptClearBtn.Visible = state != AsyncState.Start;
             CancelBtn.Visible = state == AsyncState.Start;            
         }
+
         /// <summary>
         /// Clear text if connected. Otherwice reconnect.
         /// </summary>
@@ -282,19 +292,19 @@ namespace Gurux.DeviceSuite.Ami
                 }
                 else
                 {
-                    TransactionWork = new Gurux.DeviceSuite.Director.GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, Gurux.DeviceSuite.Properties.Resources.ConnectingTxt, new object[] { Collector.Guid, Media, Settings });
+                    TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, null, Gurux.DeviceSuite.Properties.Resources.ConnectingTxt, new object[] { Collector.Guid, Media, Settings });
                     TransactionWork.Start();
                 }
             }
             catch (Exception ex)
             {
-                GXCommon.ShowError(ParentForm, Gurux.DeviceSuite.Properties.Resources.GuruxDeviceSuiteTxt, ex);
+                GXCommon.ShowError(ParentDlg, Gurux.DeviceSuite.Properties.Resources.GuruxDeviceSuiteTxt, ex);
             }
         }
 
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             TransactionWork.Cancel();
-        }
+        }       
     }
 }

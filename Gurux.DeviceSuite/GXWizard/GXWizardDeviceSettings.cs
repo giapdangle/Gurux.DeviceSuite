@@ -71,7 +71,7 @@ namespace Gurux.DeviceSuite.GXWizard
                 throw new Exception(Gurux.DeviceSuite.Properties.Resources.ErrNameEmptyTxt);
             }
             GXProtocolAddIn addIn = Gurux.Device.GXDeviceList.Protocols[ProtocolCB.Text];
-            Device = GXDevice.CreateDeviceTemplate(addIn, NameTB.Text);
+            Device = GXDevice.CreateDeviceProfiles(addIn, NameTB.Text);
             if (Device.IsRegistered())
             {
                 if (GXCommon.ShowQuestion(Gurux.DeviceSuite.Properties.Resources.OverregisterTxt) != DialogResult.Yes)

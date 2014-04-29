@@ -163,11 +163,11 @@ namespace Gurux.DeviceSuite.Common
                         bool show = preset;
                         if (!preset)
                         {
-                            foreach (GXPublishedDeviceType dt in dv.Templates)
+                            foreach (GXPublishedDeviceProfile dt in dv.Templates)
                             {
                                 bool installed = false;
                                 //Find installed or latest version.
-                                foreach (GXTemplateVersion tv in dt.Versions)
+                                foreach (GXDeviceProfileVersion tv in dt.Versions)
                                 {
                                     //If new version.
                                     if (installed)
@@ -277,10 +277,10 @@ namespace Gurux.DeviceSuite.Common
             }
         }
 
-        GXTemplateVersion FindInstalledVersion(GXTemplateVersionCollection versions)
+        GXDeviceProfileVersion FindInstalledVersion(GXDeviceProfileVersionCollection versions)
         {
-            GXTemplateVersion latest = null;
-            foreach (GXTemplateVersion it in versions)
+            GXDeviceProfileVersion latest = null;
+            foreach (GXDeviceProfileVersion it in versions)
             {
                 if (it.Status == DownloadStates.Installed)
                 {
@@ -302,7 +302,7 @@ namespace Gurux.DeviceSuite.Common
                 ItemToListItem.Clear();
                 PresetList.Items.Clear();
                 TreeNode node = PresetTree.SelectedNode;
-                if (node.Tag is GXDeviceVersion || node.Tag is GXPublishedDeviceType)
+                if (node.Tag is GXDeviceVersion || node.Tag is GXPublishedDeviceProfile)
                 {
                     if (!PresetList.Columns.Contains(VersionCH))
                     {
@@ -374,7 +374,7 @@ namespace Gurux.DeviceSuite.Common
                 {
                     TargetCH.Text = Gurux.DeviceSuite.Properties.Resources.DeviceProfilesTxt;
                     GXDeviceVersion version = node.Tag as GXDeviceVersion;
-                    foreach (GXPublishedDeviceType dt in version.Templates)
+                    foreach (GXPublishedDeviceProfile dt in version.Templates)
                     {
                         if (!showDisabled && (dt.Status & DownloadStates.Remove) != 0)
                         {
@@ -388,7 +388,7 @@ namespace Gurux.DeviceSuite.Common
                                 if (preset)
                                 {
                                     li = PresetList.Items.Add(dt.PresetName);
-                                    GXTemplateVersion ver = FindInstalledVersion(dt.Versions);
+                                    GXDeviceProfileVersion ver = FindInstalledVersion(dt.Versions);
                                     li.SubItems.Add(GetStatusText(preset, ver.Status));
                                     li.SubItems.Add(ver.ToString());
                                     li.Tag = dt;
@@ -398,7 +398,7 @@ namespace Gurux.DeviceSuite.Common
                                 {
                                     //Show new versions.
                                     bool installed = false;
-                                    foreach (GXTemplateVersion it in dt.Versions)
+                                    foreach (GXDeviceProfileVersion it in dt.Versions)
                                     {
                                         if (it.Status == DownloadStates.Installed)
                                         {
@@ -423,7 +423,7 @@ namespace Gurux.DeviceSuite.Common
                                     if (!installed)
                                     {
                                         li = PresetList.Items.Add(dt.PresetName);
-                                        GXTemplateVersion it = FindInstalledVersion(dt.Versions);
+                                        GXDeviceProfileVersion it = FindInstalledVersion(dt.Versions);
                                         li.SubItems.Add(GetStatusText(preset, it.Status));
                                         li.SubItems.Add(it.ToString());
                                         li.Tag = dt;
@@ -441,7 +441,7 @@ namespace Gurux.DeviceSuite.Common
                         }
                         else
                         {
-                            foreach (GXTemplateVersion tv in dt.Versions)
+                            foreach (GXDeviceProfileVersion tv in dt.Versions)
                             {
                                 if (!showDisabled && (tv.Status & DownloadStates.Remove) != 0)
                                 {
@@ -456,17 +456,17 @@ namespace Gurux.DeviceSuite.Common
                         }
                     }
                 }
-                else if (node.Tag is GXPublishedDeviceType)
+                else if (node.Tag is GXPublishedDeviceProfile)
                 {
                     TargetCH.Text = "Device templates";
-                    GXPublishedDeviceType dt = node.Tag as GXPublishedDeviceType;
+                    GXPublishedDeviceProfile dt = node.Tag as GXPublishedDeviceProfile;
                     if (preset || !ShowPreviousVersionsCB.Checked)
                     {
                         li = PresetList.Items.Add(dt.PresetName);
                         //Show last device template version number.
                         if (dt.Versions.Count != 0)
                         {
-                            GXTemplateVersion ver = FindInstalledVersion(dt.Versions);
+                            GXDeviceProfileVersion ver = FindInstalledVersion(dt.Versions);
                             li.SubItems.Add(GetStatusText(preset, ver.Status));
                             li.SubItems.Add(ver.ToString());
                         }
@@ -479,7 +479,7 @@ namespace Gurux.DeviceSuite.Common
                     }
                     else
                     {
-                        foreach (GXTemplateVersion tv in dt.Versions)
+                        foreach (GXDeviceProfileVersion tv in dt.Versions)
                         {
                             if (!showDisabled && (tv.Status & DownloadStates.Remove) != 0)
                             {
@@ -616,9 +616,9 @@ namespace Gurux.DeviceSuite.Common
                     item.Status = DownloadStates.Remove;
                 }
             }
-            else if (target is GXPublishedDeviceType)
+            else if (target is GXPublishedDeviceProfile)
             {
-                GXPublishedDeviceType item = target as GXPublishedDeviceType;
+                GXPublishedDeviceProfile item = target as GXPublishedDeviceProfile;
                 //If item is new we can remove it right a way.
                 if (item.Status == DownloadStates.Add)
                 {
@@ -718,11 +718,11 @@ namespace Gurux.DeviceSuite.Common
         /// <summary>
         /// Edit selected device template.
         /// </summary>
-        private void EditTemplate(GXPublishedDeviceType type)
+        private void EditTemplate(GXPublishedDeviceProfile type)
         {
             try
             {
-                GXDeviceTemplateForm dlg = new GXDeviceTemplateForm(type);
+                GXDeviceProfilesForm dlg = new GXDeviceProfilesForm(type);
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     TreeNode node = ItemToTreeNode[type] as TreeNode;
@@ -752,9 +752,9 @@ namespace Gurux.DeviceSuite.Common
             {
                 EditVersion(target as GXDeviceVersion);
             }
-            else if (target is GXPublishedDeviceType)
+            else if (target is GXPublishedDeviceProfile)
             {
-                EditTemplate(target as GXPublishedDeviceType);
+                EditTemplate(target as GXPublishedDeviceProfile);
             }
             else
             {
@@ -853,13 +853,13 @@ namespace Gurux.DeviceSuite.Common
             {
                 disabled = ((target as GXDeviceVersion).Status & DownloadStates.Remove) != 0;
             }
-            else if (target is GXPublishedDeviceType)
+            else if (target is GXPublishedDeviceProfile)
             {
-                disabled = ((target as GXPublishedDeviceType).Status & DownloadStates.Remove) != 0;
+                disabled = ((target as GXPublishedDeviceProfile).Status & DownloadStates.Remove) != 0;
             }
-            else if (target is GXTemplateVersion)
+            else if (target is GXDeviceProfileVersion)
             {
-                disabled = ((target as GXTemplateVersion).Status & DownloadStates.Remove) != 0;
+                disabled = ((target as GXDeviceProfileVersion).Status & DownloadStates.Remove) != 0;
             }
             else
             {
@@ -955,9 +955,9 @@ namespace Gurux.DeviceSuite.Common
         {
             try
             {
-                GXPublishedDeviceType type = new GXPublishedDeviceType();
+                GXPublishedDeviceProfile type = new GXPublishedDeviceProfile();
                 type.Status = DownloadStates.Add;
-                GXDeviceTemplateForm dlg = new GXDeviceTemplateForm(type);
+                GXDeviceProfilesForm dlg = new GXDeviceProfilesForm(type);
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     type = dlg.Target;
@@ -1029,17 +1029,17 @@ namespace Gurux.DeviceSuite.Common
                             }
                             for (int dtPos = 0; dtPos != dv.Templates.Count; ++dtPos)
                             {
-                                GXPublishedDeviceType dt = dv.Templates[dtPos] as GXPublishedDeviceType;
+                                GXPublishedDeviceProfile dt = dv.Templates[dtPos] as GXPublishedDeviceProfile;
                                 if (dt.Status == DownloadStates.Add)
                                 {                                    
-                                    string customPath = GXDevice.GetDeviceTemplatePath(dt.Protocol, dt.Name);
+                                    string customPath = GXDevice.GetDeviceProfilesPath(dt.Protocol, dt.Guid);
                                     //Update device guid.
                                     string protocol = null, deviceType = null;
                                     Guid deviceGuid;
                                     bool preset;
                                     GXDevice.GetProtocolInfo(customPath, out preset, out protocol, out deviceType, out deviceGuid);
                                     dt.DeviceGuid = deviceGuid;
-                                    string presetPath = GXDevice.GetDeviceTemplatePath(deviceGuid);
+                                    string presetPath = GXDevice.GetDeviceProfilesPath(deviceGuid);
                                     string dir = Path.GetDirectoryName(presetPath);
                                     if (!Directory.Exists(dir))
                                     {
@@ -1064,7 +1064,7 @@ namespace Gurux.DeviceSuite.Common
                                     }
                                     else
                                     {
-                                        foreach (GXTemplateVersion it in dt.Versions)
+                                        foreach (GXDeviceProfileVersion it in dt.Versions)
                                         {
                                             if (remove || it.Status == DownloadStates.Remove)
                                             {
@@ -1099,7 +1099,7 @@ namespace Gurux.DeviceSuite.Common
                                 Download(dv);
                                 continue;
                             }
-                            foreach (GXPublishedDeviceType dt2 in dv.Templates)
+                            foreach (GXPublishedDeviceProfile dt2 in dv.Templates)
                             {
                                 //If latest device type is marked as download.
                                 if ((dt2.Status & DownloadStates.Add) != 0)
@@ -1108,13 +1108,13 @@ namespace Gurux.DeviceSuite.Common
                                     continue;
                                 }
                                 //If version is marked as download.
-                                foreach (GXTemplateVersion it in dt2.Versions)
+                                foreach (GXDeviceProfileVersion it in dt2.Versions)
                                 {
                                     if ((it.Status & DownloadStates.Add) != 0)
                                     {
                                         Download(it);
                                         //Mark old versions as available not installed.
-                                        foreach (GXTemplateVersion tv in dt2.Versions)
+                                        foreach (GXDeviceProfileVersion tv in dt2.Versions)
                                         {
                                             //If item is installed.
                                             if (it != tv && (tv.Status & DownloadStates.Installed) != 0)
@@ -1159,26 +1159,31 @@ namespace Gurux.DeviceSuite.Common
             }
             else if (target is GXDeviceVersion)
             {
-                foreach (GXPublishedDeviceType it in (target as GXDeviceVersion).Templates)
+                foreach (GXPublishedDeviceProfile it in (target as GXDeviceVersion).Templates)
                 {
                     Download(it);                    
                 }
                 (target as GXDeviceVersion).Status = DownloadStates.None;
             }
-            else if (target is GXPublishedDeviceType)
+            else if (target is GXPublishedDeviceProfile)
             {
-                GXTemplateVersionCollection versions = (target as GXPublishedDeviceType).Versions;
-                (target as GXPublishedDeviceType).DeviceGuid = Download(versions[versions.Count - 1]);
-                (target as GXPublishedDeviceType).Status = DownloadStates.None;                
+                GXDeviceProfileVersionCollection versions = (target as GXPublishedDeviceProfile).Versions;
+                (target as GXPublishedDeviceProfile).DeviceGuid = Download(versions[versions.Count - 1]);
+                (target as GXPublishedDeviceProfile).Status = DownloadStates.None;                
             }
-            else if (target is GXTemplateVersion)
+            else if (target is GXDeviceProfileVersion)
             {
                 JsonServiceClient Client = new JsonServiceClient(Gurux.DeviceSuite.Properties.Settings.Default.UpdateServer);
                 GXDownloadRequest download = new GXDownloadRequest();
-                download.Template = target as GXTemplateVersion;
+                download.Template = target as GXDeviceProfileVersion;
                 GXDownloadResponse ret = Client.Get(download);
-                GXPublishedDeviceType type = UpdatePublishedDeviceType(download.Template, ret.Data);
-                (target as GXTemplateVersion).Status = DownloadStates.Installed;
+                GXPublishedDeviceProfile type = UpdatePublishedDeviceType(download.Template, ret.Data);
+                (target as GXDeviceProfileVersion).Status = DownloadStates.Installed;
+                //If restart is needed.
+                if (type == null)
+                {
+                    return Guid.Empty;
+                }
                 return type.Guid;
             }
             else
@@ -1188,19 +1193,19 @@ namespace Gurux.DeviceSuite.Common
             return Guid.Empty;
         }
 
-        GXPublishedDeviceType UpdatePublishedDeviceType(GXTemplateVersion tv, byte[] data)
+        GXPublishedDeviceProfile UpdatePublishedDeviceType(GXDeviceProfileVersion tv, byte[] data)
         {
-            GXPublishedDeviceType dt = tv.Parent.Parent;
+            GXPublishedDeviceProfile dt = tv.Parent.Parent;
             GXDeviceVersion dv = dt.Parent.Parent;
             GXDeviceModel model = dv.Parent.Parent;
             GXDeviceManufacturer man = model.Parent.Parent;
-            GXPublishedDeviceType type = GXZip.Import(this, data, null) as GXPublishedDeviceType;
+            GXPublishedDeviceProfile type = GXZip.Import(this, data, null) as GXPublishedDeviceProfile;            
             GXDeviceManufacturer ma;
             dt.DeviceGuid = type.DeviceGuid;
             if ((ma = PresetManufacturers.Find(man)) == null)
             {
                 GXDeviceManufacturer man2 = new GXDeviceManufacturer(man);
-                GXPublishedDeviceTypeCollection templates = man2.Models.Find(model).Versions.Find(dv).Templates;
+                GXPublishedDeviceProfileCollection templates = man2.Models.Find(model).Versions.Find(dv).Templates;
                 templates.Clear();
                 templates.Add(dt);
                 PresetManufacturers.Add(man2);
@@ -1221,10 +1226,10 @@ namespace Gurux.DeviceSuite.Common
                     }
                     else
                     {
-                        GXPublishedDeviceType dt3 = ve.Templates.Find(dt.PresetName);
+                        GXPublishedDeviceProfile dt3 = ve.Templates.Find(dt.PresetName);
                         if (dt3 == null)
                         {
-                            ve.Templates.Add(new GXPublishedDeviceType(dt));
+                            ve.Templates.Add(new GXPublishedDeviceProfile(dt));
                         }
                         else
                         {
@@ -1287,14 +1292,14 @@ namespace Gurux.DeviceSuite.Common
                 {
                     node.ImageIndex = node.SelectedImageIndex = GetImageIndex(item.Status);
                 }
-                foreach (GXPublishedDeviceType it in item.Templates)
+                foreach (GXPublishedDeviceProfile it in item.Templates)
                 {
                     UpdateState(preset, it, state);
                 }
             }
-            else if (target is GXPublishedDeviceType)
+            else if (target is GXPublishedDeviceProfile)
             {
-                GXPublishedDeviceType item = target as GXPublishedDeviceType;
+                GXPublishedDeviceProfile item = target as GXPublishedDeviceProfile;
                 item.Status = state;
                 if (li != null)
                 {
@@ -1305,9 +1310,9 @@ namespace Gurux.DeviceSuite.Common
                     node.ImageIndex = node.SelectedImageIndex = GetImageIndex(item.Status);
                 }
             }
-            else if (target is GXTemplateVersion)
+            else if (target is GXDeviceProfileVersion)
             {
-                GXTemplateVersion item = target as GXTemplateVersion;
+                GXDeviceProfileVersion item = target as GXDeviceProfileVersion;
                 if (item.Status == DownloadStates.Installed && state == DownloadStates.Remove)
                 {
                     throw new Exception("Can't disable installed template.");
@@ -1341,10 +1346,10 @@ namespace Gurux.DeviceSuite.Common
                 {
                     if (PresetList.SelectedItems.Count != 0)
                     {
-                        GXTemplateVersion item = PresetList.SelectedItems[0].Tag as GXTemplateVersion;
+                        GXDeviceProfileVersion item = PresetList.SelectedItems[0].Tag as GXDeviceProfileVersion;
                         if (item != null)
                         {
-                            foreach (GXTemplateVersion it in item.Parent)
+                            foreach (GXDeviceProfileVersion it in item.Parent)
                             {
                                 UpdateState(false, it, it.Status & ~DownloadStates.Add);
                             }
@@ -1463,15 +1468,15 @@ namespace Gurux.DeviceSuite.Common
                 item.Status = ToggleState(preset, item.Status);
                 UpdateState(preset, target, item.Status);
             }
-            else if (target is GXPublishedDeviceType)
+            else if (target is GXPublishedDeviceProfile)
             {
-                GXPublishedDeviceType item = target as GXPublishedDeviceType;
+                GXPublishedDeviceProfile item = target as GXPublishedDeviceProfile;
                 item.Status = ToggleState(preset, item.Status);
                 UpdateState(preset, target, item.Status);
             }
-            else if (target is GXTemplateVersion)
+            else if (target is GXDeviceProfileVersion)
             {
-                GXTemplateVersion item = target as GXTemplateVersion;
+                GXDeviceProfileVersion item = target as GXDeviceProfileVersion;
                 item.Status = ToggleState(preset, item.Status);
                 UpdateState(preset, target, item.Status);
             }

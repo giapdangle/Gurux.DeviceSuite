@@ -101,12 +101,15 @@ namespace Gurux.DeviceSuite.Director
 			}
 		}
 
+        /// <summary>
+        /// Update selected target(s) from tree.
+        /// </summary>
+        /// <returns>Returns true if atleast one item is selected.</returns>
 		private bool SetScheduleTarget(GXSchedule scheduleItem, TreeNode deviceListNode)
 		{
-			ArrayList IncludedItems = new ArrayList();
-			ArrayList ExcludedItems = new ArrayList();
-
-			//Get included and excluded items from the tree
+            scheduleItem.Items.Clear();
+            scheduleItem.ExcludedItems.Clear();
+            //Get included and excluded items from the tree
 			Queue q = new Queue();
 			q.Enqueue(deviceListNode);
 			while (q.Count > 0)
@@ -114,23 +117,18 @@ namespace Gurux.DeviceSuite.Director
 				TreeNode Node = (TreeNode)q.Dequeue();
 				if ((Node.Parent == null || !Node.Parent.Checked) && Node.Checked)
 				{
-					IncludedItems.Add(Node.Tag);
+                    scheduleItem.Items.Add(Node.Tag);
 				}
 				if (Node.Parent != null && Node.Parent.Checked && !Node.Checked)
 				{
-					ExcludedItems.Add(Node.Tag);
+                    scheduleItem.ExcludedItems.Add(Node.Tag);
 				}
 				foreach (TreeNode ChildNode in Node.Nodes)
 				{
 					q.Enqueue(ChildNode);
 				}
 			}
-
-			scheduleItem.Items.Clear();
-			scheduleItem.Items.AddRange(IncludedItems.ToArray());
-			scheduleItem.ExcludedItems.Clear();
-			scheduleItem.Items.AddRange(ExcludedItems.ToArray());
-			return (IncludedItems.Count > 0);
+            return (scheduleItem.Items.Count > 0);
 		}
 
 		private void FillEnums()
@@ -720,6 +718,11 @@ namespace Gurux.DeviceSuite.Director
 			TransactionCountTb.Enabled = TransactionCountCb.Checked;
 		}
 
+        /// <summary>
+        /// Select or unselect all child items.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		private void TargetCheckTree_AfterCheck(object sender, System.Windows.Forms.TreeViewEventArgs e)
 		{
 			this.TargetCheckTree.AfterCheck -= new System.Windows.Forms.TreeViewEventHandler(this.TargetCheckTree_AfterCheck);

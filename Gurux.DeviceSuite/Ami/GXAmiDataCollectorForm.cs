@@ -45,24 +45,53 @@ using System.Net;
 
 namespace Gurux.DeviceSuite.Ami
 {
-    public partial class GXAmiDataCollectorForm : Form
+    /// <summary>
+    /// What action we are doing.
+    /// </summary>
+    internal enum DataCollectorActionType
+    {        
+        Add,
+        Edit,
+        Bind,
+        Unbind
+    }
+
+    partial class GXAmiDataCollectorForm : Form
     {
         GXAmiDataCollector Collector;
         GXAmiClient Client;
-        public GXAmiDataCollectorForm(GXAmiClient client, GXAmiDataCollector collector)
+        GXAsyncWork TransactionWork;
+        DataCollectorActionType Action;
+        public GXAmiDataCollectorForm(GXAmiClient client, GXAmiDataCollector collector, DataCollectorActionType action)
         {
+            Action = action;
             Client = client;
             InitializeComponent();
             Collector = collector;
+            RefreshBtn.Text = Gurux.DeviceSuite.Properties.Resources.RefreshTxt;
+            RefreshBtn.Enabled = action != DataCollectorActionType.Add;
             if (collector != null)
-            {                
+            {
                 this.NameTB.Text = Collector.Name;
                 this.IPAddressTB.Text = Collector.IP;
                 this.DescriptionTB.Text = Collector.Description;
-                this.GuidTB.Text = Collector.Guid.ToString();
-            }
+                if (Collector.Guid != Guid.Empty)
+                {
+                    this.GuidTB.Text = Collector.Guid.ToString();
+                }
+                if (Collector.LastRequestTimeStamp.HasValue)
+                {
+                    LastConnectedTB.Text = Collector.LastRequestTimeStamp.Value.ToString();
+                }
+                InternalCB.Checked = collector.Internal;
+            }            
         }
 
+        /// <summary>
+        /// Accpept changes for DC.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OkBtn_Click(object sender, EventArgs e)
         {
             try
@@ -71,15 +100,89 @@ namespace Gurux.DeviceSuite.Ami
                 {
                     NameTB.Focus();
                     throw new Exception(Gurux.DeviceSuite.Properties.Resources.ErrNameEmptyTxt);
-                }
+                }               
                 Collector.Name = this.NameTB.Text;
                 Collector.Description = this.DescriptionTB.Text;
-                Client.Update(Collector);
+                Collector.Internal = InternalCB.Checked;
+                if (Action == DataCollectorActionType.Add)
+                {
+                    Client.AddDataCollector(Collector, Client.GetUserGroups(false));
+                }
+                else if (Action == DataCollectorActionType.Edit)
+                {
+                    Client.Update(Collector);
+                }
             }
             catch (Exception ex)
             {
                 GXCommon.ShowError(this, ex);
                 DialogResult = DialogResult.None;
+            }
+        }
+
+        /// <summary>
+        /// Change Refresh button text when read is started.
+        /// </summary>
+        /// <param name="work"></param>
+        /// <param name="sender"></param>
+        /// <param name="parameters"></param>
+        /// <param name="state"></param>
+        /// <param name="text"></param>
+        void OnAsyncStateChange(object sender, GXAsyncWork work, object[] parameters, AsyncState state, string text)
+        {
+            if (state == AsyncState.Start)
+            {
+                RefreshBtn.Text = Gurux.DeviceSuite.Properties.Resources.CancelTxt;
+            }
+            else
+            {
+                RefreshBtn.Text = Gurux.DeviceSuite.Properties.Resources.RefreshTxt;
+                DateTime? tm = work.Result as DateTime?;
+                Collector.LastRequestTimeStamp = tm;
+                if (tm.HasValue)
+                {
+                    LastConnectedTB.Text = tm.Value.ToString();
+                }
+                else
+                {
+                    LastConnectedTB.Text = "";
+                }                
+            }
+        }
+
+        void GetLastRequestTimeStampAsync(object sender, GXAsyncWork work, object[] parameters)
+        {
+            GXAmiClient cl = parameters[0] as GXAmiClient;
+            GXAmiDataCollector dc = parameters[1] as GXAmiDataCollector;
+            work.Result = cl.GetDataCollectorByGuid(dc.Guid).LastRequestTimeStamp;            
+        }
+
+        /// <summary>
+        /// Refresh last access time of DC.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RefreshBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (TransactionWork == null)
+                {
+                    TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, GetLastRequestTimeStampAsync, null, "", new object[] { Client, Collector });
+                }
+                //Is work running.
+                if (!TransactionWork.IsRunning)
+                {
+                    TransactionWork.Start();
+                }
+                else //Wait until work ends.
+                {
+                    TransactionWork.Wait(0);                    
+                }
+            }             
+            catch (Exception ex)
+            {
+                GXCommon.ShowError(this, ex);             
             }
         }
     }

@@ -60,6 +60,7 @@ namespace Gurux.DeviceSuite.Ami
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GXAmiDeviceSettingsForm));
             this.CancelBtn = new System.Windows.Forms.Button();
             this.OkBtn = new System.Windows.Forms.Button();
@@ -76,23 +77,39 @@ namespace Gurux.DeviceSuite.Ami
             this.RefreshRateLbl = new System.Windows.Forms.Label();
             this.NameLbl = new System.Windows.Forms.Label();
             this.NameTB = new System.Windows.Forms.TextBox();
-            this.CustomDeviceType = new Gurux.DeviceSuite.Common.CustomDeviceTypeListBox();
+            this.CustomDeviceProfile = new Gurux.DeviceSuite.Common.CustomDeviceTypeListBox();
             this.PresetList = new System.Windows.Forms.ListView();
-            this.PresetNameCH = new System.Windows.Forms.ColumnHeader();
-            this.ManufacturerCH = new System.Windows.Forms.ColumnHeader();
-            this.ModelCH = new System.Windows.Forms.ColumnHeader();
-            this.VersionCH = new System.Windows.Forms.ColumnHeader();
+            this.ManufacturerCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ModelCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.VersionCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.PresetNameCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DeviceProfilesVersionCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
             this.CustomRB = new System.Windows.Forms.RadioButton();
             this.PresetCB = new System.Windows.Forms.RadioButton();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.SettingsPanel = new System.Windows.Forms.Panel();
             this.PropertyGrid = new System.Windows.Forms.PropertyGrid();
+            this.Connections = new System.Windows.Forms.TabControl();
+            this.ConnectionTab = new System.Windows.Forms.TabPage();
             this.MediaFrame = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.CollectorsCB = new System.Windows.Forms.ComboBox();
+            this.CollectorsLbl = new System.Windows.Forms.Label();
             this.MediaCB = new System.Windows.Forms.ComboBox();
             this.MediaLbl = new System.Windows.Forms.Label();
-            this.DeviceTemplateVersionCH = new System.Windows.Forms.ColumnHeader();
+            this.RedundantConnectionsTab = new System.Windows.Forms.TabPage();
+            this.RedundantConnectionsList = new System.Windows.Forms.ListView();
+            this.MediaCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.SettingsCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DataCollectorDH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.RedundantMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.AddMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.EditMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.RemoveMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.MoveUpMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.MoveDownMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -105,14 +122,18 @@ namespace Gurux.DeviceSuite.Ami
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.Connections.SuspendLayout();
+            this.ConnectionTab.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.RedundantConnectionsTab.SuspendLayout();
+            this.RedundantMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // CancelBtn
             // 
             this.CancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelBtn.Location = new System.Drawing.Point(437, 435);
+            this.CancelBtn.Location = new System.Drawing.Point(437, 495);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 13;
@@ -123,7 +144,7 @@ namespace Gurux.DeviceSuite.Ami
             // 
             this.OkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.OkBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OkBtn.Location = new System.Drawing.Point(356, 435);
+            this.OkBtn.Location = new System.Drawing.Point(356, 495);
             this.OkBtn.Name = "OkBtn";
             this.OkBtn.Size = new System.Drawing.Size(75, 23);
             this.OkBtn.TabIndex = 12;
@@ -133,14 +154,14 @@ namespace Gurux.DeviceSuite.Ami
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.GeneralTab);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(512, 429);
+            this.tabControl1.Size = new System.Drawing.Size(512, 489);
             this.tabControl1.TabIndex = 0;
             // 
             // GeneralTab
@@ -148,7 +169,7 @@ namespace Gurux.DeviceSuite.Ami
             this.GeneralTab.Controls.Add(this.splitContainer1);
             this.GeneralTab.Location = new System.Drawing.Point(4, 22);
             this.GeneralTab.Name = "GeneralTab";
-            this.GeneralTab.Size = new System.Drawing.Size(504, 403);
+            this.GeneralTab.Size = new System.Drawing.Size(504, 463);
             this.GeneralTab.TabIndex = 0;
             this.GeneralTab.Text = "GeneralTab";
             // 
@@ -166,8 +187,8 @@ namespace Gurux.DeviceSuite.Ami
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(504, 403);
-            this.splitContainer1.SplitterDistance = 168;
+            this.splitContainer1.Size = new System.Drawing.Size(504, 463);
+            this.splitContainer1.SplitterDistance = 193;
             this.splitContainer1.TabIndex = 0;
             // 
             // splitContainer3
@@ -190,11 +211,11 @@ namespace Gurux.DeviceSuite.Ami
             // 
             // splitContainer3.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.CustomDeviceType);
+            this.splitContainer3.Panel2.Controls.Add(this.CustomDeviceProfile);
             this.splitContainer3.Panel2.Controls.Add(this.PresetList);
             this.splitContainer3.Panel2.Controls.Add(this.panel1);
-            this.splitContainer3.Size = new System.Drawing.Size(504, 168);
-            this.splitContainer3.SplitterDistance = 70;
+            this.splitContainer3.Size = new System.Drawing.Size(504, 193);
+            this.splitContainer3.SplitterDistance = 80;
             this.splitContainer3.TabIndex = 0;
             // 
             // WaitTimeTb
@@ -264,17 +285,17 @@ namespace Gurux.DeviceSuite.Ami
             this.NameTB.Size = new System.Drawing.Size(222, 20);
             this.NameTB.TabIndex = 0;
             // 
-            // CustomDeviceType
+            // CustomDeviceProfile
             // 
-            this.CustomDeviceType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.CustomDeviceType.FormattingEnabled = true;
-            this.CustomDeviceType.Location = new System.Drawing.Point(297, 3);
-            this.CustomDeviceType.Name = "CustomDeviceType";
-            this.CustomDeviceType.Size = new System.Drawing.Size(204, 69);
-            this.CustomDeviceType.Sorted = true;
-            this.CustomDeviceType.TabIndex = 7;
-            this.CustomDeviceType.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.CustomDeviceType_DrawItem);
-            this.CustomDeviceType.SelectedIndexChanged += new System.EventHandler(this.CustomDeviceType_SelectedIndexChanged);
+            this.CustomDeviceProfile.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.CustomDeviceProfile.FormattingEnabled = true;
+            this.CustomDeviceProfile.Location = new System.Drawing.Point(297, 3);
+            this.CustomDeviceProfile.Name = "CustomDeviceProfile";
+            this.CustomDeviceProfile.Size = new System.Drawing.Size(204, 69);
+            this.CustomDeviceProfile.Sorted = true;
+            this.CustomDeviceProfile.TabIndex = 7;
+            this.CustomDeviceProfile.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.CustomDeviceType_DrawItem);
+            this.CustomDeviceProfile.SelectedIndexChanged += new System.EventHandler(this.CustomDeviceType_SelectedIndexChanged);
             // 
             // PresetList
             // 
@@ -283,7 +304,7 @@ namespace Gurux.DeviceSuite.Ami
             this.ModelCH,
             this.VersionCH,
             this.PresetNameCH,
-            this.DeviceTemplateVersionCH});
+            this.DeviceProfilesVersionCH});
             this.PresetList.FullRowSelect = true;
             this.PresetList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.PresetList.HideSelection = false;
@@ -295,11 +316,6 @@ namespace Gurux.DeviceSuite.Ami
             this.PresetList.UseCompatibleStateImageBehavior = false;
             this.PresetList.View = System.Windows.Forms.View.Details;
             this.PresetList.SelectedIndexChanged += new System.EventHandler(this.PresetList_SelectedIndexChanged);
-            // 
-            // PresetNameCH
-            // 
-            this.PresetNameCH.Text = "Preset Name";
-            this.PresetNameCH.Width = 102;
             // 
             // ManufacturerCH
             // 
@@ -315,6 +331,15 @@ namespace Gurux.DeviceSuite.Ami
             // 
             this.VersionCH.Text = "Version";
             // 
+            // PresetNameCH
+            // 
+            this.PresetNameCH.Text = "Preset Name";
+            this.PresetNameCH.Width = 102;
+            // 
+            // DeviceProfilesVersionCH
+            // 
+            this.DeviceProfilesVersionCH.Text = "Version";
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.CustomRB);
@@ -322,7 +347,7 @@ namespace Gurux.DeviceSuite.Ami
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(87, 94);
+            this.panel1.Size = new System.Drawing.Size(87, 109);
             this.panel1.TabIndex = 0;
             // 
             // CustomRB
@@ -361,9 +386,8 @@ namespace Gurux.DeviceSuite.Ami
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.MediaFrame);
-            this.splitContainer2.Panel2.Controls.Add(this.panel2);
-            this.splitContainer2.Size = new System.Drawing.Size(504, 231);
+            this.splitContainer2.Panel2.Controls.Add(this.Connections);
+            this.splitContainer2.Size = new System.Drawing.Size(504, 266);
             this.splitContainer2.SplitterDistance = 214;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -384,48 +408,190 @@ namespace Gurux.DeviceSuite.Ami
             this.PropertyGrid.TabIndex = 8;
             this.PropertyGrid.ToolbarVisible = false;
             // 
+            // Connections
+            // 
+            this.Connections.Controls.Add(this.ConnectionTab);
+            this.Connections.Controls.Add(this.RedundantConnectionsTab);
+            this.Connections.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Connections.Location = new System.Drawing.Point(0, 0);
+            this.Connections.Name = "Connections";
+            this.Connections.SelectedIndex = 0;
+            this.Connections.Size = new System.Drawing.Size(286, 266);
+            this.Connections.TabIndex = 14;
+            // 
+            // ConnectionTab
+            // 
+            this.ConnectionTab.Controls.Add(this.MediaFrame);
+            this.ConnectionTab.Controls.Add(this.panel2);
+            this.ConnectionTab.Location = new System.Drawing.Point(4, 22);
+            this.ConnectionTab.Name = "ConnectionTab";
+            this.ConnectionTab.Padding = new System.Windows.Forms.Padding(3);
+            this.ConnectionTab.Size = new System.Drawing.Size(278, 240);
+            this.ConnectionTab.TabIndex = 0;
+            this.ConnectionTab.Text = "Connection";
+            this.ConnectionTab.UseVisualStyleBackColor = true;
+            // 
             // MediaFrame
             // 
             this.MediaFrame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MediaFrame.Location = new System.Drawing.Point(0, 32);
+            this.MediaFrame.Location = new System.Drawing.Point(3, 69);
             this.MediaFrame.Name = "MediaFrame";
-            this.MediaFrame.Size = new System.Drawing.Size(286, 199);
-            this.MediaFrame.TabIndex = 10;
+            this.MediaFrame.Size = new System.Drawing.Size(272, 168);
+            this.MediaFrame.TabIndex = 12;
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.CollectorsCB);
+            this.panel2.Controls.Add(this.CollectorsLbl);
             this.panel2.Controls.Add(this.MediaCB);
             this.panel2.Controls.Add(this.MediaLbl);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(286, 32);
-            this.panel2.TabIndex = 9;
+            this.panel2.Size = new System.Drawing.Size(272, 66);
+            this.panel2.TabIndex = 11;
+            // 
+            // CollectorsCB
+            // 
+            this.CollectorsCB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CollectorsCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CollectorsCB.FormattingEnabled = true;
+            this.CollectorsCB.Location = new System.Drawing.Point(100, 6);
+            this.CollectorsCB.Name = "CollectorsCB";
+            this.CollectorsCB.Size = new System.Drawing.Size(161, 21);
+            this.CollectorsCB.TabIndex = 134;
+            this.CollectorsCB.SelectedIndexChanged += new System.EventHandler(this.CollectorsCB_SelectedIndexChanged);
+            // 
+            // CollectorsLbl
+            // 
+            this.CollectorsLbl.AutoSize = true;
+            this.CollectorsLbl.Location = new System.Drawing.Point(8, 11);
+            this.CollectorsLbl.Name = "CollectorsLbl";
+            this.CollectorsLbl.Size = new System.Drawing.Size(77, 13);
+            this.CollectorsLbl.TabIndex = 133;
+            this.CollectorsLbl.Text = "Data Collector:";
             // 
             // MediaCB
             // 
-            this.MediaCB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.MediaCB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MediaCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.MediaCB.FormattingEnabled = true;
-            this.MediaCB.Location = new System.Drawing.Point(79, 4);
+            this.MediaCB.Location = new System.Drawing.Point(100, 33);
             this.MediaCB.Name = "MediaCB";
-            this.MediaCB.Size = new System.Drawing.Size(130, 21);
+            this.MediaCB.Size = new System.Drawing.Size(161, 21);
             this.MediaCB.TabIndex = 9;
             this.MediaCB.SelectedIndexChanged += new System.EventHandler(this.MediaCB_SelectedIndexChanged);
             // 
             // MediaLbl
             // 
             this.MediaLbl.AutoSize = true;
-            this.MediaLbl.Location = new System.Drawing.Point(8, 9);
+            this.MediaLbl.Location = new System.Drawing.Point(8, 34);
             this.MediaLbl.Name = "MediaLbl";
             this.MediaLbl.Size = new System.Drawing.Size(39, 13);
             this.MediaLbl.TabIndex = 132;
             this.MediaLbl.Text = "Media:";
             // 
-            // DeviceTemplateVersionCH
+            // RedundantConnectionsTab
             // 
-            this.DeviceTemplateVersionCH.Text = "Version";
+            this.RedundantConnectionsTab.Controls.Add(this.RedundantConnectionsList);
+            this.RedundantConnectionsTab.Location = new System.Drawing.Point(4, 22);
+            this.RedundantConnectionsTab.Name = "RedundantConnectionsTab";
+            this.RedundantConnectionsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.RedundantConnectionsTab.Size = new System.Drawing.Size(278, 205);
+            this.RedundantConnectionsTab.TabIndex = 1;
+            this.RedundantConnectionsTab.Text = "Redundant Connections";
+            this.RedundantConnectionsTab.UseVisualStyleBackColor = true;
+            // 
+            // RedundantConnectionsList
+            // 
+            this.RedundantConnectionsList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.MediaCH,
+            this.SettingsCH,
+            this.DataCollectorDH});
+            this.RedundantConnectionsList.ContextMenuStrip = this.RedundantMenu;
+            this.RedundantConnectionsList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RedundantConnectionsList.FullRowSelect = true;
+            this.RedundantConnectionsList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.RedundantConnectionsList.HideSelection = false;
+            this.RedundantConnectionsList.Location = new System.Drawing.Point(3, 3);
+            this.RedundantConnectionsList.MultiSelect = false;
+            this.RedundantConnectionsList.Name = "RedundantConnectionsList";
+            this.RedundantConnectionsList.ShowGroups = false;
+            this.RedundantConnectionsList.Size = new System.Drawing.Size(272, 199);
+            this.RedundantConnectionsList.TabIndex = 16;
+            this.RedundantConnectionsList.UseCompatibleStateImageBehavior = false;
+            this.RedundantConnectionsList.View = System.Windows.Forms.View.Details;
+            this.RedundantConnectionsList.DoubleClick += new System.EventHandler(this.EditMenu_Click);
+            // 
+            // MediaCH
+            // 
+            this.MediaCH.Text = "Media";
+            this.MediaCH.Width = 67;
+            // 
+            // SettingsCH
+            // 
+            this.SettingsCH.Text = "Settings";
+            this.SettingsCH.Width = 110;
+            // 
+            // DataCollectorDH
+            // 
+            this.DataCollectorDH.Text = "Data Collector";
+            this.DataCollectorDH.Width = 91;
+            // 
+            // RedundantMenu
+            // 
+            this.RedundantMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AddMenu,
+            this.EditMenu,
+            this.RemoveMenu,
+            this.toolStripMenuItem1,
+            this.MoveUpMenu,
+            this.MoveDownMenu});
+            this.RedundantMenu.Name = "contextMenuStrip1";
+            this.RedundantMenu.Size = new System.Drawing.Size(127, 120);
+            this.RedundantMenu.Opening += new System.ComponentModel.CancelEventHandler(this.RedundantMenu_Opening);
+            // 
+            // AddMenu
+            // 
+            this.AddMenu.Name = "AddMenu";
+            this.AddMenu.Size = new System.Drawing.Size(126, 22);
+            this.AddMenu.Text = "Add...";
+            this.AddMenu.Click += new System.EventHandler(this.AddMenu_Click);
+            // 
+            // EditMenu
+            // 
+            this.EditMenu.Name = "EditMenu";
+            this.EditMenu.Size = new System.Drawing.Size(126, 22);
+            this.EditMenu.Text = "Edit...";
+            this.EditMenu.Click += new System.EventHandler(this.EditMenu_Click);
+            // 
+            // RemoveMenu
+            // 
+            this.RemoveMenu.Name = "RemoveMenu";
+            this.RemoveMenu.Size = new System.Drawing.Size(126, 22);
+            this.RemoveMenu.Text = "Remove...";
+            this.RemoveMenu.Click += new System.EventHandler(this.RemoveMenu_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(123, 6);
+            // 
+            // MoveUpMenu
+            // 
+            this.MoveUpMenu.Name = "MoveUpMenu";
+            this.MoveUpMenu.Size = new System.Drawing.Size(126, 22);
+            this.MoveUpMenu.Text = "Up";
+            this.MoveUpMenu.Click += new System.EventHandler(this.MoveUpMenu_Click);
+            // 
+            // MoveDownMenu
+            // 
+            this.MoveDownMenu.Name = "MoveDownMenu";
+            this.MoveDownMenu.Size = new System.Drawing.Size(126, 22);
+            this.MoveDownMenu.Text = "Down";
+            this.MoveDownMenu.Click += new System.EventHandler(this.MoveDownMenu_Click);
             // 
             // GXAmiDeviceSettingsForm
             // 
@@ -433,7 +599,7 @@ namespace Gurux.DeviceSuite.Ami
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
-            this.ClientSize = new System.Drawing.Size(524, 470);
+            this.ClientSize = new System.Drawing.Size(524, 530);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.OkBtn);
             this.Controls.Add(this.CancelBtn);
@@ -457,8 +623,12 @@ namespace Gurux.DeviceSuite.Ami
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.ResumeLayout(false);
+            this.Connections.ResumeLayout(false);
+            this.ConnectionTab.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.RedundantConnectionsTab.ResumeLayout(false);
+            this.RedundantMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -490,12 +660,28 @@ namespace Gurux.DeviceSuite.Ami
         private System.Windows.Forms.ColumnHeader ManufacturerCH;
         private System.Windows.Forms.ColumnHeader ModelCH;
         private System.Windows.Forms.ColumnHeader VersionCH;
-        private Gurux.DeviceSuite.Common.CustomDeviceTypeListBox CustomDeviceType;
+        private Gurux.DeviceSuite.Common.CustomDeviceTypeListBox CustomDeviceProfile;
+        private System.Windows.Forms.Panel SettingsPanel;
+        private System.Windows.Forms.ColumnHeader DeviceProfilesVersionCH;
+        private System.Windows.Forms.TabControl Connections;
+        private System.Windows.Forms.TabPage ConnectionTab;
         private System.Windows.Forms.Panel MediaFrame;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ComboBox MediaCB;
         private System.Windows.Forms.Label MediaLbl;
-        private System.Windows.Forms.Panel SettingsPanel;
-        private System.Windows.Forms.ColumnHeader DeviceTemplateVersionCH;
+        private System.Windows.Forms.TabPage RedundantConnectionsTab;
+        private System.Windows.Forms.ListView RedundantConnectionsList;
+        private System.Windows.Forms.ColumnHeader MediaCH;
+        private System.Windows.Forms.ColumnHeader SettingsCH;
+        private System.Windows.Forms.ColumnHeader DataCollectorDH;
+        private System.Windows.Forms.ContextMenuStrip RedundantMenu;
+        private System.Windows.Forms.ToolStripMenuItem AddMenu;
+        private System.Windows.Forms.ToolStripMenuItem EditMenu;
+        private System.Windows.Forms.ToolStripMenuItem RemoveMenu;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem MoveUpMenu;
+        private System.Windows.Forms.ToolStripMenuItem MoveDownMenu;
+        private System.Windows.Forms.ComboBox CollectorsCB;
+        private System.Windows.Forms.Label CollectorsLbl;
     }
 }

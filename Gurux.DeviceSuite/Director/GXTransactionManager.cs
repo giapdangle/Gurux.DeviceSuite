@@ -52,11 +52,19 @@ namespace Gurux.DeviceSuite.Director
 
         GXAsyncWork TransactionWork;
 
-        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state, string text)
+        void OnAsyncStateChange(object sender, GXAsyncWork work, object[] parameters, AsyncState state, string text)
         {
             foreach (AsyncStateChangeEventHandler e in Events)
             {
-                e(sender, state, text);
+                e(sender, work, parameters, state, text);
+            }
+        }
+
+        public void Cancel()
+        {
+            if (TransactionWork != null && TransactionWork.IsRunning)
+            {
+                TransactionWork.Cancel();
             }
         }
 
@@ -66,7 +74,7 @@ namespace Gurux.DeviceSuite.Director
         /// <param name="item">The item to be read.</param>
         public void Read(System.Windows.Forms.Control sender, object item)
         {
-            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, ReadAsync, Gurux.DeviceSuite.Properties.Resources.ReadingTxt, new object[] { item });
+            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, ReadAsync, null, Gurux.DeviceSuite.Properties.Resources.ReadingTxt, new object[] { item });
             TransactionWork.Start();
         }
 
@@ -76,7 +84,7 @@ namespace Gurux.DeviceSuite.Director
         /// <param name="item">The item to be written.</param>
         public void Write(System.Windows.Forms.Control sender, object item)
         {
-            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, WriteAsync,Gurux.DeviceSuite.Properties.Resources.WritingTxt, new object[] { item });
+            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, WriteAsync, null, Gurux.DeviceSuite.Properties.Resources.WritingTxt, new object[] { item });
             TransactionWork.Start();
         }
 
@@ -86,7 +94,7 @@ namespace Gurux.DeviceSuite.Director
         /// <param name="item">The item to be connected.</param>
         public void Connect(System.Windows.Forms.Control sender, object item)
         {
-            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, ConnectAsync, Gurux.DeviceSuite.Properties.Resources.ConnectingTxt, new object[] { item });
+            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, ConnectAsync, null, Gurux.DeviceSuite.Properties.Resources.ConnectingTxt, new object[] { item });
             TransactionWork.Start();
         }
 
@@ -96,7 +104,7 @@ namespace Gurux.DeviceSuite.Director
         /// <param name="item">The item to be disconnected.</param>
         public void Disconnect(System.Windows.Forms.Control sender, object item)
         {
-            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, DisconnectAsync, Gurux.DeviceSuite.Properties.Resources.DisconnectingTxt, new object[] { item });
+            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, DisconnectAsync, null, Gurux.DeviceSuite.Properties.Resources.DisconnectingTxt, new object[] { item });
             TransactionWork.Start();
         }
 
@@ -106,7 +114,7 @@ namespace Gurux.DeviceSuite.Director
         /// <param name="item">The item to be monitored.</param>
         public void StartMonitoring(System.Windows.Forms.Control sender, object item)
         {
-            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, StartMonitoringAsync, Gurux.DeviceSuite.Properties.Resources.MonitorTxt, new object[] { item });
+            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, StartMonitoringAsync, null, Gurux.DeviceSuite.Properties.Resources.MonitorTxt, new object[] { item });
             TransactionWork.Start();
         }
 
@@ -116,7 +124,7 @@ namespace Gurux.DeviceSuite.Director
         /// <param name="item">An item to halt monitoring on.</param>
         public void StopMonitoring(System.Windows.Forms.Control sender, object item)
         {
-            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, StopMonitoringAsync, Gurux.DeviceSuite.Properties.Resources.MonitorTxt, new object[] { item });
+            TransactionWork = new GXAsyncWork(sender, OnAsyncStateChange, StopMonitoringAsync, null, Gurux.DeviceSuite.Properties.Resources.MonitorTxt, new object[] { item });
             TransactionWork.Start();
         }
 
@@ -124,7 +132,7 @@ namespace Gurux.DeviceSuite.Director
         /// Connects the specified item or its parent device.
         /// </summary>
         /// <param name="item">An item to be connected.</param>
-        void ConnectAsync(object sender, object[] parameters)
+        void ConnectAsync(object sender, GXAsyncWork work, object[] parameters)
         {
             object item = parameters[0];
             //If device list is selected.
@@ -156,14 +164,14 @@ namespace Gurux.DeviceSuite.Director
             else if (item is GXProperty)
             {
                 ((GXProperty)item).Device.Connect();
-            }
+            }            
         }
 
         /// <summary>
         /// Disconnects the specified item or its parent device.
         /// </summary>
         /// <param name="item">An item to be connected.</param>
-        void DisconnectAsync(object sender, object[] parameters)
+        void DisconnectAsync(object sender, GXAsyncWork work, object[] parameters)
         {
             object item = parameters[0];
             //If device list is selected.
@@ -195,14 +203,14 @@ namespace Gurux.DeviceSuite.Director
             else if (item is GXProperty)
             {
                 ((GXProperty)item).Device.Disconnect();
-            }
+            }            
         }
 
         /// <summary>
         /// Starts monitoring the specified item or its parent device.
         /// </summary>
         /// <param name="item">An item to be monitored.</param>
-        void StartMonitoringAsync(object sender, object[] parameters)
+        void StartMonitoringAsync(object sender, GXAsyncWork work, object[] parameters)
         {
             object item = parameters[0];
             if (item is GXDeviceList)
@@ -228,14 +236,14 @@ namespace Gurux.DeviceSuite.Director
             else if (item is GXProperty)
             {
                 ((GXProperty)item).Device.StartMonitoring();
-            }
+            }            
         }
 
         /// <summary>
         /// Stops monitoring the specified item or its parent device.
         /// </summary>
         /// <param name="item">An item to halt monitoring on.</param>
-        void StopMonitoringAsync(object sender, object[] parameters)
+        void StopMonitoringAsync(object sender, GXAsyncWork work, object[] parameters)
         {
             object item = parameters[0];
             if (item is GXDeviceList)
@@ -261,14 +269,14 @@ namespace Gurux.DeviceSuite.Director
             else if (item is GXProperty)
             {
                 ((GXProperty)item).Device.StopMonitoring();
-            }
+            }            
         }
 
         /// <summary>
         /// Reads the specified item.
         /// </summary>
         /// <param name="item">An item to be read</param>
-        void ReadAsync(object sender, object[] parameters)
+        void ReadAsync(object sender, GXAsyncWork work, object[] parameters)
         {
             object item = parameters[0];
             //If device list is selected.
@@ -308,14 +316,14 @@ namespace Gurux.DeviceSuite.Director
             else
             {
                 throw new Exception("GXTransactionManager.Read failed: Unknown item type: " + item.GetType().ToString());
-            }
+            }            
         }
 
         /// <summary>
         /// Writes the specified item.
         /// </summary>
         /// <param name="item">An item to be written</param>
-        public void WriteAsync(object sender, object[] parameters)
+        void WriteAsync(object sender, GXAsyncWork work, object[] parameters)
         {
             object item = parameters[0];
             //If device list is selected.
@@ -351,7 +359,7 @@ namespace Gurux.DeviceSuite.Director
             else
             {
                 throw new Exception("GXTransactionManager.Write failed: Unknown item type: " + item.GetType().ToString());
-            }
+            }            
         }
 
         /// <summary>

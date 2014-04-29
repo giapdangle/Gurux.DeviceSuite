@@ -110,12 +110,16 @@ namespace Gurux.DeviceSuite.Ami
             this.TransactionCountCb = new System.Windows.Forms.CheckBox();
             this.TargetTab = new System.Windows.Forms.TabPage();
             this.TargetCheckTree = new System.Windows.Forms.TreeView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.SelectedDCTB = new System.Windows.Forms.TextBox();
+            this.SelectedDCLbl = new System.Windows.Forms.Label();
             this.CancelBtn = new System.Windows.Forms.Button();
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             this.tabControl1.SuspendLayout();
             this.ScheduleTab.SuspendLayout();
             this.TransactionTab.SuspendLayout();
             this.TargetTab.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // DayOfMonthTb
@@ -312,9 +316,9 @@ namespace Gurux.DeviceSuite.Ami
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.ScheduleTab);
             this.tabControl1.Controls.Add(this.TransactionTab);
             this.tabControl1.Controls.Add(this.TargetTab);
@@ -589,6 +593,7 @@ namespace Gurux.DeviceSuite.Ami
             // TargetTab
             // 
             this.TargetTab.Controls.Add(this.TargetCheckTree);
+            this.TargetTab.Controls.Add(this.panel1);
             this.TargetTab.Location = new System.Drawing.Point(4, 22);
             this.TargetTab.Name = "TargetTab";
             this.TargetTab.Size = new System.Drawing.Size(352, 296);
@@ -599,11 +604,41 @@ namespace Gurux.DeviceSuite.Ami
             // 
             this.TargetCheckTree.CheckBoxes = true;
             this.TargetCheckTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TargetCheckTree.Location = new System.Drawing.Point(0, 0);
+            this.TargetCheckTree.Location = new System.Drawing.Point(0, 47);
             this.TargetCheckTree.Name = "TargetCheckTree";
             this.helpProvider1.SetShowHelp(this.TargetCheckTree, true);
-            this.TargetCheckTree.Size = new System.Drawing.Size(352, 296);
-            this.TargetCheckTree.TabIndex = 0;
+            this.TargetCheckTree.Size = new System.Drawing.Size(352, 249);
+            this.TargetCheckTree.TabIndex = 2;
+            this.TargetCheckTree.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.TargetCheckTree_AfterCheck);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.SelectedDCTB);
+            this.panel1.Controls.Add(this.SelectedDCLbl);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(352, 47);
+            this.panel1.TabIndex = 1;
+            // 
+            // SelectedDCTB
+            // 
+            this.SelectedDCTB.Location = new System.Drawing.Point(150, 13);
+            this.SelectedDCTB.Name = "SelectedDCTB";
+            this.SelectedDCTB.ReadOnly = true;
+            this.helpProvider1.SetShowHelp(this.SelectedDCTB, true);
+            this.SelectedDCTB.Size = new System.Drawing.Size(191, 20);
+            this.SelectedDCTB.TabIndex = 17;
+            this.SelectedDCTB.Text = "GuruxAMI Server";
+            // 
+            // SelectedDCLbl
+            // 
+            this.SelectedDCLbl.AutoSize = true;
+            this.SelectedDCLbl.Location = new System.Drawing.Point(3, 16);
+            this.SelectedDCLbl.Name = "SelectedDCLbl";
+            this.SelectedDCLbl.Size = new System.Drawing.Size(122, 13);
+            this.SelectedDCLbl.TabIndex = 18;
+            this.SelectedDCLbl.Text = "Selected Data Collector:";
             // 
             // CancelBtn
             // 
@@ -616,7 +651,7 @@ namespace Gurux.DeviceSuite.Ami
             this.CancelBtn.TabIndex = 105;
             this.CancelBtn.Text = "Cancel";
             // 
-            // GXScheduleEditorDlg
+            // GXAmiScheduleEditorDlg
             // 
             this.AcceptButton = this.OKBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -629,7 +664,7 @@ namespace Gurux.DeviceSuite.Ami
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "GXScheduleEditorDlg";
+            this.Name = "GXAmiScheduleEditorDlg";
             this.helpProvider1.SetShowHelp(this, false);
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -641,6 +676,8 @@ namespace Gurux.DeviceSuite.Ami
             this.TransactionTab.ResumeLayout(false);
             this.TransactionTab.PerformLayout();
             this.TargetTab.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -695,9 +732,12 @@ namespace Gurux.DeviceSuite.Ami
 		private System.Windows.Forms.TextBox MaxThreadCountTb;
 		private System.Windows.Forms.Label MaxThreadCountLbl;
 		private System.Windows.Forms.CheckBox TransactionCountCb;
-		private System.Windows.Forms.TabPage TargetTab;
-		private System.Windows.Forms.TreeView TargetCheckTree;
+        private System.Windows.Forms.TabPage TargetTab;
 		private System.Windows.Forms.Button CancelBtn;
+        private System.Windows.Forms.TreeView TargetCheckTree;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox SelectedDCTB;
+        private System.Windows.Forms.Label SelectedDCLbl;
 
 	}
 }

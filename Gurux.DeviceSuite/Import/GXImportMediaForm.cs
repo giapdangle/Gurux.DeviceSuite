@@ -106,7 +106,7 @@ namespace Gurux.DeviceSuite.Import
                     if (Gurux.DeviceSuite.Properties.Settings.Default.EditorSelectedMedia != null &&
                         Gurux.DeviceSuite.Properties.Settings.Default.EditorSelectedMediaSettings != null)
                     {
-                        string newKey = m_GXDevice.ProtocolName + m_GXDevice.DeviceType;
+                        string newKey = m_GXDevice.ProtocolName + m_GXDevice.DeviceProfile;
                         newKey = newKey.GetHashCode().ToString();
                         foreach (string it in Gurux.DeviceSuite.Properties.Settings.Default.EditorSelectedMedia)
                         {
@@ -114,7 +114,7 @@ namespace Gurux.DeviceSuite.Import
                             string key = tmp[0];                            
                             if (string.Compare(newKey, key) == 0)
                             {
-                                newKey = m_GXDevice.ProtocolName + m_GXDevice.DeviceType + SelectedMedia.MediaType;
+                                newKey = m_GXDevice.ProtocolName + m_GXDevice.DeviceProfile + SelectedMedia.MediaType;
                                 newKey = newKey.GetHashCode().ToString();
                                 //Update media settings.
                                 foreach (string it2 in Gurux.DeviceSuite.Properties.Settings.Default.EditorSelectedMediaSettings)
@@ -206,6 +206,7 @@ namespace Gurux.DeviceSuite.Import
                                 Gurux.DeviceSuite.Properties.Settings.Default.AmiUserName,
                                 Gurux.DeviceSuite.Properties.Settings.Default.AmiPassword,
                                 m_GXDevice.GXClient);
+                gw.WaitTime = m_GXDevice.WaitTime; 
                 if (!AvailableMedias.ContainsKey(gw.MediaType))
                 {
                     AvailableMedias.Add(gw.MediaType, gw);
@@ -224,7 +225,7 @@ namespace Gurux.DeviceSuite.Import
                 //Find used media.
                 if (Gurux.DeviceSuite.Properties.Settings.Default.EditorSelectedMedia != null)
                 {
-                    string newKey = m_GXDevice.ProtocolName + m_GXDevice.DeviceType;
+                    string newKey = m_GXDevice.ProtocolName + m_GXDevice.DeviceProfile;
                     newKey = newKey.GetHashCode().ToString();
                     foreach (string it in Gurux.DeviceSuite.Properties.Settings.Default.EditorSelectedMedia)
                     {

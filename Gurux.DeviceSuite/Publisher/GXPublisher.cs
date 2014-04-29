@@ -56,7 +56,7 @@ namespace Gurux.Device.Publisher
         /// <summary>
         /// Downloaded template.
         /// </summary>
-        public GXTemplateVersion Template
+        public GXDeviceProfileVersion Template
         {
             get;
             set;
@@ -72,7 +72,7 @@ namespace Gurux.Device.Publisher
         /// <summary>
         /// Template to download.
         /// </summary>
-        public GXTemplateVersion Template
+        public GXDeviceProfileVersion Template
         {
             get;
             set;

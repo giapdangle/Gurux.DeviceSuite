@@ -13,18 +13,20 @@ using Gurux.Serial;
 using GuruxAMI.Client;
 using System.Threading;
 using Gurux.DeviceSuite.Director;
+using GuruxAMI.Gateway;
 
 namespace Gurux.DeviceSuite.Ami
 {
     public partial class GXAmiCommandPromptForm : Form
     {
-        Gurux.DeviceSuite.Director.GXAsyncWork TransactionWork;
+        GXAsyncWork TransactionWork;
         AutoResetEvent Connected = new AutoResetEvent(false);
         GXAmiTask ExecutedTask;
         Form PropertiesForm;
         public IGXMedia SelectedMedia;
         GXAmiClient Client;
         GXAmiDataCollector DataCollector;
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -87,6 +89,14 @@ namespace Gurux.DeviceSuite.Ami
                 {
                     (SelectedMedia as GXSerial).AvailablePorts = DataCollector.SerialPorts;
                 }
+                if (SelectedMedia is GXAmiGateway)
+                {
+                    GXAmiGateway gw = SelectedMedia as GXAmiGateway;
+                    gw.Host = Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName;
+                    gw.Port = Convert.ToInt32(Gurux.DeviceSuite.Properties.Settings.Default.AmiPort);
+                    gw.UserName = Gurux.DeviceSuite.Properties.Settings.Default.AmiUserName;
+                    gw.Password = Gurux.DeviceSuite.Properties.Settings.Default.AmiPassword;
+                }
                 PropertiesForm = SelectedMedia.PropertiesForm;
                 ((IGXPropertyPage)PropertiesForm).Initialize();
                 while (PropertiesForm.Controls.Count != 0)
@@ -109,7 +119,7 @@ namespace Gurux.DeviceSuite.Ami
             }
         }
 
-        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state, string text)
+        void OnAsyncStateChange(object sender, GXAsyncWork work, object[] parameters, AsyncState state, string text)
         {
             panel1.Visible = panel2.Visible = MediaFrame.Visible = state != AsyncState.Start;
             ConnectingPanel.Visible = state == AsyncState.Start;
@@ -124,10 +134,11 @@ namespace Gurux.DeviceSuite.Ami
                 Client.OnTasksAdded -= new TasksAddedEventHandler(Client_OnTasksAdded);
                 if (ExecutedTask != null && state == AsyncState.Cancel)
                 {
-                    Client.RemoveTask(ExecutedTask, true);
+                    Client.RemoveTask(ExecutedTask);
                     ExecutedTask = null;
                     this.DialogResult = DialogResult.None;
                 }
+                //Close dlg if user has not cancel the connection and no error are occured.
                 else if (ExecutedTask != null && state == AsyncState.Finish)
                 {
                     ExecutedTask = null;
@@ -136,10 +147,14 @@ namespace Gurux.DeviceSuite.Ami
             }
         }
 
+        /// <summary>
+        /// Wait until DC notifies from media state change.
+        /// </summary>
         void Client_OnTasksAdded(object sender, GXAmiTask[] tasks)
         {
             foreach (GXAmiTask it in tasks)
             {
+                System.Diagnostics.Debug.Assert(it.SenderDataCollectorGuid == DataCollector.Guid);
                 if (it.TaskType == TaskType.MediaState)
                 {
                     string[] arr = it.Data.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
@@ -148,18 +163,27 @@ namespace Gurux.DeviceSuite.Ami
                         ((MediaState)Convert.ToInt32(arr[2])) == MediaState.Open)
                     {
                         Connected.Set();
-                        Client.RemoveTask(it, true);
+                        Client.RemoveTask(it);
                     }
                 }
             }
         }
 
-        void ConnectAsync(object sender, object[] parameters)
+        /// <summary>
+        /// Thread to wait media connection.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        void ConnectAsync(object sender, GXAsyncWork work, object[] parameters)
         {
             ExecutedTask = Client.MediaOpen((Guid)parameters[0], (string)parameters[1], (string)parameters[2]);
-            Connected.WaitOne();
+            Connected.WaitOne();            
         }
 
+        /// <summary>
+        /// Start connection to the selected media.
+        /// </summary>
         private void OkBtn_Click(object sender, EventArgs e)
         {
             try
@@ -171,7 +195,7 @@ namespace Gurux.DeviceSuite.Ami
                     ((IGXPropertyPage)PropertiesForm).Apply();
                 }
                 SelectedMedia.Validate();
-                TransactionWork = new Gurux.DeviceSuite.Director.GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, "", new object[] { DataCollector.Guid, SelectedMedia.MediaType, SelectedMedia.Settings });
+                TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, null, "", new object[] { DataCollector.Guid, SelectedMedia.MediaType, SelectedMedia.Settings });
                 TransactionWork.Start();
             }            
             catch (Exception ex)
@@ -184,7 +208,6 @@ namespace Gurux.DeviceSuite.Ami
 
         void ShowError(string message)
         {
-            OnAsyncStateChange(this, AsyncState.Cancel, null);
             MessageBox.Show(this, message);
         }
 
@@ -197,7 +220,9 @@ namespace Gurux.DeviceSuite.Ami
             {
                 if (it.TaskID == ExecutedTask.Id)
                 {
+                    ExecutedTask = null;
                     DialogResult = DialogResult.None;
+                    Connected.Set();
                     this.BeginInvoke(new ShowErrorEventHandler(ShowError), it.Message);
                     break;
                 }

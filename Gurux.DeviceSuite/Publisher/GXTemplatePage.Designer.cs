@@ -60,38 +60,38 @@ namespace Gurux.DeviceSuite.Publisher
         /// </summary>
         private void InitializeComponent()
         {
-            this.DeviceTemplateLbl = new System.Windows.Forms.Label();
-            this.DeviceTemplateCB = new System.Windows.Forms.ComboBox();
+            this.DeviceProfilesLbl = new System.Windows.Forms.Label();
+            this.DeviceProfilesCB = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // DeviceTemplateLbl
+            // DeviceProfilesLbl
             // 
-            this.DeviceTemplateLbl.AutoSize = true;
-            this.DeviceTemplateLbl.Location = new System.Drawing.Point(10, 30);
-            this.DeviceTemplateLbl.Name = "DeviceTemplateLbl";
-            this.DeviceTemplateLbl.Size = new System.Drawing.Size(87, 13);
-            this.DeviceTemplateLbl.TabIndex = 17;
-            this.DeviceTemplateLbl.Text = "Device template:";
+            this.DeviceProfilesLbl.AutoSize = true;
+            this.DeviceProfilesLbl.Location = new System.Drawing.Point(10, 30);
+            this.DeviceProfilesLbl.Name = "DeviceProfilesLbl";
+            this.DeviceProfilesLbl.Size = new System.Drawing.Size(87, 13);
+            this.DeviceProfilesLbl.TabIndex = 17;
+            this.DeviceProfilesLbl.Text = "Device template:";
             // 
-            // DeviceTemplateCB
+            // DeviceProfilesCB
             // 
-            this.DeviceTemplateCB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.DeviceProfilesCB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.DeviceTemplateCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.DeviceTemplateCB.FormattingEnabled = true;
-            this.DeviceTemplateCB.Location = new System.Drawing.Point(130, 30);
-            this.DeviceTemplateCB.Name = "DeviceTemplateCB";
-            this.DeviceTemplateCB.Size = new System.Drawing.Size(157, 21);
-            this.DeviceTemplateCB.Sorted = true;
-            this.DeviceTemplateCB.TabIndex = 16;
+            this.DeviceProfilesCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DeviceProfilesCB.FormattingEnabled = true;
+            this.DeviceProfilesCB.Location = new System.Drawing.Point(130, 30);
+            this.DeviceProfilesCB.Name = "DeviceProfilesCB";
+            this.DeviceProfilesCB.Size = new System.Drawing.Size(157, 21);
+            this.DeviceProfilesCB.Sorted = true;
+            this.DeviceProfilesCB.TabIndex = 16;
             // 
             // GXTemplatePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 262);
-            this.Controls.Add(this.DeviceTemplateCB);
-            this.Controls.Add(this.DeviceTemplateLbl);
+            this.Controls.Add(this.DeviceProfilesCB);
+            this.Controls.Add(this.DeviceProfilesLbl);
             this.Name = "GXTemplatePage";
             this.Text = "GXTemplatePage";
             this.ResumeLayout(false);
@@ -101,8 +101,8 @@ namespace Gurux.DeviceSuite.Publisher
 
         #endregion
 
-        private System.Windows.Forms.Label DeviceTemplateLbl;
-        private System.Windows.Forms.ComboBox DeviceTemplateCB;
+        private System.Windows.Forms.Label DeviceProfilesLbl;
+        private System.Windows.Forms.ComboBox DeviceProfilesCB;
 
     }
 }

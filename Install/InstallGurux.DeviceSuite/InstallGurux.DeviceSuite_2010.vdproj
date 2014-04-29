@@ -883,11 +883,6 @@
             "AssemblyAsmDisplayName" = "8:GuruxAMI.Server, Version=1.1.4.1, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_00B6BDBDD4EB339631E959C2240F5DD8"
-                    {
-                    "Name" = "8:GuruxAMI.Server.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:GuruxAMI.Server.dll"
             "TargetName" = "8:"
@@ -914,11 +909,6 @@
             "AssemblyAsmDisplayName" = "8:ServiceStack, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_01C6BAD31BD033F9A7A43C00A4A8BC5C"
-                    {
-                    "Name" = "8:ServiceStack.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ServiceStack.dll"
             "TargetName" = "8:"
@@ -945,11 +935,6 @@
             "AssemblyAsmDisplayName" = "8:GuruxAMI.Client, Version=1.1.4.1, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_03E76581F6DF67872EEA3EDF8BE042D7"
-                    {
-                    "Name" = "8:GuruxAMI.Client.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:GuruxAMI.Client.dll"
             "TargetName" = "8:"
@@ -976,11 +961,6 @@
             "AssemblyAsmDisplayName" = "8:ServiceStack.OrmLite.SqlServer, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_04A54ADAD7F52C071EEB339BCABA3F5D"
-                    {
-                    "Name" = "8:ServiceStack.OrmLite.SqlServer.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ServiceStack.OrmLite.SqlServer.dll"
             "TargetName" = "8:"
@@ -1004,7 +984,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Quartz, Version=1.0.2.3, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Quartz, Version=2.2.3.400, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_18DC701AB5D840478D034D26A34F9C19"
@@ -1038,11 +1018,6 @@
             "AssemblyAsmDisplayName" = "8:ServiceStack.Interfaces, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_1C6811647D3F562F640F4896625B6E05"
-                    {
-                    "Name" = "8:ServiceStack.Interfaces.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ServiceStack.Interfaces.dll"
             "TargetName" = "8:"
@@ -1069,11 +1044,6 @@
             "AssemblyAsmDisplayName" = "8:GuruxAMI.Gateway, Version=1.1.3.1, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_1CE30654AFBD7CF1ADF0A0CC3186CE71"
-                    {
-                    "Name" = "8:GuruxAMI.Gateway.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:GuruxAMI.Gateway.dll"
             "TargetName" = "8:"
@@ -1100,11 +1070,6 @@
             "AssemblyAsmDisplayName" = "8:Gurux.Device, Version=7.0.2.1, Culture=neutral, PublicKeyToken=d3daecdad02ac864, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_29DC403DDBB30F6BE2B0ADF680BCBD40"
-                    {
-                    "Name" = "8:Gurux.Device.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Gurux.Device.dll"
             "TargetName" = "8:"
@@ -1131,11 +1096,6 @@
             "AssemblyAsmDisplayName" = "8:ServiceStack.OrmLite, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_33B04B9B30F82B6F3A0D07431301F0CE"
-                    {
-                    "Name" = "8:ServiceStack.OrmLite.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ServiceStack.OrmLite.dll"
             "TargetName" = "8:"
@@ -1162,11 +1122,6 @@
             "AssemblyAsmDisplayName" = "8:ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_5D41652DC48CD4BE5BAA636EA9417B92"
-                    {
-                    "Name" = "8:ICSharpCode.SharpZipLib.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ICSharpCode.SharpZipLib.dll"
             "TargetName" = "8:"
@@ -1193,11 +1148,6 @@
             "AssemblyAsmDisplayName" = "8:Gurux.Communication, Version=7.0.2.1, Culture=neutral, PublicKeyToken=a149b35b71339451, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_60369F91F983647DDFA86A1152E013B1"
-                    {
-                    "Name" = "8:Gurux.Communication.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Gurux.Communication.dll"
             "TargetName" = "8:"
@@ -1224,11 +1174,6 @@
             "AssemblyAsmDisplayName" = "8:Gurux.Serial, Version=7.0.2.1, Culture=neutral, PublicKeyToken=ab7382566107b371, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6C53DA8532012A4E10FA786E635D74FB"
-                    {
-                    "Name" = "8:Gurux.Serial.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Gurux.Serial.dll"
             "TargetName" = "8:"
@@ -1255,11 +1200,6 @@
             "AssemblyAsmDisplayName" = "8:Gurux.Common, Version=7.0.2.1, Culture=neutral, PublicKeyToken=00bee6c3930228bf, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6CA972EB7056EB36E41FA8D032B7B0CE"
-                    {
-                    "Name" = "8:Gurux.Common.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Gurux.Common.dll"
             "TargetName" = "8:"
@@ -1286,11 +1226,6 @@
             "AssemblyAsmDisplayName" = "8:ServiceStack.Common, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_7B682F275531B0E731A37916BCAC109F"
-                    {
-                    "Name" = "8:ServiceStack.Common.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ServiceStack.Common.dll"
             "TargetName" = "8:"
@@ -1317,11 +1252,6 @@
             "AssemblyAsmDisplayName" = "8:ServiceStack.ServiceInterface, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_864B7F85696884A5198C1EC89FCBF6D7"
-                    {
-                    "Name" = "8:ServiceStack.ServiceInterface.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ServiceStack.ServiceInterface.dll"
             "TargetName" = "8:"
@@ -1348,11 +1278,6 @@
             "AssemblyAsmDisplayName" = "8:MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_B9D2C259C58541B908AEADD28DAED5B0"
-                    {
-                    "Name" = "8:MySql.Data.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:MySql.Data.dll"
             "TargetName" = "8:"
@@ -1379,11 +1304,6 @@
             "AssemblyAsmDisplayName" = "8:ServiceStack.Text, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_BAAF58207B7114FB499AB047A7D4ACB5"
-                    {
-                    "Name" = "8:ServiceStack.Text.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ServiceStack.Text.dll"
             "TargetName" = "8:"
@@ -1461,11 +1381,6 @@
             "AssemblyAsmDisplayName" = "8:Quartz, Version=1.0.2.3, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_E725263EB06AC2D74B022134170A2997"
-                    {
-                    "Name" = "8:Quartz.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Quartz.dll"
             "TargetName" = "8:"
@@ -1492,11 +1407,6 @@
             "AssemblyAsmDisplayName" = "8:ServiceStack.OrmLite.MySql, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F61F5BC098D4CC72160A5C30566610FE"
-                    {
-                    "Name" = "8:ServiceStack.OrmLite.MySql.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ServiceStack.OrmLite.MySql.dll"
             "TargetName" = "8:"
@@ -1523,11 +1433,6 @@
             "AssemblyAsmDisplayName" = "8:GuruxAMI.Common, Version=1.1.4.1, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F80507F741690B5AD99943F2596476DD"
-                    {
-                    "Name" = "8:GuruxAMI.Common.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:GuruxAMI.Common.dll"
             "TargetName" = "8:"
@@ -1658,15 +1563,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Gurux.DeviceSuite Community Edition"
-        "ProductCode" = "8:{65B66BB9-7DAB-4699-880E-392A55CE3A0C}"
-        "PackageCode" = "8:{0CB64E61-CBCE-40D0-8C23-516D1E289392}"
+        "ProductCode" = "8:{CCEF635D-180C-4936-9A87-0F981F1706B9}"
+        "PackageCode" = "8:{2F11E2C2-C004-4677-B76A-F6A521F7AAFC}"
         "UpgradeCode" = "8:{6AB46003-F876-4D90-8192-A0D8FA1E635B}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.12"
+        "ProductVersion" = "8:1.1.19"
         "Manufacturer" = "8:Gurux"
         "ARPHELPTELEPHONE" = "8:+358 3 265 1244"
         "ARPHELPLINK" = "8:http://www.gurux.org"

@@ -78,12 +78,12 @@ namespace Gurux.DeviceSuite
         GXAmi AMI;
         internal MRUManager MruManager;
         GXDeviceManufacturerCollection Published;
-        internal bool m_ShowMediaTrace;
-
+        internal bool m_ShowMediaTrace;        
         public MainForm()
         {            
-            InitializeComponent();
+            InitializeComponent();            
             ImportFromDataCollectorMenu.Enabled = ImportMenu.Enabled = false;
+            CancelOperationMenu.ShortcutKeyDisplayString = "ESC";
             PropertiesMenu.ShortcutKeys = Keys.Alt | Keys.Enter;
             MruManager = new MRUManager(RecentItemsMenu);
             StatusLbl.Text = Gurux.DeviceSuite.Properties.Resources.ReadyTxt;
@@ -269,7 +269,7 @@ namespace Gurux.DeviceSuite
                     {
                         newToolStripButton.Enabled = NewDeviceMenu.Enabled = false;
                     }
-                    else if (lv == AMI.DeviceTemplateList)
+                    else if (lv == AMI.DeviceProfilesList)
                     {
                         newToolStripButton.Enabled = NewDeviceMenu.Enabled = false;
                     }
@@ -586,6 +586,10 @@ namespace Gurux.DeviceSuite
                 {
                     UpdateTraceLevel((System.Diagnostics.TraceLevel)Gurux.DeviceSuite.Properties.Settings.Default.TraceLevel);
                 }
+                else//Disable trace.
+                {
+                    TraceMenu.Enabled = false;
+                }
                 Director.OnDirty += new DirtyEventHandler(this.OnDirty);
                 Editor.OnDirty += new DirtyEventHandler(this.OnDirty);                                
                 //Do not check updates while debugging.
@@ -605,7 +609,7 @@ namespace Gurux.DeviceSuite
                 {
                     try
                     {
-                        AMI.Start(false);
+                        AMI.Start(false, false);
                     }
                     catch (Exception ex)
                     {
@@ -707,9 +711,9 @@ namespace Gurux.DeviceSuite
                                     }
                                     continue;
                                 }                                
-                                foreach (GXPublishedDeviceType dt in dv.Templates)
+                                foreach (GXPublishedDeviceProfile dt in dv.Templates)
                                 {
-                                    GXPublishedDeviceType dt2 = dv2.Templates.Find(dt);
+                                    GXPublishedDeviceProfile dt2 = dv2.Templates.Find(dt);
                                     if (dt2 == null)
                                     {
                                         dv2.Templates.Add(dt);
@@ -720,9 +724,9 @@ namespace Gurux.DeviceSuite
                                         }
                                         continue;
                                     }
-                                    foreach (GXTemplateVersion version in dt.Versions)
+                                    foreach (GXDeviceProfileVersion version in dt.Versions)
                                     {
-                                        GXTemplateVersion version2 = dt2.Versions.Find(version);
+                                        GXDeviceProfileVersion version2 = dt2.Versions.Find(version);
                                         if (version2 == null)
                                         {
                                             //New item is available.
@@ -1033,6 +1037,16 @@ namespace Gurux.DeviceSuite
                 {
                     it.Dispose();
                 }
+                if (AMI.SchedulerServer != null)
+                {
+                    AMI.SchedulerServer.Dispose();
+                    AMI.SchedulerServer = null;
+                }
+                if (AMI.Client != null)
+                {
+                    AMI.Client.Dispose();
+                    AMI.Client = null;
+                }
                 Gurux.DeviceSuite.Properties.Settings.Default.Bounds = new System.Drawing.RectangleConverter().ConvertToString(this.Bounds);
                 Gurux.DeviceSuite.Properties.Settings.Default.TraceLevel = (int)Director.TraceLevel;
                 List<string> columns = new List<string>();
@@ -1046,6 +1060,8 @@ namespace Gurux.DeviceSuite
                 Gurux.DeviceSuite.Properties.Settings.Default.MruFiles.AddRange(MruManager.GetNames());
                 Gurux.DeviceSuite.Properties.Settings.Default.Save();
                 Editor.Manufacturers.Save();
+                /*
+                Director.m_DeviceList.StopMonitoring();
                 try
 				{
                     foreach (GXSchedule schedule in Director.m_DeviceList.Schedules)
@@ -1058,6 +1074,7 @@ namespace Gurux.DeviceSuite
 					//Do nothing.
 				}
                 Director.m_DeviceList.CloseSchedules();
+                 * */
                 Director.m_DeviceList.Dispose();
             }
             catch (Exception Ex)
@@ -1308,11 +1325,11 @@ namespace Gurux.DeviceSuite
             }
         }
 
-        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state, string text)
+        void OnAsyncStateChange(object sender, GXAsyncWork work, object[] parameters, AsyncState state, string text)
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new Gurux.DeviceSuite.Director.AsyncStateChangeEventHandler(this.OnAsyncStateChange), sender, state, text);
+                BeginInvoke(new AsyncStateChangeEventHandler(this.OnAsyncStateChange), sender, work, state, text);
             }
             else
             {
@@ -1902,9 +1919,9 @@ namespace Gurux.DeviceSuite
         /// <summary>
         /// Import device template to AMI.
         /// </summary>
-        private void AddDeviceTemplateMenu_Click(object sender, EventArgs e)
+        private void AddDeviceProfilesMenu_Click(object sender, EventArgs e)
         {
-            AMI.ImportDeviceTemplate();
+            AMI.ImportDeviceProfiles();
         }
 
         /// <summary>
@@ -1939,5 +1956,18 @@ namespace Gurux.DeviceSuite
             ShowMediaTrace.Checked = m_ShowMediaTrace;
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                if (this.AMI.TransactionWork != null)
+                {
+                    this.AMI.TransactionWork.Cancel();
+                }
+                this.TransactionManager.Cancel();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }      
     }
 }

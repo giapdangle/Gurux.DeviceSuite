@@ -604,6 +604,7 @@ namespace Gurux.DeviceSuite.Director
             this.helpProvider1.SetShowHelp(this.TargetCheckTree, true);
             this.TargetCheckTree.Size = new System.Drawing.Size(352, 296);
             this.TargetCheckTree.TabIndex = 0;
+            this.TargetCheckTree.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.TargetCheckTree_AfterCheck);
             // 
             // CancelBtn
             // 

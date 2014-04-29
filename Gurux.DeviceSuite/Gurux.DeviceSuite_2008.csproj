@@ -47,41 +47,41 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="MySql.Data, Version=6.6.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\MySql.Data.6.6.5\lib\net20\MySql.Data.dll</HintPath>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\MySql.Data.6.6.4\lib\net20\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack, Version=3.9.71.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.3.9.45\lib\net35\ServiceStack.dll</HintPath>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.3.9.71\lib\net35\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Common, Version=3.9.71.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.Common.3.9.45\lib\net35\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.Common.3.9.71\lib\net35\ServiceStack.Common.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.Common.3.9.45\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.Common.3.9.71\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.OrmLite, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.OrmLite, Version=3.9.71.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.OrmLite.MySql.3.9.45\lib\ServiceStack.OrmLite.dll</HintPath>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.OrmLite.SqlServer.3.9.71\lib\net35\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.OrmLite.MySql, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.OrmLite.MySql, Version=3.9.71.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.OrmLite.MySql.3.9.45\lib\ServiceStack.OrmLite.MySql.dll</HintPath>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.OrmLite.MySql.3.9.71\lib\net35\ServiceStack.OrmLite.MySql.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.OrmLite.SqlServer, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.OrmLite.SqlServer, Version=3.9.71.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.OrmLite.SqlServer.3.9.45\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.OrmLite.SqlServer.3.9.71\lib\net35\ServiceStack.OrmLite.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.ServiceInterface, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.ServiceInterface, Version=3.9.71.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.3.9.45\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.3.9.71\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=3.9.71.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.Text.3.9.45\lib\net35\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\..\GuruxAMI\GuruxAMI.Common\packages\ServiceStack.Text.3.9.71\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -153,6 +153,12 @@
       <DependentUpon>GXAmiImportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Ami\GXParameters.cs" />
+    <Compile Include="Ami\RedundantForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ami\RedundantForm.Designer.cs">
+      <DependentUpon>RedundantForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\CustomDeviceTypeListBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -237,7 +243,6 @@
       <DependentUpon>OpenDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\GuruxWin32.cs" />
-    <Compile Include="Director\GXAsyncWork.cs" />
     <Compile Include="Director\GXDeviceGroupDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,11 +255,11 @@
     <Compile Include="Preset\GXDeviceModelForm.Designer.cs">
       <DependentUpon>GXDeviceModelForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Preset\GXDeviceTemplateForm.cs">
+    <Compile Include="Preset\GXDeviceProfilesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Preset\GXDeviceTemplateForm.Designer.cs">
-      <DependentUpon>GXDeviceTemplateForm.cs</DependentUpon>
+    <Compile Include="Preset\GXDeviceProfilesForm.Designer.cs">
+      <DependentUpon>GXDeviceProfilesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Preset\GXDeviceVersionForm.cs">
       <SubType>Form</SubType>
@@ -364,6 +369,9 @@
       <DependentUpon>GXAmiImportForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Ami\RedundantForm.resx">
+      <DependentUpon>RedundantForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Common\GXPresetDevicesForm.resx">
       <DependentUpon>GXPresetDevicesForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -396,8 +404,8 @@
       <DependentUpon>GXDeviceModelForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Preset\GXDeviceTemplateForm.resx">
-      <DependentUpon>GXDeviceTemplateForm.cs</DependentUpon>
+    <EmbeddedResource Include="Preset\GXDeviceProfilesForm.resx">
+      <DependentUpon>GXDeviceProfilesForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Preset\GXDeviceVersionForm.resx">
@@ -631,9 +639,17 @@
       <Project>{C4BB249E-A56A-4675-B406-864280D77BF3}</Project>
       <Name>Gurux.Device_2008</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\GXCom\GXMedias\Gurux.Net\Development\Gurux.Net_2008.csproj">
+      <Project>{CB63EA09-D6BC-4B1D-927E-83041A222D54}</Project>
+      <Name>Gurux.Net_2008</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\GXCom\GXMedias\Gurux.Serial\Development\Gurux.Serial_2008.csproj">
       <Project>{D07A57D7-F2E7-4A0F-95D1-EF3B1FD688F0}</Project>
       <Name>Gurux.Serial_2008</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GXCom\GXMedias\Gurux.Terminal\Development\Gurux.Terminal_2008.csproj">
+      <Project>{6210C774-782D-4292-AF4C-5998AC70BAFD}</Project>
+      <Name>Gurux.Terminal_2008</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -737,6 +753,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Gurux.DeviceSuite.ico" />
+    <None Include="Resources\leafanim.gif" />
+    <None Include="Resources\leaferror.bmp" />
     <Content Include="Resources\like.bmp" />
     <Content Include="Resources\unlike.bmp" />
   </ItemGroup>

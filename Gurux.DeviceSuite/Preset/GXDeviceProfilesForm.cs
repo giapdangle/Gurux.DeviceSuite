@@ -44,17 +44,17 @@ using Gurux.Device.PresetDevices;
 
 namespace Gurux.DeviceSuite.Manufacturer
 {
-    public partial class GXDeviceTemplateForm : Form
+    public partial class GXDeviceProfilesForm : Form
     {
-        public GXPublishedDeviceType Target;
+        public GXPublishedDeviceProfile Target;
 
-        void UpdateTarget(GXPublishedDeviceType item)
+        void UpdateTarget(GXPublishedDeviceProfile item)
         {
             SelectedTemplateTB.Text = item.Name;
             ProtocolTB.Text = item.Protocol;
         }
 
-        public GXDeviceTemplateForm(GXPublishedDeviceType target)
+        public GXDeviceProfilesForm(GXPublishedDeviceProfile target)
         {
             InitializeComponent();
             Target = target;
@@ -73,7 +73,7 @@ namespace Gurux.DeviceSuite.Manufacturer
                 AddBtn.Enabled = false;
             }
             //Show available templates.
-            foreach (GXDeviceType it in GXDeviceList.GetDeviceTypes(false, null))
+            foreach (GXDeviceProfile it in GXDeviceList.GetDeviceTypes(false, null))
             {
                 string str = it.Protocol + it.Name;
                 if (!items.Contains(str.GetHashCode()))
@@ -116,7 +116,7 @@ namespace Gurux.DeviceSuite.Manufacturer
                         AvailableTemplates.Items.Add(Target);
                     }
                     ListBox.SelectedObjectCollection items = AvailableTemplates.SelectedItems;
-                    GXPublishedDeviceType item = new GXPublishedDeviceType(AvailableTemplates.SelectedItems[0] as GXDeviceType);
+                    GXPublishedDeviceProfile item = new GXPublishedDeviceProfile(AvailableTemplates.SelectedItems[0] as GXDeviceProfile);
                     AvailableTemplates.Items.Remove(items[0]);                    
                     Target = item;
                     UpdateTarget(item);

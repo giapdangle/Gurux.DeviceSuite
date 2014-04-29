@@ -46,6 +46,7 @@ using System.Globalization;
 using Gurux.DeviceSuite.Manufacturer;
 using Gurux.Device.PresetDevices;
 using System.Collections;
+using GuruxAMI.Gateway;
 
 namespace Gurux.DeviceSuite.Director
 {
@@ -65,10 +66,10 @@ namespace Gurux.DeviceSuite.Director
             Manufacturers = new GXDeviceManufacturerCollection();            
             InitializeComponent();
             AddManufacturers(manufacturers, Manufacturers);
-            SettingsPanel.Dock = PropertyGrid.Dock = PresetList.Dock = CustomDeviceType.Dock = DockStyle.Fill;
+            SettingsPanel.Dock = PropertyGrid.Dock = PresetList.Dock = CustomDeviceProfile.Dock = DockStyle.Fill;
             //Device type can not be changed after creation. This is for secure reasons.
-            PresetCB.Enabled = CustomRB.Enabled = PresetList.Enabled = CustomDeviceType.Enabled = Device == null;                  
-            CustomDeviceType.Visible = false;            
+            PresetCB.Enabled = CustomRB.Enabled = PresetList.Enabled = CustomDeviceProfile.Enabled = Device == null;                  
+            CustomDeviceProfile.Visible = false;            
             if (Device != null)
             {
                 NameTB.Text = Device.Name;
@@ -97,7 +98,7 @@ namespace Gurux.DeviceSuite.Director
         {
             bool preset = PresetCB.Checked;
             PresetList.Visible = preset;
-            CustomDeviceType.Visible = !preset;
+            CustomDeviceProfile.Visible = !preset;
         }
 
         private void UpdateResendCnt(int resendCnt)
@@ -152,9 +153,9 @@ namespace Gurux.DeviceSuite.Director
                     {
                         PresetList.Items[0].Selected = true;
                     }
-                    else if (CustomDeviceType.Items.Count != 0)
+                    else if (CustomDeviceProfile.Items.Count != 0)
                     {
-                        CustomDeviceType.SelectedIndex = 0;
+                        CustomDeviceProfile.SelectedIndex = 0;
                     }
                 }                
                 NameTB.Select();
@@ -174,14 +175,14 @@ namespace Gurux.DeviceSuite.Director
                 return;
             }            
             bool find = Device != null && !string.IsNullOrEmpty(Device.Manufacturer);
-            Dictionary<GXPublishedDeviceType, ListViewItem> items = new Dictionary<GXPublishedDeviceType, ListViewItem>();
+            Dictionary<GXPublishedDeviceProfile, ListViewItem> items = new Dictionary<GXPublishedDeviceProfile, ListViewItem>();
             foreach (GXDeviceManufacturer man in Manufacturers)
             {
                 foreach (GXDeviceModel model in man.Models)
                 {
                     foreach (GXDeviceVersion dv in model.Versions)
                     {
-                        foreach (GXPublishedDeviceType type in dv.Templates)
+                        foreach (GXPublishedDeviceProfile type in dv.Templates)
                         {
                             ListViewItem item = new ListViewItem(type.PresetName);
                             item.SubItems.Add(man.Name);
@@ -213,7 +214,7 @@ namespace Gurux.DeviceSuite.Director
                 {
                     throw new Exception("Invalid Device Version: " + version.Name);
                 } 
-                GXPublishedDeviceType type = version.Templates.Find(Device.PresetName);
+                GXPublishedDeviceProfile type = version.Templates.Find(Device.PresetName);
                 if (type == null)
                 {
                     throw new Exception("Invalid Device Type: " + type.PresetName);
@@ -234,14 +235,14 @@ namespace Gurux.DeviceSuite.Director
                 return;
             }
             bool find = Device != null && string.IsNullOrEmpty(Device.Manufacturer);
-            foreach (GXDeviceType type in GXDeviceList.GetDeviceTypes(false, null))
+            foreach (GXDeviceProfile type in GXDeviceList.GetDeviceTypes(false, null))
             {
-                int pos = CustomDeviceType.Items.Add(type);
-                if (find && Device.ProtocolName == type.Protocol && type.Name == Device.DeviceType)
+                int pos = CustomDeviceProfile.Items.Add(type);
+                if (find && Device.ProtocolName == type.Protocol && type.Name == Device.DeviceProfile)
                 {
-                    this.CustomDeviceType.SelectedIndexChanged -= new System.EventHandler(this.CustomDeviceType_SelectedIndexChanged);
-                    CustomDeviceType.SelectedIndices.Add(pos);
-                    this.CustomDeviceType.SelectedIndexChanged += new System.EventHandler(this.CustomDeviceType_SelectedIndexChanged);
+                    this.CustomDeviceProfile.SelectedIndexChanged -= new System.EventHandler(this.CustomDeviceType_SelectedIndexChanged);
+                    CustomDeviceProfile.SelectedIndices.Add(pos);
+                    this.CustomDeviceProfile.SelectedIndexChanged += new System.EventHandler(this.CustomDeviceType_SelectedIndexChanged);
                     UpdateMedias();
                     break;
                 }
@@ -251,7 +252,7 @@ namespace Gurux.DeviceSuite.Director
         private void CustomDeviceType_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
-            if (CustomDeviceType.Items.Count <= e.Index || e.Index == -1)
+            if (CustomDeviceProfile.Items.Count <= e.Index || e.Index == -1)
             {
                 return;
             }
@@ -268,7 +269,7 @@ namespace Gurux.DeviceSuite.Director
             Rectangle rc = e.Bounds;
             rc.Location = new Point(0, e.Bounds.Top);
             string str = string.Empty;
-            GXDeviceType tp = CustomDeviceType.Items[e.Index] as GXDeviceType;
+            GXDeviceProfile tp = CustomDeviceProfile.Items[e.Index] as GXDeviceProfile;
             str = tp.Name;
             e.Graphics.DrawString(str, e.Font, textBrush, rc, StringFormat.GenericDefault);
             str = "[" + tp.Protocol + "]";
@@ -288,8 +289,8 @@ namespace Gurux.DeviceSuite.Director
             {
                 if (PresetList.SelectedIndices.Count == 1)
                 {
-                    CustomDeviceType.SelectedItems.Clear();
-                    GXPublishedDeviceType type = PresetList.SelectedItems[0].Tag as GXPublishedDeviceType;
+                    CustomDeviceProfile.SelectedItems.Clear();
+                    GXPublishedDeviceProfile type = PresetList.SelectedItems[0].Tag as GXPublishedDeviceProfile;
                     GXDeviceVersion ver = type.Parent.Parent;
                     GXDeviceModel model = ver.Parent.Parent;
                     GXDeviceManufacturer man = model.Parent.Parent; ;
@@ -316,13 +317,13 @@ namespace Gurux.DeviceSuite.Director
         {
             try
             {
-                if (CustomDeviceType.SelectedItems.Count == 1)
+                if (CustomDeviceProfile.SelectedItems.Count == 1)
                 {
                     PresetList.SelectedItems.Clear();
-                    GXDeviceType type = CustomDeviceType.SelectedItems[0] as GXDeviceType;
+                    GXDeviceProfile type = CustomDeviceProfile.SelectedItems[0] as GXDeviceProfile;
                     if (Device == null || 
                         Device.ProtocolName != type.Protocol || 
-                        Device.DeviceType != type.Name)
+                        Device.DeviceProfile != type.Name)
                     {
                         if (Device != null)
                         {
@@ -350,12 +351,18 @@ namespace Gurux.DeviceSuite.Director
             else
             {
                 List<string> availableMedias = new List<string>(Gurux.Communication.GXClient.GetAvailableMedias());
+                string gw = new GXAmiGateway().MediaType;
                 foreach (GXMediaType it in Device.AllowedMediaTypes)
                 {
                     if (availableMedias.Contains(it.Name))
                     {
                         medias.Add(it.Name);
                     }
+                }
+                //Add Gateway media.
+                if (!medias.Contains(gw))
+                {
+                    medias.Add(gw);
                 }
             }
             foreach (string it in medias)
@@ -413,6 +420,7 @@ namespace Gurux.DeviceSuite.Director
             try
             {
                 MediaFrame.Controls.Clear();
+                //If new media is selected or media is changed.
                 if (Device.GXClient.Media == null || Device.GXClient.Media.MediaType != MediaCB.Text)
                 {
                     SelectedMedia = Device.GXClient.SelectMedia(MediaCB.Text);
@@ -422,6 +430,15 @@ namespace Gurux.DeviceSuite.Director
                     {
                         SelectedMedia.Settings = tp.DefaultMediaSettings;
                     }
+                    if (SelectedMedia is GXAmiGateway)
+                    {
+                        GXAmiGateway gw = SelectedMedia as GXAmiGateway;
+                        gw.Host = Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName;
+                        gw.Port = Convert.ToInt32(Gurux.DeviceSuite.Properties.Settings.Default.AmiPort);
+                        gw.UserName = Gurux.DeviceSuite.Properties.Settings.Default.AmiUserName;
+                        gw.Password = Gurux.DeviceSuite.Properties.Settings.Default.AmiPassword;
+                        gw.GXClient = Device.GXClient;
+                    }
                 }
                 else
                 {
@@ -430,7 +447,7 @@ namespace Gurux.DeviceSuite.Director
                 if (SelectedMedia == null)
                 {
                     throw new Exception(MediaCB.Text + " media not found.");
-                }
+                }                
                 PropertiesForm = SelectedMedia.PropertiesForm;
                 ((IGXPropertyPage)PropertiesForm).Initialize();
                 while (PropertiesForm.Controls.Count != 0)
@@ -505,6 +522,10 @@ namespace Gurux.DeviceSuite.Director
                 }
                 Device.UpdateInterval = RefreshRateTp.Value.Second + RefreshRateTp.Value.Minute * 60 + RefreshRateTp.Value.Hour * 3600;
                 Device.WaitTime = waitTime;
+                if (SelectedMedia is GXAmiGateway)
+                {
+                    (SelectedMedia as GXAmiGateway).WaitTime = waitTime;
+                }
                 Device.ResendCount = resendCount;
                 Device.Name = NameTB.Text;                
                 Device.GXClient.AssignMedia(SelectedMedia);

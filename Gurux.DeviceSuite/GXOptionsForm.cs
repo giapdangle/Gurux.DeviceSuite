@@ -50,7 +50,7 @@ namespace Gurux.DeviceSuite
 {
     public partial class GXOptionsForm : Form
     {
-        Gurux.DeviceSuite.Director.GXAsyncWork TransactionWork;
+        GXAsyncWork TransactionWork;
         GXAmi AmiForm;
         public GXOptionsForm(AppType type, GXAmi ami)
         {
@@ -58,6 +58,8 @@ namespace Gurux.DeviceSuite
             //We do not need device editor tab at this moment.
             tabControl1.TabPages.Remove(DeviceEditorTab);
             AmiForm = ami;
+            GetDevicesAutomaticallyCB.Checked = Gurux.DeviceSuite.Properties.Settings.Default.GetDevicesAutomatically;
+            GetDataCollectorsAutomaticallyCB.Checked = Gurux.DeviceSuite.Properties.Settings.Default.GetDataCollectorsAutomatically;
             ShowDevicesCB.Checked = Gurux.DeviceSuite.Properties.Settings.Default.DeviceTreeShowDevices;
             ShowCategoriesCB.Checked = Gurux.DeviceSuite.Properties.Settings.Default.DeviceTreeShowCategories;
             ShowTablesCB.Checked = Gurux.DeviceSuite.Properties.Settings.Default.DeviceTreeShowTables;
@@ -124,7 +126,7 @@ namespace Gurux.DeviceSuite
             {
                 Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName = HostTB.Text;
                 //Start AMI Server.
-                AmiForm.Start(true);
+                AmiForm.Start(true, true);
             }
             string host = HostTB.Text;
             string baseUr = host;
@@ -181,10 +183,10 @@ namespace Gurux.DeviceSuite
                     using (IDbConnection Db = new OrmLiteConnectionFactory(connStr, true, ServiceStack.OrmLite.MySql.MySqlDialectProvider.Instance).OpenDbConnection())
                     {
                         GXDBService.CreateTables(Db, OnProgress, "gurux", "gurux");
-                        //Gurux.DeviceSuite.Properties.Settings.Default.AmiDBUserName, Gurux.DeviceSuite.Properties.Settings.Default.AmiDBPassword
                         dc = GXDBService.AddDataCollector(Db);
                     }
-                    AmiForm.Start(true);
+                    dc.Internal = true;
+                    AmiForm.Start(true, false);
                     AmiForm.AddDataCollector(new GXAmiDataCollector[] {dc});
                     if (cl.IsDatabaseCreated())
                     {
@@ -207,6 +209,10 @@ namespace Gurux.DeviceSuite
                 if (index == 1)
                 {
                     Progress.Maximum = count;
+                    Progress.Visible = true;
+                }
+                else if (!Progress.Visible)
+                {
                     Progress.Visible = true;
                 }
                 else if (index == 0)
@@ -240,12 +246,12 @@ namespace Gurux.DeviceSuite
                     throw new Exception("GuruxAMI port is invalid.");
                 }
                 Gurux.DeviceSuite.Properties.Settings.Default.AmiPort = PortTB.Text;
-                TransactionWork = new Gurux.DeviceSuite.Director.GXAsyncWork(this, OnAsyncStateChange, CreateDBAsync, "", null);
+                TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, CreateDBAsync, null, "", null);
                 TransactionWork.Start();
             }
             catch (Exception ex)
             {
-                AmiForm.Start(true);
+                AmiForm.Start(true, true);
                 GXCommon.ShowError(this, ex);
             }                
             finally //Restore values after test.
@@ -257,7 +263,7 @@ namespace Gurux.DeviceSuite
             }
         }
 
-        void OnAsyncStateChange(System.Windows.Forms.Control sender, AsyncState state, string text)
+        void OnAsyncStateChange(object sender, GXAsyncWork work, object[] parameters, AsyncState state, string text)
         {
             tabControl1.Enabled = CancelBtn.Enabled = OkBtn.Enabled = state != AsyncState.Start;
         }
@@ -275,26 +281,13 @@ namespace Gurux.DeviceSuite
             return DialogResult.OK;
         }
 
-        void CreateDBAsync(object sender, object[] parameters)
+        void CreateDBAsync(object sender, GXAsyncWork work, object[] parameters)
         {
             GXAmiClient cl;
             if (IsDBCreated(out cl))
             {
-                GXAmiDataCollector[] collectors = cl.GetDataCollectorsByMacAdderss(BitConverter.ToString(GuruxAMI.Client.GXAmiClient.GetMACAddress()).Replace('-', ':'));
-                if (collectors.Length == 0)
-                {
-                    if ((DialogResult)this.Invoke(new ShowQuestionEventHandler(OnShowQuestion), Gurux.DeviceSuite.Properties.Resources.NoDataCollectorTxt) == DialogResult.Yes)
-                    {
-                        GXAmiDataCollector dc = cl.AddDataCollector(GXAmiClient.GetMACAddressAsString());
-                        cl.AddDataCollector(dc, cl.GetUserGroups(false));
-                        AmiForm.AddDataCollector(new GXAmiDataCollector[] { dc });
-                    }
-                }
-                else
-                {
-                    this.Invoke(new ShowQuestionEventHandler(OnMessage), "GuruxAMI database is created and working.");
-                }
-            }
+                this.Invoke(new ShowQuestionEventHandler(OnMessage), "GuruxAMI database is created and working.");
+            }            
         }
 
 

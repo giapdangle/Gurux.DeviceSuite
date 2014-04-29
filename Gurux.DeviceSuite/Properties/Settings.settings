@@ -155,7 +155,7 @@
     <Setting Name="DataCollectorListColumns" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="DeviceTemplateListColumns" Type="System.Collections.Specialized.StringCollection" Scope="User">
+    <Setting Name="DeviceProfilesListColumns" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="TaskListColumns" Type="System.Collections.Specialized.StringCollection" Scope="User">
@@ -187,6 +187,12 @@
     </Setting>
     <Setting Name="ShowMediaTrace" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="GetDataCollectorsAutomatically" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="GetDevicesAutomatically" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

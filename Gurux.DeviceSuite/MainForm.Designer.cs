@@ -65,7 +65,7 @@ namespace Gurux.DeviceSuite
             this.StatusLbl = new System.Windows.Forms.Label();
             this.Progress = new System.Windows.Forms.ProgressBar();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.Leaf = new System.Windows.Forms.PictureBox();
             this.NewScheduleMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.DirectorMenu = new System.Windows.Forms.MenuStrip();
             this.FileMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,6 +111,7 @@ namespace Gurux.DeviceSuite
             this.TraceWarningMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.TraceInfoMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.TraceVerboseMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowMediaTrace = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.ViewDirectorMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ViewDeviceEditorMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -123,6 +124,7 @@ namespace Gurux.DeviceSuite
             this.ToolsStopMonitoringMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolsReadMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolsWriteMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.CancelOperationMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.PresetDeviceProfilesMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.ProtocolAddinsMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -159,8 +161,8 @@ namespace Gurux.DeviceSuite
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.WorkArea = new System.Windows.Forms.Panel();
-            this.ShowMediaTrace = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Leaf)).BeginInit();
             this.DirectorMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -173,7 +175,7 @@ namespace Gurux.DeviceSuite
             this.statusStrip1.Controls.Add(this.StatusLbl);
             this.statusStrip1.Controls.Add(this.Progress);
             this.statusStrip1.Controls.Add(this.panel3);
-            this.statusStrip1.Controls.Add(this.panel4);
+            this.statusStrip1.Controls.Add(this.Leaf);
             this.statusStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.statusStrip1.Location = new System.Drawing.Point(0, 422);
             this.statusStrip1.Name = "statusStrip1";
@@ -209,15 +211,15 @@ namespace Gurux.DeviceSuite
             this.panel3.Size = new System.Drawing.Size(49, 30);
             this.panel3.TabIndex = 15;
             // 
-            // panel4
+            // Leaf
             // 
-            this.panel4.BackColor = System.Drawing.Color.Transparent;
-            this.panel4.BackgroundImage = global::Gurux.DeviceSuite.Properties.Resources.leaf;
-            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel4.Location = new System.Drawing.Point(2, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(30, 30);
-            this.panel4.TabIndex = 14;
+            this.Leaf.Image = global::Gurux.DeviceSuite.Properties.Resources.leaf;
+            this.Leaf.Location = new System.Drawing.Point(2, 0);
+            this.Leaf.Name = "Leaf";
+            this.Leaf.Size = new System.Drawing.Size(29, 29);
+            this.Leaf.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Leaf.TabIndex = 0;
+            this.Leaf.TabStop = false;
             // 
             // NewScheduleMenu
             // 
@@ -390,7 +392,7 @@ namespace Gurux.DeviceSuite
             this.AddDeviceProfileMenu.Name = "AddDeviceProfileMenu";
             this.AddDeviceProfileMenu.Size = new System.Drawing.Size(228, 22);
             this.AddDeviceProfileMenu.Text = "Add Device Profile";
-            this.AddDeviceProfileMenu.Click += new System.EventHandler(this.AddDeviceTemplateMenu_Click);
+            this.AddDeviceProfileMenu.Click += new System.EventHandler(this.AddDeviceProfilesMenu_Click);
             // 
             // OpenExportedMenu
             // 
@@ -596,6 +598,13 @@ namespace Gurux.DeviceSuite
             this.TraceVerboseMenu.Text = "Verbose";
             this.TraceVerboseMenu.Click += new System.EventHandler(this.OnTraceChanged);
             // 
+            // ShowMediaTrace
+            // 
+            this.ShowMediaTrace.Name = "ShowMediaTrace";
+            this.ShowMediaTrace.Size = new System.Drawing.Size(183, 22);
+            this.ShowMediaTrace.Text = "Show Media Trace";
+            this.ShowMediaTrace.Click += new System.EventHandler(this.ShowMediaTrace_Click);
+            // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
@@ -635,6 +644,7 @@ namespace Gurux.DeviceSuite
             this.ToolsStopMonitoringMenu,
             this.ToolsReadMenu,
             this.ToolsWriteMenu,
+            this.CancelOperationMenu,
             this.toolStripMenuItem5,
             this.PresetDeviceProfilesMenu,
             this.ProtocolAddinsMenu,
@@ -694,6 +704,13 @@ namespace Gurux.DeviceSuite
             this.ToolsWriteMenu.Size = new System.Drawing.Size(195, 22);
             this.ToolsWriteMenu.Text = "Write";
             this.ToolsWriteMenu.Click += new System.EventHandler(this.ToolsWriteMenu_Click);
+            // 
+            // CancelOperationMenu
+            // 
+            this.CancelOperationMenu.Enabled = false;
+            this.CancelOperationMenu.Name = "CancelOperationMenu";
+            this.CancelOperationMenu.Size = new System.Drawing.Size(195, 22);
+            this.CancelOperationMenu.Text = "Cancel";
             // 
             // toolStripMenuItem5
             // 
@@ -1002,13 +1019,6 @@ namespace Gurux.DeviceSuite
             this.WorkArea.Size = new System.Drawing.Size(821, 373);
             this.WorkArea.TabIndex = 41;
             // 
-            // ShowMediaTrace
-            // 
-            this.ShowMediaTrace.Name = "ShowMediaTrace";
-            this.ShowMediaTrace.Size = new System.Drawing.Size(183, 22);
-            this.ShowMediaTrace.Text = "Show Media Trace";
-            this.ShowMediaTrace.Click += new System.EventHandler(this.ShowMediaTrace_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1022,10 +1032,11 @@ namespace Gurux.DeviceSuite
             this.MainMenuStrip = this.DirectorMenu;
             this.Name = "MainForm";
             this.Text = "Gurux Device Suite";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Leaf)).EndInit();
             this.DirectorMenu.ResumeLayout(false);
             this.DirectorMenu.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -1111,11 +1122,10 @@ namespace Gurux.DeviceSuite
         private System.Windows.Forms.ToolStripMenuItem TraceWarningMenu;
         private System.Windows.Forms.ToolStripMenuItem TraceInfoMenu;
         private System.Windows.Forms.ToolStripMenuItem TraceVerboseMenu;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel WorkArea;
-        private System.Windows.Forms.ProgressBar Progress;
-        private System.Windows.Forms.Label StatusLbl;
+        internal System.Windows.Forms.ProgressBar Progress;
+        internal System.Windows.Forms.Label StatusLbl;
         private System.Windows.Forms.Panel statusStrip1;
         private System.Windows.Forms.ToolStripMenuItem HelpMenu;
         private System.Windows.Forms.ToolStripMenuItem ContentsMenu;
@@ -1136,6 +1146,8 @@ namespace Gurux.DeviceSuite
         private System.Windows.Forms.ToolStripMenuItem ReportABugMenu;
         private System.Windows.Forms.ToolStripMenuItem ImportFromDataCollectorMenu;
         private System.Windows.Forms.ToolStripMenuItem ShowMediaTrace;
+        internal System.Windows.Forms.PictureBox Leaf;
+        internal System.Windows.Forms.ToolStripMenuItem CancelOperationMenu;
     }
 }
 
