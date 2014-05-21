@@ -447,7 +447,7 @@ namespace Gurux.DeviceSuite.Editor
                         Save();
                     }
                 }
-                GXWizardDlg dlg = new GXWizardDlg(Device, Manufacturers, null);
+                GXWizardDlg dlg = new GXWizardDlg(null, Manufacturers, null);
                 if (dlg.ShowDialog(ParentComponent) == DialogResult.Cancel)
                 {
                     return;
@@ -1040,6 +1040,9 @@ namespace Gurux.DeviceSuite.Editor
                         continue;
                     }
 		        }
+                Device.Keepalive.Ignore = tmpDev.Keepalive.Ignore;
+                Device.Keepalive.Interval = tmpDev.Keepalive.Interval;
+                Device.Keepalive.Target = tmpDev.Keepalive.Target;
                 dlg.OnTrace -= new TraceEventHandler(OnTrace);
                 //Add device description
                 Device.Dirty = true;

@@ -227,22 +227,11 @@ namespace Gurux.DeviceSuite.Ami
 
         GXAmiDataCollectorServer StartDataCollector(Guid guid)
         {
-            string host = Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName;
-            if (host == "*")
+            string baseUr = Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName;
+            if (baseUr.Contains("*"))
             {
-                host = "localhost";
+                baseUr = baseUr.Replace("*",  "localhost");
             }
-            string baseUr;
-            //If we are using web service.
-            if (host.StartsWith("http://"))
-            {
-                baseUr = host;
-            }
-            else
-            {
-                baseUr = "http://" + host + ":" +
-                        Gurux.DeviceSuite.Properties.Settings.Default.AmiPort + "/";
-            }            
             GXAmiDataCollectorServer collector = new GXAmiDataCollectorServer(baseUr, guid);
             DataCollectors.Add(collector);
             collector.OnTasksAdded += new TasksAddedEventHandler(DC_OnTasksAdded);
@@ -402,20 +391,28 @@ namespace Gurux.DeviceSuite.Ami
             try
             {
                 this.BeginInvoke(new UpdateStatusEventHandler(OnUpdateStatusEventHandler), 0, "Starting GuruxAMI...");
-                string baseUr = "http://" + Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName +
-                    ":" + Gurux.DeviceSuite.Properties.Settings.Default.AmiPort + "/";
-                bool useServer = !Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName.StartsWith("http://");
+                string baseUr = Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName;
+                bool useServer = Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName.Contains("localhost") || Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName.Contains("*");
                 if (useServer)
                 {
-                    string connStr = string.Format("Data Source={0};Initial Catalog={1};Persist Security Info=True;User ID={2};Password={3}",
-                        Gurux.DeviceSuite.Properties.Settings.Default.AmiDatabaseHostName, Gurux.DeviceSuite.Properties.Settings.Default.AmiDatabaseName,
-                        Gurux.DeviceSuite.Properties.Settings.Default.AmiDBUserName, Gurux.DeviceSuite.Properties.Settings.Default.AmiDBPassword);
+                    string connStr = null;
+                    //If DB is set
+                    if (!string.IsNullOrEmpty(Gurux.DeviceSuite.Properties.Settings.Default.AmiDatabaseHostName))
+                    {
+                        connStr = string.Format("Data Source={0};Initial Catalog={1};Persist Security Info=True;User ID={2};Password={3}",
+                         Gurux.DeviceSuite.Properties.Settings.Default.AmiDatabaseHostName, Gurux.DeviceSuite.Properties.Settings.Default.AmiDatabaseName,
+                         Gurux.DeviceSuite.Properties.Settings.Default.AmiDBUserName, Gurux.DeviceSuite.Properties.Settings.Default.AmiDBPassword);
+                    }
                     try
                     {
-                        Server = new GXDBService(baseUr, new OrmLiteConnectionFactory(connStr, false,
-                            ServiceStack.OrmLite.MySql.MySqlDialectProvider.Instance),
+                        OrmLiteConnectionFactory f = new OrmLiteConnectionFactory(connStr, false, ServiceStack.OrmLite.MySql.MySqlDialectProvider.Instance);
+                        f.AutoDisposeConnection = true;
+                        Server = new GXDBService(baseUr, f,
                             Gurux.DeviceSuite.Properties.Settings.Default.AmiDatabaseTablePrefix);
-                        Server.Update();
+                        if (Server.IsDatabaseCreated())
+                        {
+                            Server.Update();
+                        }
                     }
                     catch (System.Net.HttpListenerException)
                     {
@@ -430,9 +427,9 @@ namespace Gurux.DeviceSuite.Ami
 
                 if (Client == null)
                 {
-                    if (Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName == "*")
+                    if (baseUr.Contains("*"))
                     {
-                        baseUr = "http://localhost:" + Gurux.DeviceSuite.Properties.Settings.Default.AmiPort + "/";
+                        baseUr = baseUr.Replace("*", "localhost");
                     }
                     Client = new GXAmiClient(baseUr,
                         Gurux.DeviceSuite.Properties.Settings.Default.AmiUserName,
@@ -442,15 +439,13 @@ namespace Gurux.DeviceSuite.Ami
                 //Create schedule server.
                 if (SchedulerServer == null)
                 {
-                    this.BeginInvoke(new UpdateStatusEventHandler(OnUpdateStatusEventHandler), 0, "Starting GuruxAMI schedule server...");
+                    this.BeginInvoke(new UpdateStatusEventHandler(OnUpdateStatusEventHandler), -1, "Starting GuruxAMI schedule server...");
                     SchedulerServer = new GXAmiSchedulerServer(baseUr,
                         Gurux.DeviceSuite.Properties.Settings.Default.AmiUserName,
-                        Gurux.DeviceSuite.Properties.Settings.Default.AmiPassword);
-                    SchedulerServer.Start();
+                        Gurux.DeviceSuite.Properties.Settings.Default.AmiPassword);                    
                 }
-
                 if (Client.IsDatabaseCreated())
-                {
+                {                    
                     Client.OnDeviceProfilesAdded += new DeviceProfilesAddedEventHandler(Client_OnDeviceProfilesAdded);
                     Client.OnDeviceProfilesRemoved += new DeviceProfilesRemovedEventHandler(Client_OnDeviceProfilesRemoved);
                     Client.OnDataCollectorsAdded += new DataCollectorsAddedEventHandler(Client_OnDataCollectorsAdded);
@@ -480,39 +475,22 @@ namespace Gurux.DeviceSuite.Ami
                     Client.OnSchedulesUpdated += new SchedulesUpdatedEventHandler(Client_OnSchedulesUpdated);
                     Client.OnSchedulesStateChanged += new SchedulesStateChangedEventHandler(Client_OnSchedulesStateChanged);
                     Client.StartListenEvents();
+                    SchedulerServer.Start();
                     //Get all DC automatically.
                     GXAmiDataCollector[] collectors = new GXAmiDataCollector[0];
                     if (Gurux.DeviceSuite.Properties.Settings.Default.GetDataCollectorsAutomatically)
                     {
-                        this.BeginInvoke(new UpdateStatusEventHandler(OnUpdateStatusEventHandler), 0, "Starting GuruxAMI data collectors...");
+                        this.BeginInvoke(new UpdateStatusEventHandler(OnUpdateStatusEventHandler), -1, "Starting GuruxAMI data collectors...");
                         collectors = Client.GetDataCollectors();
                         Client_OnDataCollectorsAdded(Client, collectors);
                     }
                     if (Gurux.DeviceSuite.Properties.Settings.Default.GetDevicesAutomatically)
                     {
-                        this.BeginInvoke(new UpdateStatusEventHandler(OnUpdateStatusEventHandler), 0, "Starting GuruxAMI devices...");
+                        this.BeginInvoke(new UpdateStatusEventHandler(OnUpdateStatusEventHandler), -1, "Starting GuruxAMI devices...");
                         DateTime start = DateTime.Now;
                         GXAmiDevice[] devices = Client.GetDevices(false, DeviceContentType.Main);                        
                         Client_OnDevicesAdded(Client, null, devices);
-                        System.Diagnostics.Debug.WriteLine("Getting devices: " + (DateTime.Now - start).TotalSeconds.ToString());
-                        /*
-                        GXAmiDevice dev = devices[devices.Length - 1]; 
-                        GXAmiDeviceGroup[] g = Client.GetDeviceGroups(false);
-                        List<GXAmiDevice> devices2 = new List<GXAmiDevice>();
-                        for(int pos = 0; pos != 200; ++pos)
-                        {
-                            GXAmiDevice tmp = new GXAmiDevice();
-                            tmp.ProfileId = dev.ProfileId;
-                            tmp.WaitTime = dev.WaitTime;
-                            int port = 2001 + pos;
-                            tmp.Name = "Dev" + (pos + 2).ToString();
-                            tmp.Medias = new GXAmiDeviceMedia[]{new GXAmiDeviceMedia()};
-                            tmp.Medias[0].Name = "Net";
-                            tmp.Medias[0].Settings = "<IP>localhost</IP>\r\n<Port>" + port.ToString() + "</Port>\r\n";
-                            devices2.Add(tmp);                            
-                        }
-                        Client.AddDevices(devices2.ToArray(), g);                        
-                         * */
+                        System.Diagnostics.Debug.WriteLine("Getting devices: " + (DateTime.Now - start).TotalSeconds.ToString());                      
                     }
                     //Get all tasks and show them.
                     Client_OnTasksAdded(Client, Client.GetTasks(TaskState.All, false));
@@ -811,6 +789,10 @@ namespace Gurux.DeviceSuite.Ami
             {
                 this.ParentComponent.Leaf.Image = Gurux.DeviceSuite.Properties.Resources.leaferror;
             }
+            else if (status == -1) //If additional info.
+            {
+                //Do not update image.
+            }
             this.ParentComponent.StatusLbl.Text = text;
         }
 
@@ -947,6 +929,18 @@ namespace Gurux.DeviceSuite.Ami
             }
         }
 
+        void UpdateDCImage(ListViewItem li, GXAmiDataCollector dc)
+        {
+            if (dc.State == DeviceStates.Connected)
+            {
+                li.ImageIndex = 5;
+            }
+            else
+            {
+                li.ImageIndex = 4;
+            }
+        }
+
         void OnDataCollectorStateChanged(object sender, GXAmiDataCollector[] collectors)
         {
             foreach (GXAmiDataCollector it in collectors)
@@ -954,14 +948,7 @@ namespace Gurux.DeviceSuite.Ami
                 ListViewItem node = DCToListViewItem[it.Guid] as ListViewItem;
                 if (node != null)
                 {
-                    if (it.State == DeviceStates.Connected)
-                    {
-                        node.ImageIndex = 5;
-                    }
-                    else
-                    {
-                        node.ImageIndex = 4;
-                    }
+                    UpdateDCImage(node, it);
                 }
             }
         }
@@ -1252,7 +1239,7 @@ namespace Gurux.DeviceSuite.Ami
             }
             catch (Exception ex)
             {
-
+                GXCommon.ShowError(this.ParentComponent, Gurux.DeviceSuite.Properties.Resources.GuruxDeviceSuiteTxt, ex);
             }
         }
 
@@ -1297,7 +1284,7 @@ namespace Gurux.DeviceSuite.Ami
                 li.Tag = task;
                 TaskList.Items.Add(li);
                 TaskToListItem.Add(task.Id, li);
-                LogTasks.Add(new GXAmiTaskLog(task));
+                //LogTasks.Add(new GXAmiTaskLog(task));
                 TaskLogList.VirtualListSize = LogTasks.Count;
             }
         }
@@ -1711,7 +1698,7 @@ namespace Gurux.DeviceSuite.Ami
                     else
                     {
                         ListViewItem node = new ListViewItem(it.Name);
-                        node.ImageIndex = 4;
+                        UpdateDCImage(node, it);
                         DCToListViewItem.Add(it.Guid, node);
                         assigned.Add(node);
                         node.Tag = it;
@@ -3251,7 +3238,7 @@ namespace Gurux.DeviceSuite.Ami
                 if (dlg.ShowDialog(this.ParentComponent) == DialogResult.OK)
                 {
                     TabPage page = new TabPage("Command Prompt");
-                    GXAMICommandPromptTab tmp = new GXAMICommandPromptTab(ParentComponent, Client, dc, dlg.SelectedMedia.MediaType, dlg.SelectedMedia.Settings);
+                    GXAMICommandPromptTab tmp = new GXAMICommandPromptTab(ParentComponent, Client, dc, dlg.SelectedMedia.MediaType, dlg.SelectedMedia.Name, dlg.SelectedMedia.Settings);
                     while (tmp.Controls.Count != 0)
                     {
                         page.Controls.Add(tmp.Controls[0]);

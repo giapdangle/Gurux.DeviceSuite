@@ -1462,7 +1462,37 @@ namespace Gurux.DeviceSuite.Director
                         string type = p.ValueType == null ? "" : p.ValueType.Name;
                         string tm = p.ReadTime == DateTime.MinValue ? "" : p.ReadTime.ToString();
                         string unit = p.Unit == null ? "" : Convert.ToString(p.Unit);
-                        item.SubItems[1].Text = Convert.ToString(p.GetValue(true));
+
+                        object value = p.GetValue(true);
+                        if (value is Array || value is IList)
+                        {
+                            StringBuilder sb = new StringBuilder();
+                            if (value is Array)
+                            {
+                                Array arr = value as Array;
+                                foreach (object it2 in arr)
+                                {
+                                    sb.Append(it2);
+                                    sb.Append(", ");
+                                }
+                            }
+                            else
+                            {
+                                IList list = value as IList;
+                                foreach (object it2 in list)
+                                {
+                                    sb.Append(it2);
+                                    sb.Append(", ");
+                                }
+                            }
+                            //Remove extra data.
+                            if (sb.Length > 2)
+                            {
+                                sb.Remove(sb.Length - 2, 2);
+                            }
+                            value = sb.ToString();
+                        }
+                        item.SubItems[1].Text = Convert.ToString(value);
                         item.SubItems[4].Text = tm;
                         item.SubItems[5].Text = string.Format("{0:#,0}/{1:#,0}", p.Statistics.ReadCount, p.Statistics.ReadFailCount);
                         item.SubItems[6].Text = string.Format("{0:#,0}/{1:#,0}", p.Statistics.WriteCount, p.Statistics.WriteFailCount);
@@ -1750,10 +1780,40 @@ namespace Gurux.DeviceSuite.Director
                         {
                             ListViewItem item = new ListViewItem(it.Name);
                             item.Tag = it;
+                            string unit = it.Unit == null ? "" : it.Unit;
                             string type = it.ValueType == null ? "" : it.ValueType.Name;
                             string tm = it.ReadTime == DateTime.MinValue ? "" : it.ReadTime.ToString();
-                            string unit = it.Unit == null ? "" : Convert.ToString(it.Unit);
-                            item.SubItems.AddRange(new string[]{Convert.ToString(it.GetValue(true)), 
+                            object value = it.GetValue(true);
+                            if (value is Array || value is IList)
+                            {
+                                StringBuilder sb = new StringBuilder();
+                                if (value is Array)
+                                {
+                                    Array arr = value as Array;
+                                    foreach (object it2 in arr)
+                                    {                                        
+                                        sb.Append(it2);
+                                        sb.Append(", ");
+                                    }
+                                }
+                                else
+                                {
+                                    IList list = value as IList;
+                                    foreach (object it2 in list)
+                                    {
+                                        sb.Append(it2);
+                                        sb.Append(", ");
+                                    }
+                                }
+                                //Remove extra data.
+                                if (sb.Length > 2)
+                                {
+                                    sb.Remove(sb.Length - 2, 2);
+                                }
+                                value = sb.ToString();
+                            }
+
+                            item.SubItems.AddRange(new string[]{Convert.ToString(value), 
                                             type, unit, tm, 
                                             string.Format("{0:#,0}/{1:#,0}", it.Statistics.ReadCount, it.Statistics.ReadFailCount),
                                             string.Format("{0:#,0}/{1:#,0}", it.Statistics.WriteCount, it.Statistics.WriteFailCount),
@@ -1791,7 +1851,8 @@ namespace Gurux.DeviceSuite.Director
                         {
                             type = typeof(string);
                         }
-                        string str = Convert.ToString(m_Property.GetValue(true));
+                        object value = m_Property.GetValue(true);
+                        string str = Convert.ToString(value);                                               
                         if (type == typeof(bool))
                         {
                             ValueCB.Items.Add(bool.FalseString);
@@ -1802,7 +1863,7 @@ namespace Gurux.DeviceSuite.Director
                         {
                             foreach (GXValueItem it in m_Property.Values)
                             {
-                                ValueCB.Items.Add(it.UIValue);
+                                ValueCB.Items.Add(it.UIValue);                            
                             }
                         }
                         if (UseCombobox)
@@ -1824,16 +1885,42 @@ namespace Gurux.DeviceSuite.Director
                         }
                         else
                         {
-                            ValueLB.Visible = ValueCB.Visible = false;
-                            if (UseBitMask)
+                            if (value is Array || value is IList)
                             {
+                                ValueLB.CheckBoxes = false;
                                 ValueLB.Visible = true;
-                                ulong val = Convert.ToUInt64(m_Property.GetValue(true));
-                                this.ValueLB.ItemCheck -= new System.Windows.Forms.ItemCheckEventHandler(this.ValueLB_ItemCheck);
-                                this.ValueLB.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.ValueLB_ItemCheck);
+                                ValueCB.Visible = ValueTB.Visible = false;
+                                if (value is Array)
+                                {
+                                    Array arr = value as Array;
+                                    foreach (object it in arr)
+                                    {
+                                        ValueLB.Items.Add(it.ToString());
+                                    }
+                                }
+                                else
+                                {
+                                    IList list = value as IList;
+                                    foreach (object it in list)
+                                    {
+                                        ValueLB.Items.Add(it.ToString());
+                                    }
+                                }
                             }
-                            ValueTB.Visible = true;
-                            ValueTB.Text = str;
+                            else
+                            {
+                                ValueLB.Visible = ValueCB.Visible = false;
+                                if (UseBitMask)
+                                {
+                                    ValueLB.CheckBoxes = true;
+                                    ValueLB.Visible = true;
+                                    ulong val = Convert.ToUInt64(m_Property.GetValue(true));
+                                    this.ValueLB.ItemCheck -= new System.Windows.Forms.ItemCheckEventHandler(this.ValueLB_ItemCheck);
+                                    this.ValueLB.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.ValueLB_ItemCheck);
+                                }
+                                ValueTB.Visible = true;
+                                ValueTB.Text = str;
+                            }
                         }
                     }
                     else if (device != null)
@@ -2252,7 +2339,6 @@ namespace Gurux.DeviceSuite.Director
                 if (gw != null)
                 {
                     gw.Host = Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName;
-                    gw.Port = Convert.ToInt32(Gurux.DeviceSuite.Properties.Settings.Default.AmiPort);
                     gw.UserName = Gurux.DeviceSuite.Properties.Settings.Default.AmiUserName;
                     gw.Password = Gurux.DeviceSuite.Properties.Settings.Default.AmiPassword;
                     gw.GXClient = it.GXClient;
@@ -3264,7 +3350,8 @@ namespace Gurux.DeviceSuite.Director
                     else if (ReadLastRB.Checked)//Read last n. Days.
                     {
                         partialRead.Type = PartialReadType.Last;
-                        partialRead.Start = DateTime.Now.Date.AddDays(-Convert.ToInt32(ReadLastTB.Text));
+                        int value = Convert.ToInt32(ReadLastTB.Value);                        
+                        partialRead.Start = DateTime.Now.Date.AddDays(-value);                        
                         partialRead.End = DateTime.MaxValue;                            
                     }
                     else if (ReadFromRB.Checked)//Read between days
@@ -3316,6 +3403,21 @@ namespace Gurux.DeviceSuite.Director
         private void CancelTransactionMenu_Click(object sender, EventArgs e)
         {
             //TODO:
+        }
+
+        /// <summary>
+        /// Force update start and end dates when user gives new value.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReadLastTB_KeyUp(object sender, KeyEventArgs e)
+        {
+            int value;
+            if (int.TryParse(ReadLastTB.Value.ToString(), out value))
+            {
+                ReadLastTB.Value = value;
+                OnReadingChanged(sender, null);
+            }
         }
     }
 }

@@ -89,6 +89,7 @@ namespace Gurux.DeviceSuite.Director
             this.TablePanel = new System.Windows.Forms.Panel();
             this.TableData = new System.Windows.Forms.DataGridView();
             this.ReadingGB = new System.Windows.Forms.GroupBox();
+            this.ReadLastTB = new System.Windows.Forms.NumericUpDown();
             this.TableRowCount = new System.Windows.Forms.Label();
             this.LastReadValueTP = new System.Windows.Forms.TextBox();
             this.ReadNewValuesCB = new System.Windows.Forms.RadioButton();
@@ -180,7 +181,6 @@ namespace Gurux.DeviceSuite.Director
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.TraceClearMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.TraceHexMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.ReadLastTB = new System.Windows.Forms.NumericUpDown();
             this.DirectorPanel.Panel1.SuspendLayout();
             this.DirectorPanel.Panel2.SuspendLayout();
             this.DirectorPanel.SuspendLayout();
@@ -191,6 +191,7 @@ namespace Gurux.DeviceSuite.Director
             this.TablePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TableData)).BeginInit();
             this.ReadingGB.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ReadLastTB)).BeginInit();
             this.DevicePanel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeviceImage)).BeginInit();
@@ -202,7 +203,6 @@ namespace Gurux.DeviceSuite.Director
             this.ScheduleMenu.SuspendLayout();
             this.TracePage.SuspendLayout();
             this.TraceMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ReadLastTB)).BeginInit();
             this.SuspendLayout();
             // 
             // DirectorPanel
@@ -457,6 +457,20 @@ namespace Gurux.DeviceSuite.Director
             this.ReadingGB.TabIndex = 13;
             this.ReadingGB.TabStop = false;
             this.ReadingGB.Text = "Reading";
+            // 
+            // ReadLastTB
+            // 
+            this.ReadLastTB.Location = new System.Drawing.Point(94, 39);
+            this.ReadLastTB.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.ReadLastTB.Name = "ReadLastTB";
+            this.ReadLastTB.Size = new System.Drawing.Size(74, 20);
+            this.ReadLastTB.TabIndex = 20;            
+            this.ReadLastTB.ValueChanged += new System.EventHandler(this.OnReadingChanged);
+            this.ReadLastTB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ReadLastTB_KeyUp);
             // 
             // TableRowCount
             // 
@@ -1249,14 +1263,6 @@ namespace Gurux.DeviceSuite.Director
             this.TraceHexMenu.Text = "&Hex";
             this.TraceHexMenu.Click += new System.EventHandler(this.TraceHexMenu_Click);
             // 
-            // ReadLastTB
-            // 
-            this.ReadLastTB.Location = new System.Drawing.Point(94, 39);
-            this.ReadLastTB.Name = "ReadLastTB";
-            this.ReadLastTB.Size = new System.Drawing.Size(74, 20);
-            this.ReadLastTB.TabIndex = 20;
-            this.ReadLastTB.ValueChanged += new System.EventHandler(this.OnReadingChanged);
-            // 
             // GXDirector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1276,6 +1282,7 @@ namespace Gurux.DeviceSuite.Director
             ((System.ComponentModel.ISupportInitialize)(this.TableData)).EndInit();
             this.ReadingGB.ResumeLayout(false);
             this.ReadingGB.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ReadLastTB)).EndInit();
             this.DevicePanel.ResumeLayout(false);
             this.DevicePanel.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -1289,7 +1296,6 @@ namespace Gurux.DeviceSuite.Director
             this.ScheduleMenu.ResumeLayout(false);
             this.TracePage.ResumeLayout(false);
             this.TraceMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ReadLastTB)).EndInit();
             this.ResumeLayout(false);
 
         }

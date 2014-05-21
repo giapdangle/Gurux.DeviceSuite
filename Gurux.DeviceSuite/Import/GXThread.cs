@@ -66,7 +66,12 @@ namespace Gurux.DeviceSuite.Import
                 {
                     Device.PacketHandler = null;
                     Device.GXClient.PacketParser = null;
-                    GXAddIn.ImportFromDevice(m_Parent.m_ProtocolCustomPages.ToArray(), Device, m_Parent.MediaSettings.SelectedMedia);
+                    IGXMedia media = m_Parent.MediaSettings.SelectedMedia;
+                    if (media is IGXMediaContainer)
+                    {
+                        media = (media as IGXMediaContainer).Media;
+                    }
+                    GXAddIn.ImportFromDevice(m_Parent.m_ProtocolCustomPages.ToArray(), Device, media);
                 }
                 else
                 {

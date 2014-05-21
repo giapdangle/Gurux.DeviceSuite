@@ -101,8 +101,8 @@ namespace Gurux.DeviceSuite
             // 
             // DatabaseSettingsGB
             // 
-            this.DatabaseSettingsGB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.DatabaseSettingsGB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DatabaseSettingsGB.Controls.Add(this.DBPasswordTB);
             this.DatabaseSettingsGB.Controls.Add(this.DBPasswordLbl);
             this.DatabaseSettingsGB.Controls.Add(this.DBUserNameTB);
@@ -122,8 +122,8 @@ namespace Gurux.DeviceSuite
             // 
             // DBPasswordTB
             // 
-            this.DBPasswordTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.DBPasswordTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DBPasswordTB.Location = new System.Drawing.Point(103, 129);
             this.DBPasswordTB.Name = "DBPasswordTB";
             this.DBPasswordTB.PasswordChar = '*';
@@ -140,8 +140,8 @@ namespace Gurux.DeviceSuite
             // 
             // DBUserNameTB
             // 
-            this.DBUserNameTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.DBUserNameTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DBUserNameTB.Location = new System.Drawing.Point(103, 103);
             this.DBUserNameTB.Name = "DBUserNameTB";
             this.DBUserNameTB.Size = new System.Drawing.Size(258, 20);
@@ -157,9 +157,10 @@ namespace Gurux.DeviceSuite
             // 
             // TablePrefixTB
             // 
-            this.TablePrefixTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.TablePrefixTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TablePrefixTB.Location = new System.Drawing.Point(103, 77);
+            this.TablePrefixTB.MaxLength = 3;
             this.TablePrefixTB.Name = "TablePrefixTB";
             this.TablePrefixTB.Size = new System.Drawing.Size(258, 20);
             this.TablePrefixTB.TabIndex = 32;
@@ -174,8 +175,8 @@ namespace Gurux.DeviceSuite
             // 
             // DBNameTb
             // 
-            this.DBNameTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.DBNameTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DBNameTb.Location = new System.Drawing.Point(103, 51);
             this.DBNameTb.Name = "DBNameTb";
             this.DBNameTb.Size = new System.Drawing.Size(258, 20);
@@ -191,8 +192,8 @@ namespace Gurux.DeviceSuite
             // 
             // DBHostTB
             // 
-            this.DBHostTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.DBHostTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DBHostTB.Location = new System.Drawing.Point(103, 25);
             this.DBHostTB.Name = "DBHostTB";
             this.DBHostTB.Size = new System.Drawing.Size(258, 20);

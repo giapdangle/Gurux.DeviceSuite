@@ -557,7 +557,10 @@ namespace Gurux.DeviceSuite
                     try
                     {
                         System.Drawing.Rectangle rc = (System.Drawing.Rectangle)new System.Drawing.RectangleConverter().ConvertFromString(Gurux.DeviceSuite.Properties.Settings.Default.Bounds);
-                        this.Bounds = rc;
+                        if (rc.X > -1 && rc.Y > 0)
+                        {
+                            this.Bounds = rc;
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -979,7 +982,7 @@ namespace Gurux.DeviceSuite
         {
             if (Editor.IsDirty)
             {
-                DialogResult ret = GXCommon.ShowQuestion(Gurux.DeviceSuite.Properties.Resources.SaveChangesQuestionTxt);
+                DialogResult ret = GXCommon.ShowQuestion(this, Gurux.DeviceSuite.Properties.Resources.GuruxDeviceSuiteTxt, Gurux.DeviceSuite.Properties.Resources.SaveChangesQuestionTxt);
                 if (ret == DialogResult.Cancel)
                 {
                     return false;
@@ -1000,7 +1003,7 @@ namespace Gurux.DeviceSuite
         {
             if (Director.IsDirty)
             {
-                DialogResult ret = GXCommon.ShowQuestion(Gurux.DeviceSuite.Properties.Resources.SaveChangesQuestionTxt);
+                DialogResult ret = GXCommon.ShowQuestion(this, Gurux.DeviceSuite.Properties.Resources.GuruxDeviceSuiteTxt, Gurux.DeviceSuite.Properties.Resources.SaveChangesQuestionTxt);
                 if (ret == DialogResult.Cancel)
                 {
                     return false;
@@ -1333,13 +1336,20 @@ namespace Gurux.DeviceSuite
             }
             else
             {
+                CancelOperationMenu.Enabled = state == AsyncState.Start;
                 if (state == AsyncState.Start)
                 {
                     StatusLbl.Text = text;
                 }
                 else if (state == AsyncState.Cancel)
                 {
-                    ToolsDisconnectMenu_Click(this, null);
+                    object target = parameters[0];
+                    GXDevice device = GXTransactionManager.GetDevice(target);
+                    if (device != null)
+                    {
+                        device.Cancel();
+                    }
+                    //ToolsDisconnectMenu_Click(this, null);
                 }
                 else if (state == AsyncState.Finish)
                 {
@@ -1813,7 +1823,6 @@ namespace Gurux.DeviceSuite
                 int maxTrace = Gurux.DeviceSuite.Properties.Settings.Default.TraceMaximumCount;
                 bool amiEnabled = Gurux.DeviceSuite.Properties.Settings.Default.AmiEnabled;
                 string amiHost = Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName;
-                string amiPort = Gurux.DeviceSuite.Properties.Settings.Default.AmiPort;
                 string amiUser = Gurux.DeviceSuite.Properties.Settings.Default.AmiUserName;
                 string amiPW = Gurux.DeviceSuite.Properties.Settings.Default.AmiPassword;
                 string amiDbHost = Gurux.DeviceSuite.Properties.Settings.Default.AmiDatabaseHostName;
@@ -1829,8 +1838,7 @@ namespace Gurux.DeviceSuite
                 Gurux.DeviceSuite.Properties.Settings.Default.ErrorMaximumCount = maxerr;
                 Gurux.DeviceSuite.Properties.Settings.Default.TraceMaximumCount = maxTrace;
                 Gurux.DeviceSuite.Properties.Settings.Default.AmiEnabled = amiEnabled;
-                Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName = amiHost;
-                Gurux.DeviceSuite.Properties.Settings.Default.AmiPort = amiPort;
+                Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName = amiHost;                
                 Gurux.DeviceSuite.Properties.Settings.Default.AmiUserName = amiUser;
                 Gurux.DeviceSuite.Properties.Settings.Default.AmiPassword = amiPW;
                 Gurux.DeviceSuite.Properties.Settings.Default.AmiDatabaseHostName = amiDbHost;
@@ -1960,14 +1968,28 @@ namespace Gurux.DeviceSuite
         {
             if (keyData == Keys.Escape)
             {
+                CancelOperationMenu_Click(this, null);
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        /// <summary>
+        /// Cancel current transaction.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CancelOperationMenu_Click(object sender, EventArgs e)
+        {
+            DialogResult ret = GXCommon.ShowQuestion(this, Gurux.DeviceSuite.Properties.Resources.GuruxDeviceSuiteTxt, "Are you sure that you want to cancel current transacion?");
+            if (ret == DialogResult.Yes)
+            {
                 if (this.AMI.TransactionWork != null)
                 {
                     this.AMI.TransactionWork.Cancel();
                 }
                 this.TransactionManager.Cancel();
-                return true;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
+            }            
         }      
     }
 }

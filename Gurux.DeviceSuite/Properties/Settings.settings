@@ -119,9 +119,6 @@
     <Setting Name="AmiHostName" Type="System.String" Scope="User">
       <Value Profile="(Default)">localhost</Value>
     </Setting>
-    <Setting Name="AmiPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1337</Value>
-    </Setting>
     <Setting Name="AmiDatabaseHostName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

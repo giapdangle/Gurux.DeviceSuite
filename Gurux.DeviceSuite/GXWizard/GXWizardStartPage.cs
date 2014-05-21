@@ -53,9 +53,16 @@ namespace Gurux.DeviceSuite.GXWizard
 
         #region IGXWizardPage Members
 
+        /// <summary>
+        /// Is start page shown.
+        /// </summary>
+        /// <remarks>
+        /// Start page is shown only when new device is added and if user wants to see it.
+        /// </remarks>
+        /// <returns></returns>
         public bool IsShown()
         {
-            return Gurux.DeviceSuite.Properties.Settings.Default.ShowWizardStartPage;
+            return Target == null && Gurux.DeviceSuite.Properties.Settings.Default.ShowWizardStartPage;
         }
 
         public void Next()

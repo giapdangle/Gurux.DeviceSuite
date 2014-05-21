@@ -73,13 +73,13 @@ namespace Gurux.DeviceSuite.Editor
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.PropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.TaskView = new System.Windows.Forms.ListView();
-            this.TargetHeader = new System.Windows.Forms.ColumnHeader();
-            this.DescriptionHeader = new System.Windows.Forms.ColumnHeader();
+            this.TargetHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DescriptionHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.TraceView = new System.Windows.Forms.ListView();
-            this.TimeCH = new System.Windows.Forms.ColumnHeader();
-            this.LevelCH = new System.Windows.Forms.ColumnHeader();
-            this.DescriptionCH = new System.Windows.Forms.ColumnHeader();
+            this.TimeCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.LevelCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DescriptionCH = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TraceMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TraceCopyMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.SelectAllMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -120,12 +120,13 @@ namespace Gurux.DeviceSuite.Editor
             // 
             this.PropertyTree.ContextMenuStrip = this.contextMenuStrip1;
             this.PropertyTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PropertyTree.HideSelection = false;
             this.PropertyTree.Location = new System.Drawing.Point(0, 0);
             this.PropertyTree.Name = "PropertyTree";
             this.PropertyTree.Size = new System.Drawing.Size(224, 533);
             this.PropertyTree.TabIndex = 2;
-            this.PropertyTree.Enter += new System.EventHandler(this.PropertyGrid_Enter);
             this.PropertyTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.PropertyTree_AfterSelect);
+            this.PropertyTree.Enter += new System.EventHandler(this.PropertyGrid_Enter);
             // 
             // contextMenuStrip1
             // 
@@ -137,46 +138,46 @@ namespace Gurux.DeviceSuite.Editor
             this.ExpandMenu,
             this.CollapseMenu});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 142);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(137, 120);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // NewMnu
             // 
             this.NewMnu.Name = "NewMnu";
-            this.NewMnu.Size = new System.Drawing.Size(152, 22);
+            this.NewMnu.Size = new System.Drawing.Size(136, 22);
             this.NewMnu.Text = "New...";
             this.NewMnu.Click += new System.EventHandler(this.NewMnu_Click);
             // 
             // PropertiesMenu
             // 
             this.PropertiesMenu.Name = "PropertiesMenu";
-            this.PropertiesMenu.Size = new System.Drawing.Size(152, 22);
+            this.PropertiesMenu.Size = new System.Drawing.Size(136, 22);
             this.PropertiesMenu.Text = "Properties...";
             this.PropertiesMenu.Click += new System.EventHandler(this.PropertiesMenu_Click);
             // 
             // RemoveMenu
             // 
             this.RemoveMenu.Name = "RemoveMenu";
-            this.RemoveMenu.Size = new System.Drawing.Size(152, 22);
+            this.RemoveMenu.Size = new System.Drawing.Size(136, 22);
             this.RemoveMenu.Text = "Remove";
             this.RemoveMenu.Click += new System.EventHandler(this.RemoveMenu_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(133, 6);
             // 
             // ExpandMenu
             // 
             this.ExpandMenu.Name = "ExpandMenu";
-            this.ExpandMenu.Size = new System.Drawing.Size(152, 22);
+            this.ExpandMenu.Size = new System.Drawing.Size(136, 22);
             this.ExpandMenu.Text = "Expand";
             this.ExpandMenu.Click += new System.EventHandler(this.ExpandMenu_Click);
             // 
             // CollapseMenu
             // 
             this.CollapseMenu.Name = "CollapseMenu";
-            this.CollapseMenu.Size = new System.Drawing.Size(152, 22);
+            this.CollapseMenu.Size = new System.Drawing.Size(136, 22);
             this.CollapseMenu.Text = "Collapse";
             this.CollapseMenu.Click += new System.EventHandler(this.CollapseMenu_Click);
             // 
@@ -207,8 +208,8 @@ namespace Gurux.DeviceSuite.Editor
             this.PropertyGrid.Name = "PropertyGrid";
             this.PropertyGrid.Size = new System.Drawing.Size(462, 147);
             this.PropertyGrid.TabIndex = 15;
-            this.PropertyGrid.Enter += new System.EventHandler(this.PropertyGrid_Enter);
             this.PropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyGrid_PropertyValueChanged);
+            this.PropertyGrid.Enter += new System.EventHandler(this.PropertyGrid_Enter);
             // 
             // TaskView
             // 
@@ -224,6 +225,7 @@ namespace Gurux.DeviceSuite.Editor
             this.TaskView.TabIndex = 5;
             this.TaskView.UseCompatibleStateImageBehavior = false;
             this.TaskView.View = System.Windows.Forms.View.Details;
+            this.TaskView.DoubleClick += new System.EventHandler(this.TaskView_DoubleClick);
             this.TaskView.Enter += new System.EventHandler(this.TaskView_Enter);
             // 
             // TargetHeader
@@ -261,8 +263,8 @@ namespace Gurux.DeviceSuite.Editor
             this.TraceView.UseCompatibleStateImageBehavior = false;
             this.TraceView.View = System.Windows.Forms.View.Details;
             this.TraceView.VirtualMode = true;
-            this.TraceView.Enter += new System.EventHandler(this.TraceView_Enter);
             this.TraceView.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.TraceView_RetrieveVirtualItem);
+            this.TraceView.Enter += new System.EventHandler(this.TraceView_Enter);
             // 
             // TimeCH
             // 

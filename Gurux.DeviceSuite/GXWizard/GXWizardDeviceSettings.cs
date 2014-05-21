@@ -59,32 +59,39 @@ namespace Gurux.DeviceSuite.GXWizard
               
         #region IGXWizardPage Members
 
+        /// <summary>
+        /// This page is shown only when new device is created.
+        /// It's not shown when device is edit.
+        /// </summary>
+        /// <returns></returns>
         public bool IsShown()
         {
-            return true;
+            return Device == null;
         }
 
         public void Next()
         {
-            if (NameTB.Text.Trim().Length == 0)
+            if (IsShown())
             {
-                throw new Exception(Gurux.DeviceSuite.Properties.Resources.ErrNameEmptyTxt);
-            }
-            GXProtocolAddIn addIn = Gurux.Device.GXDeviceList.Protocols[ProtocolCB.Text];
-            Device = GXDevice.CreateDeviceProfiles(addIn, NameTB.Text);
-            if (Device.IsRegistered())
-            {
-                if (GXCommon.ShowQuestion(Gurux.DeviceSuite.Properties.Resources.OverregisterTxt) != DialogResult.Yes)
+                if (NameTB.Text.Trim().Length == 0)
                 {
-                    throw new Exception(Gurux.DeviceSuite.Properties.Resources.CancelTxt);
+                    throw new Exception(Gurux.DeviceSuite.Properties.Resources.ErrNameEmptyTxt);
                 }
-            }
-            GXCommunicationAttribute att = TypeDescriptor.GetAttributes(Device.AddIn)[typeof(GXCommunicationAttribute)] as GXCommunicationAttribute;
-            if (att != null && att.PacketParserType != null)
-            {
-                Device.GXClient.PacketParser = Activator.CreateInstance(att.PacketParserType) as IGXPacketParser;
-            }
-        
+                GXProtocolAddIn addIn = Gurux.Device.GXDeviceList.Protocols[ProtocolCB.Text];
+                Device = GXDevice.CreateDeviceProfiles(addIn, NameTB.Text);
+                if (Device.IsRegistered())
+                {
+                    if (GXCommon.ShowQuestion(Gurux.DeviceSuite.Properties.Resources.OverregisterTxt) != DialogResult.Yes)
+                    {
+                        throw new Exception(Gurux.DeviceSuite.Properties.Resources.CancelTxt);
+                    }
+                }
+                GXCommunicationAttribute att = TypeDescriptor.GetAttributes(Device.AddIn)[typeof(GXCommunicationAttribute)] as GXCommunicationAttribute;
+                if (att != null && att.PacketParserType != null)
+                {
+                    Device.GXClient.PacketParser = Activator.CreateInstance(att.PacketParserType) as IGXPacketParser;
+                }
+            }        
         }
 
         public void Back()

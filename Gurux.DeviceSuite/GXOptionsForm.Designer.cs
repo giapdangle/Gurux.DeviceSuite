@@ -79,15 +79,14 @@ namespace Gurux.DeviceSuite
             this.AmiTab = new System.Windows.Forms.TabPage();
             this.EnableAMICB = new System.Windows.Forms.CheckBox();
             this.AMISettings = new System.Windows.Forms.GroupBox();
+            this.GetDevicesAutomaticallyCB = new System.Windows.Forms.CheckBox();
+            this.GetDataCollectorsAutomaticallyCB = new System.Windows.Forms.CheckBox();
             this.TestBtn = new System.Windows.Forms.Button();
             this.DatabaseSettingsBtn = new System.Windows.Forms.Button();
-            this.PortTB = new System.Windows.Forms.TextBox();
-            this.PortLbl = new System.Windows.Forms.Label();
-            this.HostTB = new System.Windows.Forms.TextBox();
+            this.AddressTB = new System.Windows.Forms.TextBox();
             this.HostLbl = new System.Windows.Forms.Label();
             this.Progress = new System.Windows.Forms.ProgressBar();
-            this.GetDataCollectorsAutomaticallyCB = new System.Windows.Forms.CheckBox();
-            this.GetDevicesAutomaticallyCB = new System.Windows.Forms.CheckBox();
+            this.AddressEditBtn = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.DirectorTab.SuspendLayout();
@@ -306,13 +305,12 @@ namespace Gurux.DeviceSuite
             // 
             this.AMISettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.AMISettings.Controls.Add(this.AddressEditBtn);
             this.AMISettings.Controls.Add(this.GetDevicesAutomaticallyCB);
             this.AMISettings.Controls.Add(this.GetDataCollectorsAutomaticallyCB);
             this.AMISettings.Controls.Add(this.TestBtn);
             this.AMISettings.Controls.Add(this.DatabaseSettingsBtn);
-            this.AMISettings.Controls.Add(this.PortTB);
-            this.AMISettings.Controls.Add(this.PortLbl);
-            this.AMISettings.Controls.Add(this.HostTB);
+            this.AMISettings.Controls.Add(this.AddressTB);
             this.AMISettings.Controls.Add(this.HostLbl);
             this.AMISettings.Location = new System.Drawing.Point(7, 28);
             this.AMISettings.Name = "AMISettings";
@@ -320,6 +318,30 @@ namespace Gurux.DeviceSuite
             this.AMISettings.TabIndex = 37;
             this.AMISettings.TabStop = false;
             this.AMISettings.Text = "AMI Settings";
+            // 
+            // GetDevicesAutomaticallyCB
+            // 
+            this.GetDevicesAutomaticallyCB.AutoSize = true;
+            this.GetDevicesAutomaticallyCB.Checked = true;
+            this.GetDevicesAutomaticallyCB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.GetDevicesAutomaticallyCB.Location = new System.Drawing.Point(9, 97);
+            this.GetDevicesAutomaticallyCB.Name = "GetDevicesAutomaticallyCB";
+            this.GetDevicesAutomaticallyCB.Size = new System.Drawing.Size(152, 17);
+            this.GetDevicesAutomaticallyCB.TabIndex = 41;
+            this.GetDevicesAutomaticallyCB.Text = "Get Devices automatically.";
+            this.GetDevicesAutomaticallyCB.UseVisualStyleBackColor = true;
+            // 
+            // GetDataCollectorsAutomaticallyCB
+            // 
+            this.GetDataCollectorsAutomaticallyCB.AutoSize = true;
+            this.GetDataCollectorsAutomaticallyCB.Checked = true;
+            this.GetDataCollectorsAutomaticallyCB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.GetDataCollectorsAutomaticallyCB.Location = new System.Drawing.Point(9, 74);
+            this.GetDataCollectorsAutomaticallyCB.Name = "GetDataCollectorsAutomaticallyCB";
+            this.GetDataCollectorsAutomaticallyCB.Size = new System.Drawing.Size(182, 17);
+            this.GetDataCollectorsAutomaticallyCB.TabIndex = 40;
+            this.GetDataCollectorsAutomaticallyCB.Text = "Get DataCollectors automatically.";
+            this.GetDataCollectorsAutomaticallyCB.UseVisualStyleBackColor = true;
             // 
             // TestBtn
             // 
@@ -343,31 +365,15 @@ namespace Gurux.DeviceSuite
             this.DatabaseSettingsBtn.UseVisualStyleBackColor = true;
             this.DatabaseSettingsBtn.Click += new System.EventHandler(this.DatabaseSettingsBtn_Click);
             // 
-            // PortTB
+            // AddressTB
             // 
-            this.PortTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.AddressTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PortTB.Location = new System.Drawing.Point(103, 45);
-            this.PortTB.Name = "PortTB";
-            this.PortTB.Size = new System.Drawing.Size(231, 20);
-            this.PortTB.TabIndex = 34;
-            // 
-            // PortLbl
-            // 
-            this.PortLbl.Location = new System.Drawing.Point(6, 45);
-            this.PortLbl.Name = "PortLbl";
-            this.PortLbl.Size = new System.Drawing.Size(90, 16);
-            this.PortLbl.TabIndex = 33;
-            this.PortLbl.Text = "Port:";
-            // 
-            // HostTB
-            // 
-            this.HostTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HostTB.Location = new System.Drawing.Point(103, 19);
-            this.HostTB.Name = "HostTB";
-            this.HostTB.Size = new System.Drawing.Size(231, 20);
-            this.HostTB.TabIndex = 32;
+            this.AddressTB.Location = new System.Drawing.Point(103, 19);
+            this.AddressTB.Name = "AddressTB";
+            this.AddressTB.ReadOnly = true;
+            this.AddressTB.Size = new System.Drawing.Size(230, 20);
+            this.AddressTB.TabIndex = 32;
             // 
             // HostLbl
             // 
@@ -375,7 +381,7 @@ namespace Gurux.DeviceSuite
             this.HostLbl.Name = "HostLbl";
             this.HostLbl.Size = new System.Drawing.Size(90, 16);
             this.HostLbl.TabIndex = 31;
-            this.HostLbl.Text = "Host:";
+            this.HostLbl.Text = "Address:";
             // 
             // Progress
             // 
@@ -387,29 +393,16 @@ namespace Gurux.DeviceSuite
             this.Progress.TabIndex = 46;
             this.Progress.Visible = false;
             // 
-            // GetDataCollectorsAutomaticallyCB
+            // AddressEditBtn
             // 
-            this.GetDataCollectorsAutomaticallyCB.AutoSize = true;
-            this.GetDataCollectorsAutomaticallyCB.Checked = true;
-            this.GetDataCollectorsAutomaticallyCB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.GetDataCollectorsAutomaticallyCB.Location = new System.Drawing.Point(9, 74);
-            this.GetDataCollectorsAutomaticallyCB.Name = "GetDataCollectorsAutomaticallyCB";
-            this.GetDataCollectorsAutomaticallyCB.Size = new System.Drawing.Size(182, 17);
-            this.GetDataCollectorsAutomaticallyCB.TabIndex = 40;
-            this.GetDataCollectorsAutomaticallyCB.Text = "Get DataCollectors automatically.";
-            this.GetDataCollectorsAutomaticallyCB.UseVisualStyleBackColor = true;
-            // 
-            // GetDevicesAutomaticallyCB
-            // 
-            this.GetDevicesAutomaticallyCB.AutoSize = true;
-            this.GetDevicesAutomaticallyCB.Checked = true;
-            this.GetDevicesAutomaticallyCB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.GetDevicesAutomaticallyCB.Location = new System.Drawing.Point(9, 97);
-            this.GetDevicesAutomaticallyCB.Name = "GetDevicesAutomaticallyCB";
-            this.GetDevicesAutomaticallyCB.Size = new System.Drawing.Size(152, 17);
-            this.GetDevicesAutomaticallyCB.TabIndex = 41;
-            this.GetDevicesAutomaticallyCB.Text = "Get Devices automatically.";
-            this.GetDevicesAutomaticallyCB.UseVisualStyleBackColor = true;
+            this.AddressEditBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.AddressEditBtn.Location = new System.Drawing.Point(258, 45);
+            this.AddressEditBtn.Name = "AddressEditBtn";
+            this.AddressEditBtn.Size = new System.Drawing.Size(75, 23);
+            this.AddressEditBtn.TabIndex = 42;
+            this.AddressEditBtn.Text = "Edit...";
+            this.AddressEditBtn.UseVisualStyleBackColor = true;
+            this.AddressEditBtn.Click += new System.EventHandler(this.AddressEditBtn_Click);
             // 
             // GXOptionsForm
             // 
@@ -450,9 +443,7 @@ namespace Gurux.DeviceSuite
         private System.Windows.Forms.TabPage DirectorTab;
         private System.Windows.Forms.TabPage AmiTab;
         private System.Windows.Forms.GroupBox AMISettings;
-        private System.Windows.Forms.TextBox PortTB;
-        private System.Windows.Forms.Label PortLbl;
-        private System.Windows.Forms.TextBox HostTB;
+        private System.Windows.Forms.TextBox AddressTB;
         private System.Windows.Forms.Label HostLbl;
         private System.Windows.Forms.Button TestBtn;
         private System.Windows.Forms.Button DatabaseSettingsBtn;
@@ -471,5 +462,6 @@ namespace Gurux.DeviceSuite
         private System.Windows.Forms.ProgressBar Progress;
         private System.Windows.Forms.CheckBox GetDevicesAutomaticallyCB;
         private System.Windows.Forms.CheckBox GetDataCollectorsAutomaticallyCB;
+        private System.Windows.Forms.Button AddressEditBtn;
     }
 }

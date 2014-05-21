@@ -474,18 +474,6 @@ namespace Gurux.DeviceSuite.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1337")]
-        public string AmiPort {
-            get {
-                return ((string)(this["AmiPort"]));
-            }
-            set {
-                this["AmiPort"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string AmiDatabaseHostName {
             get {

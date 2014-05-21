@@ -554,6 +554,7 @@ namespace Gurux.DeviceSuite.Ami
                         (SelectedMedia as GXSerial).AvailablePorts = it.SerialPorts;
                     }
                 }
+                (SelectedMedia as IGXVirtualMedia).Virtual = true;
                 PropertiesForm = SelectedMedia.PropertiesForm;
                 ((IGXPropertyPage)PropertiesForm).Initialize();
                 while (PropertiesForm.Controls.Count != 0)

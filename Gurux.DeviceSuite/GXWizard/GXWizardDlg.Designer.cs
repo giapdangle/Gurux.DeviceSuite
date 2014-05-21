@@ -67,11 +67,11 @@ namespace Gurux.DeviceSuite.GXWizard
             this.CaptionLbl = new System.Windows.Forms.Label();
             this.DescriptionLbl = new System.Windows.Forms.Label();
             this.BottomPanel = new System.Windows.Forms.Panel();
+            this.HidePageCB = new System.Windows.Forms.CheckBox();
             this.CancelBtn = new System.Windows.Forms.Button();
             this.NextBtn = new System.Windows.Forms.Button();
             this.BackBtn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.HidePageCB = new System.Windows.Forms.CheckBox();
             this.BottomPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -82,7 +82,7 @@ namespace Gurux.DeviceSuite.GXWizard
             this.panel3.BackColor = System.Drawing.Color.Transparent;
             this.panel3.BackgroundImage = global::Gurux.DeviceSuite.Properties.Resources.factory;
             this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel3.Location = new System.Drawing.Point(395, 1);
+            this.panel3.Location = new System.Drawing.Point(395, -1);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(90, 65);
             this.panel3.TabIndex = 13;
@@ -100,15 +100,15 @@ namespace Gurux.DeviceSuite.GXWizard
             this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.BackgroundImage = global::Gurux.DeviceSuite.Properties.Resources.leaf;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Location = new System.Drawing.Point(0, -5);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(47, 66);
             this.panel2.TabIndex = 12;
             // 
             // CaptionLbl
             // 
-            this.CaptionLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.CaptionLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CaptionLbl.BackColor = System.Drawing.Color.Transparent;
             this.CaptionLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CaptionLbl.Location = new System.Drawing.Point(46, 4);
@@ -119,8 +119,8 @@ namespace Gurux.DeviceSuite.GXWizard
             // 
             // DescriptionLbl
             // 
-            this.DescriptionLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.DescriptionLbl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DescriptionLbl.BackColor = System.Drawing.Color.Transparent;
             this.DescriptionLbl.Location = new System.Drawing.Point(47, 29);
             this.DescriptionLbl.Name = "DescriptionLbl";
@@ -139,6 +139,17 @@ namespace Gurux.DeviceSuite.GXWizard
             this.BottomPanel.Name = "BottomPanel";
             this.BottomPanel.Size = new System.Drawing.Size(485, 50);
             this.BottomPanel.TabIndex = 11;
+            // 
+            // HidePageCB
+            // 
+            this.HidePageCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.HidePageCB.AutoSize = true;
+            this.HidePageCB.Location = new System.Drawing.Point(12, 16);
+            this.HidePageCB.Name = "HidePageCB";
+            this.HidePageCB.Size = new System.Drawing.Size(130, 17);
+            this.HidePageCB.TabIndex = 21;
+            this.HidePageCB.Text = "Don\'t show this again.";
+            this.HidePageCB.UseVisualStyleBackColor = true;
             // 
             // CancelBtn
             // 
@@ -185,17 +196,6 @@ namespace Gurux.DeviceSuite.GXWizard
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(485, 66);
             this.panel1.TabIndex = 10;
-            // 
-            // HidePageCB
-            // 
-            this.HidePageCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.HidePageCB.AutoSize = true;
-            this.HidePageCB.Location = new System.Drawing.Point(12, 16);
-            this.HidePageCB.Name = "HidePageCB";
-            this.HidePageCB.Size = new System.Drawing.Size(130, 17);
-            this.HidePageCB.TabIndex = 21;
-            this.HidePageCB.Text = "Don\'t show this again.";
-            this.HidePageCB.UseVisualStyleBackColor = true;
             // 
             // GXWizardDlg
             // 

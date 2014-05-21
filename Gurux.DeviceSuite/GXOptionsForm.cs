@@ -65,8 +65,7 @@ namespace Gurux.DeviceSuite
             ShowTablesCB.Checked = Gurux.DeviceSuite.Properties.Settings.Default.DeviceTreeShowTables;
             ShowPropertiesCB.Checked = Gurux.DeviceSuite.Properties.Settings.Default.DeviceTreeShowProperties;
             ShowPropertyValueCB.Checked = Gurux.DeviceSuite.Properties.Settings.Default.DeviceTreeShowPropertyValue;
-            HostTB.Text = Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName;
-            PortTB.Text = Gurux.DeviceSuite.Properties.Settings.Default.AmiPort;
+            AddressTB.Text = Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName.Replace("http://", "");            
             this.MaximimErrorCountTB.Text = Gurux.DeviceSuite.Properties.Settings.Default.ErrorMaximumCount.ToString();
             this.MaximimTraceCountTB.Text = Gurux.DeviceSuite.Properties.Settings.Default.TraceMaximumCount.ToString();
             EnableAMICB.Checked = Gurux.DeviceSuite.Properties.Settings.Default.AmiEnabled;
@@ -104,8 +103,7 @@ namespace Gurux.DeviceSuite
                         GuruxAMI.Client.GXAmiClient cl;
                         IsDBCreated(out cl);
                     }
-                    Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName = HostTB.Text;
-                    Gurux.DeviceSuite.Properties.Settings.Default.AmiPort = PortTB.Text;
+                    Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName = "http://" + AddressTB.Text;
                 }
             }
             catch (Exception ex)
@@ -124,26 +122,15 @@ namespace Gurux.DeviceSuite
         {
             if (!Gurux.DeviceSuite.Properties.Settings.Default.AmiEnabled)
             {
-                Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName = HostTB.Text;
+                Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName = "http://" + AddressTB.Text;
                 //Start AMI Server.
                 AmiForm.Start(true, true);
             }
-            string host = HostTB.Text;
-            string baseUr = host;
-            if (host == "*")
+            string baseUr = "http://" + AddressTB.Text;
+            if (baseUr.Contains('*'))
             {
-                host = "localhost";
+                baseUr = baseUr.Replace("*", "localhost");
             }
-            
-            if (host.StartsWith("http://"))
-            {
-                baseUr = host;
-            }
-            else
-            {
-                baseUr = "http://" + host + ":" + PortTB.Text + "/";            
-            }
-
             cl = new GuruxAMI.Client.GXAmiClient(baseUr, 
                 Gurux.DeviceSuite.Properties.Settings.Default.AmiUserName, 
                 Gurux.DeviceSuite.Properties.Settings.Default.AmiPassword);
@@ -229,23 +216,13 @@ namespace Gurux.DeviceSuite
         /// <param name="e"></param>
         private void TestBtn_Click(object sender, EventArgs e)
         {
-            string host = Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName;
-            string port = Gurux.DeviceSuite.Properties.Settings.Default.AmiPort;
-            string user = Gurux.DeviceSuite.Properties.Settings.Default.AmiDBUserName;
-            string pw = Gurux.DeviceSuite.Properties.Settings.Default.AmiDBPassword;
             try
             {
-                if (string.IsNullOrEmpty(HostTB.Text))
+                if (string.IsNullOrEmpty(AddressTB.Text))
                 {
                     throw new Exception("GuruxAMI host name is invalid.");
                 }
-                Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName = HostTB.Text;
-                int value;
-                if (!int.TryParse(PortTB.Text, out value) || value < 1)
-                {
-                    throw new Exception("GuruxAMI port is invalid.");
-                }
-                Gurux.DeviceSuite.Properties.Settings.Default.AmiPort = PortTB.Text;
+                Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName = "http://" + AddressTB.Text;
                 TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, CreateDBAsync, null, "", null);
                 TransactionWork.Start();
             }
@@ -254,13 +231,6 @@ namespace Gurux.DeviceSuite
                 AmiForm.Start(true, true);
                 GXCommon.ShowError(this, ex);
             }                
-            finally //Restore values after test.
-            {
-                Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName = host;
-                Gurux.DeviceSuite.Properties.Settings.Default.AmiPort = port;
-                Gurux.DeviceSuite.Properties.Settings.Default.AmiDBUserName = user;
-                Gurux.DeviceSuite.Properties.Settings.Default.AmiDBPassword = pw;
-            }
         }
 
         void OnAsyncStateChange(object sender, GXAsyncWork work, object[] parameters, AsyncState state, string text)
@@ -275,12 +245,18 @@ namespace Gurux.DeviceSuite
             return GXCommon.ShowQuestion(this, Gurux.DeviceSuite.Properties.Resources.GuruxDeviceSuiteTxt, message);
         }
 
+        /// <summary>
+        /// Show working thread message.
+        /// </summary>
         DialogResult OnMessage(string message)
         {
             MessageBox.Show(this, message, Gurux.DeviceSuite.Properties.Resources.GuruxDeviceSuiteTxt, MessageBoxButtons.OK, MessageBoxIcon.Information);
             return DialogResult.OK;
         }
 
+        /// <summary>
+        /// Create DB asynchronously.
+        /// </summary>
         void CreateDBAsync(object sender, GXAsyncWork work, object[] parameters)
         {
             GXAmiClient cl;
@@ -290,7 +266,9 @@ namespace Gurux.DeviceSuite
             }            
         }
 
-
+        /// <summary>
+        /// Show database settings.
+        /// </summary>
         private void DatabaseSettingsBtn_Click(object sender, EventArgs e)
         {
             try
@@ -304,9 +282,26 @@ namespace Gurux.DeviceSuite
             } 
         }
 
+        /// <summary>
+        /// Is GuruxAMI on use.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EnableAMICB_CheckedChanged(object sender, EventArgs e)
         {
             AMISettings.Enabled = EnableAMICB.Checked;
+        }
+
+        /// <summary>
+        /// Show server settings.
+        /// </summary>
+        private void AddressEditBtn_Click(object sender, EventArgs e)
+        {
+            string address = GuruxAMI.Client.GXAmiClient.ShowServerSettings(this, AddressTB.Text);
+            if (address != null)
+            {
+                AddressTB.Text = address.Replace("http://", "");
+            }
         }
     }
 }

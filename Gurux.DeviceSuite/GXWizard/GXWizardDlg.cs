@@ -49,6 +49,7 @@ namespace Gurux.DeviceSuite.GXWizard
     public partial class GXWizardDlg : Form
     {
         GXWizardDeviceSettings DeviceSettings;
+        int FirstVisiblePageIndex = 0;
         int PageIndex = 0;
         List<Control> Pages = new List<Control>();
         object TargetParent;
@@ -134,7 +135,9 @@ namespace Gurux.DeviceSuite.GXWizard
 		}
 
         private void AddDevicePagesContent(GXDeviceManufacturerCollection manufacturers, GXDevice device, List<Control> pages)
-		{            
+		{
+            //If new device is created.
+            //If device is modified this is skipped.
             if (DeviceSettings == null)
             {
                 pages.Add(new GXWizardStartPage());
@@ -236,13 +239,24 @@ namespace Gurux.DeviceSuite.GXWizard
             {
                 PageIndex += add;
                 w = Pages[PageIndex] as IGXWizardPage;
+                w.Target = Target;
                 show = w.IsShown();
                 if (!show && add == 0)
                 {
-                    ++PageIndex;                    
+                    //If device settings are not show show custom settings.
+                    //This is happening on edit.
+                    if (w is GXWizardDeviceSettings && Target is GXDevice && DeviceSettings != null)
+                    {
+                        ChangePage(1);
+                        return;
+                    }
+                    ++PageIndex;
+                    FirstVisiblePageIndex = PageIndex;                    
                 }
             }
             while (!show && PageIndex > -1 && PageIndex < Pages.Count);
+
+
             if (PageIndex > -1 && PageIndex < Pages.Count)
             {
                 Frame.Tag = w;
@@ -270,7 +284,7 @@ namespace Gurux.DeviceSuite.GXWizard
             HidePageCB.Visible = w is GXWizardStartPage;
             GXWizardButtons buttons = w.EnabledButtons;
             NextBtn.Enabled = ((buttons & GXWizardButtons.Next) != 0 || (buttons & GXWizardButtons.Finish) != 0);
-            BackBtn.Enabled = (buttons & GXWizardButtons.Back) != 0 && PageIndex > 0;
+            BackBtn.Enabled = (buttons & GXWizardButtons.Back) != 0 && FirstVisiblePageIndex < PageIndex;
             CancelBtn.Enabled = (buttons & GXWizardButtons.Cancel) != 0;
             NextBtn.Text = PageIndex < Pages.Count - 1 ? Gurux.DeviceSuite.Properties.Resources.NextTxt : Gurux.DeviceSuite.Properties.Resources.FinishTxt;
         }

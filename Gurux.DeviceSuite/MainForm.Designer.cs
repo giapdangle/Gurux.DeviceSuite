@@ -711,6 +711,7 @@ namespace Gurux.DeviceSuite
             this.CancelOperationMenu.Name = "CancelOperationMenu";
             this.CancelOperationMenu.Size = new System.Drawing.Size(195, 22);
             this.CancelOperationMenu.Text = "Cancel";
+            this.CancelOperationMenu.Click += new System.EventHandler(this.CancelOperationMenu_Click);
             // 
             // toolStripMenuItem5
             // 

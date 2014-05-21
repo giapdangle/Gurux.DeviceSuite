@@ -65,17 +65,17 @@ namespace Gurux.DeviceSuite.Import
             this.m_Timer = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.CaptionLbl = new System.Windows.Forms.Label();
             this.DescriptionLbl = new System.Windows.Forms.Label();
             this.DefaultBtn = new System.Windows.Forms.Button();
             this.ElapsedTime = new System.Windows.Forms.Label();
             this.ProgressBar1 = new System.Windows.Forms.ProgressBar();
-            this.DeviceListName = new System.Windows.Forms.ColumnHeader();
+            this.DeviceListName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnBack = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
             this.PropertiesPanel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,10 +89,10 @@ namespace Gurux.DeviceSuite.Import
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BackgroundImage = global::Gurux.DeviceSuite.Properties.Resources.middle;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.CaptionLbl);
             this.panel2.Controls.Add(this.DescriptionLbl);
+            this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
@@ -105,20 +105,10 @@ namespace Gurux.DeviceSuite.Import
             this.panel3.BackColor = System.Drawing.Color.Transparent;
             this.panel3.BackgroundImage = global::Gurux.DeviceSuite.Properties.Resources.factory;
             this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel3.Location = new System.Drawing.Point(361, 0);
+            this.panel3.Location = new System.Drawing.Point(361, -1);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(90, 65);
             this.panel3.TabIndex = 15;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.BackgroundImage = global::Gurux.DeviceSuite.Properties.Resources.leaf;
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Location = new System.Drawing.Point(2, -1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(47, 66);
-            this.panel1.TabIndex = 14;
             // 
             // CaptionLbl
             // 
@@ -162,8 +152,8 @@ namespace Gurux.DeviceSuite.Import
             // 
             // ProgressBar1
             // 
-            this.ProgressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProgressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ProgressBar1.Location = new System.Drawing.Point(8, 411);
             this.ProgressBar1.Name = "ProgressBar1";
             this.ProgressBar1.Size = new System.Drawing.Size(181, 8);
@@ -204,17 +194,28 @@ namespace Gurux.DeviceSuite.Import
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 33;
             this.CancelBtn.Text = "Cancel1";
-            this.CancelBtn.Click += new System.EventHandler(this.btnCancel_Click);
+            this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
             // 
             // PropertiesPanel
             // 
-            this.PropertiesPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.PropertiesPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PropertiesPanel.Location = new System.Drawing.Point(0, 70);
             this.PropertiesPanel.Name = "PropertiesPanel";
             this.PropertiesPanel.Size = new System.Drawing.Size(450, 316);
             this.PropertiesPanel.TabIndex = 36;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.BackgroundImage = global::Gurux.DeviceSuite.Properties.Resources.leaf;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panel1.Location = new System.Drawing.Point(0, -5);
+            this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(3);
+            this.panel1.Size = new System.Drawing.Size(47, 65);
+            this.panel1.TabIndex = 17;
             // 
             // GXImportDlg
             // 
@@ -248,7 +249,6 @@ namespace Gurux.DeviceSuite.Import
         private System.Windows.Forms.Timer m_Timer;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label CaptionLbl;
         private System.Windows.Forms.Label DescriptionLbl;
         private System.Windows.Forms.Button DefaultBtn;
@@ -259,6 +259,7 @@ namespace Gurux.DeviceSuite.Import
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button CancelBtn;
         private System.Windows.Forms.Panel PropertiesPanel;
+        private System.Windows.Forms.Panel panel1;
 
     }
 }

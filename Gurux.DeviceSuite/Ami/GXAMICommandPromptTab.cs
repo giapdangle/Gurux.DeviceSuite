@@ -18,6 +18,7 @@ namespace Gurux.DeviceSuite.Ami
     public partial class GXAMICommandPromptTab : Form
     {
         string Media;
+        string MediaName;
         string Settings;
         GXAmiClient Client;
         GXAmiDataCollector Collector;
@@ -31,11 +32,12 @@ namespace Gurux.DeviceSuite.Ami
         [DllImport("user32.dll")]
         static extern bool ShowCaret(IntPtr hWnd);
 
-        public GXAMICommandPromptTab(Control parentForm, GXAmiClient client, GXAmiDataCollector collector, string media, string settings)
+        public GXAMICommandPromptTab(Control parentForm, GXAmiClient client, GXAmiDataCollector collector, string media, string name, string settings)
         {
+            Settings = settings.Replace(Environment.NewLine, "");
             ParentDlg = parentForm;
             Media = media;
-            Settings = settings.Replace(Environment.NewLine, "");
+            MediaName = name;
             Client = client;
             Client.OnDeviceErrorsAdded += new DeviceErrorsAddedEventHandler(Client_OnDeviceErrorsAdded);
             Client.OnTasksAdded += new TasksAddedEventHandler(Client_OnTasksAdded);
@@ -60,7 +62,7 @@ namespace Gurux.DeviceSuite.Ami
         {
             try
             {
-                Client.MediaClose(Collector.Guid, Media, Settings);
+                Client.MediaClose(Collector.Guid, Media, MediaName, Connected);
                 Connected.WaitOne();
                 Client.OnDeviceErrorsAdded -= new DeviceErrorsAddedEventHandler(Client_OnDeviceErrorsAdded);
                 Client.OnTasksAdded -= new TasksAddedEventHandler(Client_OnTasksAdded);
@@ -141,8 +143,8 @@ namespace Gurux.DeviceSuite.Ami
                     Connected.Set();
                     string[] tmp = it.Data.Split(new string[]{Environment.NewLine}, StringSplitOptions.None);
                     string media = tmp[0];
-                    string settings = tmp[1];
-                    if (Media == media && Settings == settings)
+                    string name = tmp[1];
+                    if (Media == media && MediaName == name)
                     {
                         if (ParentDlg.InvokeRequired)
                         {
@@ -157,10 +159,10 @@ namespace Gurux.DeviceSuite.Ami
                 }
                 if (it.TaskType == TaskType.MediaWrite)
                 {
-                    string[] tmp = it.Data.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                    string[] tmp = it.Data.Split(new string[] { "\r\n" }, StringSplitOptions.None);
                     string media = tmp[0];
-                    string settings = tmp[1];
-                    if (Media == media && Settings == settings)
+                    string name = tmp[1];
+                    if (Media == media && MediaName == name)
                     {
                         ParentDlg.BeginInvoke(new UpdateDataEventHandler(UpdateData), Gurux.Common.GXCommon.HexToBytes(tmp[2], false));
                         Client.RemoveTask(it);
@@ -234,7 +236,7 @@ namespace Gurux.DeviceSuite.Ami
                         }
                         data = ASCIIEncoding.ASCII.GetBytes(str);
                     }
-                    Client.Write(Collector.Guid, Media, Settings, data, 0, null);
+                    Client.MediaWrite(Collector.Guid, Media, MediaName, data, null);
                 }
             }
             catch (Exception ex)
@@ -269,7 +271,7 @@ namespace Gurux.DeviceSuite.Ami
 
         void ConnectAsync(object sender, GXAsyncWork work, object[] parameters)
         {
-            ExecutedTask = Client.MediaOpen((Guid)parameters[0], (string)parameters[1], (string)parameters[2]);
+            ExecutedTask = Client.MediaOpen((Guid)parameters[0], (string)parameters[1], (string)parameters[2], (string)parameters[3], Connected);
             Connected.WaitOne();            
         }
 
@@ -292,7 +294,7 @@ namespace Gurux.DeviceSuite.Ami
                 }
                 else
                 {
-                    TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, null, Gurux.DeviceSuite.Properties.Resources.ConnectingTxt, new object[] { Collector.Guid, Media, Settings });
+                    TransactionWork = new GXAsyncWork(this, OnAsyncStateChange, ConnectAsync, null, Gurux.DeviceSuite.Properties.Resources.ConnectingTxt, new object[] { Collector.Guid, Media, MediaName, Settings });
                     TransactionWork.Start();
                 }
             }

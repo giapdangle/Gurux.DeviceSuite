@@ -201,8 +201,7 @@ namespace Gurux.DeviceSuite.Import
             GXMediaTypeCollection types = m_GXDevice.GetAllowedMediaTypes();
             if (FromDataCollector)
             {
-                GuruxAMI.Gateway.GXAmiGateway gw = new GuruxAMI.Gateway.GXAmiGateway(Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName,
-                                Convert.ToInt32(Gurux.DeviceSuite.Properties.Settings.Default.AmiPort),
+                GuruxAMI.Gateway.GXAmiGateway gw = new GuruxAMI.Gateway.GXAmiGateway(Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName,                                
                                 Gurux.DeviceSuite.Properties.Settings.Default.AmiUserName,
                                 Gurux.DeviceSuite.Properties.Settings.Default.AmiPassword,
                                 m_GXDevice.GXClient);

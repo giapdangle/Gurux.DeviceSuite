@@ -66,6 +66,9 @@ namespace Gurux.DeviceSuite.Import
         public GXImportDlg()
         {
             InitializeComponent();
+            Bitmap bm = Gurux.DeviceSuite.Properties.Resources.leaf;
+            bm.MakeTransparent();
+            panel1.BackgroundImage = bm;
         }
 
         /// <summary>
@@ -78,6 +81,9 @@ namespace Gurux.DeviceSuite.Import
             try
             {
                 InitializeComponent();
+                Bitmap bm = Gurux.DeviceSuite.Properties.Resources.leaf;
+                bm.MakeTransparent();
+                panel1.BackgroundImage = bm;
                 TraceLevel = traceLevel;
                 GXCommon.Owner = this;
                 Start = new GXImportStartForm(addIn);
@@ -156,19 +162,7 @@ namespace Gurux.DeviceSuite.Import
                 GXCommon.ShowError(this, Ex);
                 this.DialogResult = DialogResult.None;
             }
-        }
-
-        private void btnCancel_Click(object sender, System.EventArgs e)
-        {
-            try
-            {
-                Close();
-            }
-            catch (Exception Ex)
-            {
-                GXCommon.ShowError(this, Ex);
-            }
-        }
+        }       
 
         private void UpdateResources()
         {
@@ -359,18 +353,17 @@ namespace Gurux.DeviceSuite.Import
         {
             try
             {
-                m_Timer.Stop();
                 if (m_SearchThread != null)
                 {
                     if (m_SearchThread.IsAlive)
                     {
                         m_IsClosing = true;
-                        m_SearchThread.Abort();
+                        MediaSettings.SelectedMedia.Close();
                         m_SearchThread = null;
-                        this.DialogResult = DialogResult.None;
-                        SearchFinished(true);
+                        this.DialogResult = DialogResult.None;                        
                     }
                 }
+                m_Timer.Stop();
                 this.DialogResult = DialogResult.Cancel;
                 this.Close();
             }

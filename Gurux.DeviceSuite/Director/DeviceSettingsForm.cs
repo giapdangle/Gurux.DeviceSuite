@@ -365,10 +365,11 @@ namespace Gurux.DeviceSuite.Director
                     medias.Add(gw);
                 }
             }
+            string selectedMediaType = Device.GXClient.MediaType;
             foreach (string it in medias)
             {
                 int pos = MediaCB.Items.Add(it);
-                if (Device != null && Device.GXClient.MediaType == it)
+                if (Device != null && selectedMediaType == it)
                 {
                     MediaCB.SelectedIndex = pos;
                 }
@@ -434,7 +435,6 @@ namespace Gurux.DeviceSuite.Director
                     {
                         GXAmiGateway gw = SelectedMedia as GXAmiGateway;
                         gw.Host = Gurux.DeviceSuite.Properties.Settings.Default.AmiHostName;
-                        gw.Port = Convert.ToInt32(Gurux.DeviceSuite.Properties.Settings.Default.AmiPort);
                         gw.UserName = Gurux.DeviceSuite.Properties.Settings.Default.AmiUserName;
                         gw.Password = Gurux.DeviceSuite.Properties.Settings.Default.AmiPassword;
                         gw.GXClient = Device.GXClient;
